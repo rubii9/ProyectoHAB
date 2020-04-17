@@ -4,7 +4,9 @@
 Repositorio con la agrupación de archivos para la base de datos.
 
 
-## Esquema de la Base de datos
+## Esquemas
 
-![Esquema](/Entregas/BBDD/EER_Diagram.png )
-
+### Tablas
+![Tablas](/Entregas/BBDD/EER_Diagram.png )
+### Relaciones
+![Relaciones](/Entregas/BBDD/modelo_relaciones.png )
