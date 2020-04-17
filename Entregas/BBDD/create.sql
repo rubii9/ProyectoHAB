@@ -1,5 +1,12 @@
+drop database if exists coworking;
 create database coworking;
 use coworking;
+
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS space;
+DROP TABLE IF EXISTS reserve;
+DROP TABLE IF EXISTS rating;
+
 
 create table user (
 id int primary key auto_increment,
@@ -18,6 +25,7 @@ create table space (
 id int primary key auto_increment,
 name varchar(30)not null,
 location varchar(20) not null,
+photo varchar(255) default "sin imagen",
 type varchar(20) not null,
 date_start date not null,
 date_end date not null,
