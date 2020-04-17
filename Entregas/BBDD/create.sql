@@ -70,7 +70,7 @@ constraint fk_incidencias_reservas foreign key (reserva_id) references reservas(
 create table ratings (
 id int unsigned primary key auto_increment,
 puntuacion int(5) not null,
-comentario varchar(255) default null,
+comentario varchar(255) default "sin comentario",
 usuario_id int unsigned not null,
 espacio_id int unsigned not null,
 create_rating timestamp default current_timestamp,
