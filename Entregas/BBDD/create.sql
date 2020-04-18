@@ -67,6 +67,7 @@ constraint fk_reservas_espacios_id foreign key (espacio_id) references espacios(
 create table incidencias (
 id int unsigned primary key auto_increment,
 texto varchar(255) default "sin incidencias",
+fecha date not null,
 reserva_id int unsigned not null,
 constraint fk_incidencias_reservas foreign key (reserva_id) references reservas(id));
 
