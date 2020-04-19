@@ -15,12 +15,12 @@ id int unsigned primary key auto_increment,
 nombre varchar(30)not null,
 apellidos varchar(60) not null,
 nickname varchar(30)not null unique,
-email varchar(30) not null unique,
+email varchar(60) not null unique,
 password varchar(32) not null,
-provincia varchar(20) not null,
-comunidad varchar(20) not null,
+ciudad varchar(50) not null,
+comunidad varchar(50) not null,
 foto varchar(255) default null,
-telefono int(9) not null,
+telefono varchar(30) not null,
 create_user timestamp default current_timestamp,
 update_user timestamp default current_timestamp on update current_timestamp);
 
@@ -28,17 +28,17 @@ update_user timestamp default current_timestamp on update current_timestamp);
 create table espacios (
 id int unsigned primary key auto_increment,
 nombre varchar(30)not null,
-provincia varchar(20) not null,
-comunidad varchar(20) not null,
-direccion varchar(40) not null,
+ciudad varchar(60) not null,
+comunidad varchar(60) not null,
+direccion varchar(255) not null,
 foto1 varchar(255) default null,
 foto2 varchar(255) default null,
 foto3 varchar(255) default null,
-tipo varchar(20) not null,
+tipo varchar(40) not null,
 precio decimal not null,
 data_inicio date not null,
-date_fin date not null,
-descripcion varchar(255) not null,
+data_fin date not null,
+descripcion text not null,
 propietario_id int unsigned not null,
 create_space timestamp default current_timestamp,
 update_space timestamp default current_timestamp on update current_timestamp,
@@ -48,7 +48,7 @@ constraint fk_espacio_usuario_id foreign key (propietario_id) references usuario
 create table equipamiento (
 id int unsigned primary key auto_increment,
 espacio_id int unsigned not null,
-nombre varchar(20) not null,
+nombre varchar(30) not null,
 cantidad int unsigned not null,
 constraint fk_equipamiento_espacio_id foreign key (espacio_id) references espacios(id));
 
@@ -66,15 +66,16 @@ constraint fk_reservas_espacios_id foreign key (espacio_id) references espacios(
 
 create table incidencias (
 id int unsigned primary key auto_increment,
-texto varchar(255) default "sin incidencias",
-fecha date not null,
+comentario text default null,
 reserva_id int unsigned not null,
+create_incidencia timestamp default current_timestamp,
+update_incidencia timestamp default current_timestamp on update current_timestamp,
 constraint fk_incidencias_reservas foreign key (reserva_id) references reservas(id));
 
 create table ratings (
 id int unsigned primary key auto_increment,
 puntuacion int(5) not null,
-comentario varchar(255) default "sin comentario",
+comentario text default null,
 usuario_id int unsigned not null,
 espacio_id int unsigned not null,
 create_rating timestamp default current_timestamp,
