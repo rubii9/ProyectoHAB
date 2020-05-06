@@ -20,7 +20,7 @@ password varchar(255) not null,
 ciudad varchar(50) not null,
 comunidad varchar(50) not null,
 foto varchar(255) default null,
-telefono text not null,
+telefono varchar(15) not null,
 es_propietario bool default false,
 create_user timestamp default current_timestamp,
 update_user timestamp default current_timestamp on update current_timestamp);
