@@ -2,10 +2,12 @@
 
 -- Listar todos los espacios 
 
-SELECT espacios.*, 
-(SELECT AVG(puntuacion) FROM ratings  WHERE espacio_id =espacios.id) AS voteAverage
-FROM espacios
-ORDER BY espacios.create_space DESC;
+SELECT e.*, avg(r.puntuacion)
+FROM espacios e
+left join ratings r
+on e.id=r.espacio_id
+group by e.id
+ORDER BY create_space DESC;
 
 -- Realizar consulta para busqueda(nombre,localidad,tipo,equipamiento,fechas)
 
@@ -36,16 +38,19 @@ where r.fecha_fin is null or r.fecha_fin < "2020-05-05";
 
 -- Listar datos usuario
 
-SELECT * FROM usuarios;
+SELECT id,nombre,apellidos FROM usuarios;
 
 
 -- Listar un espacio concreto y su info + rating
 
-SELECT espacios.*, 
-(SELECT AVG(puntuacion) FROM ratings  WHERE espacio_id =espacios.id) AS voteAverage
-FROM espacios
-where id = ?
-ORDER BY espacios.create_space DESC;
+SELECT e.*, avg(r.puntuacion)
+FROM espacios e
+left join ratings r
+on e.id=r.espacio_id
+where e.id = ?
+group by e.id
+ORDER BY create_space DESC;
+
 
 
 -- Listar reserva "mi coworking" (incidencias + listar el espacio reservado)
