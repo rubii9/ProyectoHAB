@@ -41,7 +41,7 @@ description text not null,
 owner_id int unsigned not null,
 create_space timestamp default current_timestamp,
 update_space timestamp default current_timestamp on update current_timestamp,
-constraint fk_spaces_users_id foreign key (owner_id) references users(id)on delete cascade) ;
+constraint fk_spaces_users_id foreign key (owner_id) references users(id)) ;
 
 
 create table equipment (
@@ -60,8 +60,8 @@ is_paid bool default false,
 is_clean bool default true,
 user_id int unsigned not null,
 space_id int unsigned not null ,
-constraint fk_reserves_users_id foreign key (user_id) references users(id) on delete cascade,
-constraint fk_reserves_spaces_id foreign key (space_id) references spaces(id) on delete cascade);
+constraint fk_reserves_users_id foreign key (user_id) references users(id) ,
+constraint fk_reserves_spaces_id foreign key (space_id) references spaces(id));
 
 
 create table incidents (
@@ -71,7 +71,7 @@ state enum ("abierta","cerrada") default "abierta",
 reserve_id int unsigned not null,
 create_incident timestamp default current_timestamp,
 update_incident timestamp default current_timestamp on update current_timestamp,
-constraint fk_incidents_reserves foreign key (reserve_id) references reserves(id)on delete cascade);
+constraint fk_incidents_reserves foreign key (reserve_id) references reserves(id));
 
 create table ratings (
 id int unsigned primary key auto_increment,
@@ -81,8 +81,8 @@ user_id int unsigned not null ,
 space_id int unsigned not null,
 create_rating timestamp default current_timestamp,
 update_rating timestamp default current_timestamp on update current_timestamp,
-constraint fk_ratings_users_id foreign key (user_id) references users(id) on delete cascade,
-constraint fk_ratings_spaces_id foreign key (space_id) references spaces(id)on delete cascade) ;
+constraint fk_ratings_users_id foreign key (user_id) references users(id) ,
+constraint fk_ratings_spaces_id foreign key (space_id) references spaces(id)) ;
 
 
 
