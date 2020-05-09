@@ -41,7 +41,7 @@ descripcion text not null,
 propietario_id int unsigned not null,
 create_space timestamp default current_timestamp,
 update_space timestamp default current_timestamp on update current_timestamp,
-constraint fk_espacio_usuario_id foreign key (propietario_id) references usuarios(id));
+constraint fk_espacio_usuario_id foreign key (propietario_id) references usuarios(id)on delete cascade) ;
 
 
 create table equipamiento (
@@ -49,7 +49,7 @@ id int unsigned primary key auto_increment,
 espacio_id int unsigned not null,
 nombre varchar(30) not null,
 cantidad int unsigned not null,
-constraint fk_equipamiento_espacio_id foreign key (espacio_id) references espacios(id));
+constraint fk_equipamiento_espacio_id foreign key (espacio_id) references espacios(id)on delete cascade);
 
 create table reservas (
 id int unsigned primary key auto_increment,
@@ -59,29 +59,30 @@ fecha_fin date not null,
 pagorealizado bool default false,
 limpieza bool default true,
 usuario_id int unsigned not null,
-espacio_id int unsigned not null,
-constraint fk_reservas_usuarios_id foreign key (usuario_id) references usuarios(id),
-constraint fk_reservas_espacios_id foreign key (espacio_id) references espacios(id));
+espacio_id int unsigned not null ,
+constraint fk_reservas_usuarios_id foreign key (usuario_id) references usuarios(id) on delete cascade,
+constraint fk_reservas_espacios_id foreign key (espacio_id) references espacios(id) on delete cascade);
 
 
 create table incidencias (
 id int unsigned primary key auto_increment,
 comentario text default null,
+estado enum ("abierta","cerrada") default "abierta",
 reserva_id int unsigned not null,
 create_incidencia timestamp default current_timestamp,
 update_incidencia timestamp default current_timestamp on update current_timestamp,
-constraint fk_incidencias_reservas foreign key (reserva_id) references reservas(id));
+constraint fk_incidencias_reservas foreign key (reserva_id) references reservas(id)on delete cascade);
 
 create table ratings (
 id int unsigned primary key auto_increment,
 puntuacion int(5) not null,
 comentario text default null,
-usuario_id int unsigned not null,
+usuario_id int unsigned not null ,
 espacio_id int unsigned not null,
 create_rating timestamp default current_timestamp,
 update_rating timestamp default current_timestamp on update current_timestamp,
-constraint fk_ratings_usuarios_id foreign key (usuario_id) references usuarios(id),
-constraint fk_ratings_espacios_id foreign key (espacio_id) references espacios(id));
+constraint fk_ratings_usuarios_id foreign key (usuario_id) references usuarios(id) on delete cascade,
+constraint fk_ratings_espacios_id foreign key (espacio_id) references espacios(id)on delete cascade) ;
 
 
 
