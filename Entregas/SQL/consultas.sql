@@ -2,65 +2,65 @@
 
 -- Listar todos los espacios 
 
-SELECT e.*, avg(r.puntuacion)
-FROM espacios e
+SELECT s.*, avg(r.score)
+FROM spaces s
 left join ratings r
-on e.id=r.espacio_id
-group by e.id
+on s.id=r.space_id
+group by s.id
 ORDER BY create_space DESC;
 
 -- Realizar consulta para busqueda(nombre,localidad,tipo,equipamiento,fechas)
 
-SELECT id, nombre, ciudad,descripcion, precio,foto1,foto2,foto3
-FROM espacios
-WHERE nombre LIKE '%?%';
+SELECT id, name, city,description, price,photo1,photo2,photo3
+FROM spaces
+WHERE name LIKE '%?%';
 
-SELECT id, nombre, ciudad,descripcion, precio,foto1,foto2,foto3
-FROM espacios
-WHERE ciudad LIKE '%?%';
+SELECT id, name, city,description, price,photo1,photo2,photo3
+FROM spaces
+WHERE city LIKE '%%';
 
-SELECT id, nombre,ciudad, descripcion, precio,foto1,foto2,foto3
-FROM espacios
-WHERE comunidad LIKE '%?%';
+SELECT id, name, city,description, price,photo1,photo2,photo3
+FROM spaces
+WHERE community LIKE '%?%';
 
-SELECT id, nombre,ciudad, descripcion, precio,foto1,foto2,foto3
-FROM espacios
-WHERE tipo LIKE '%?%';
+SELECT id, name, city,description, price,photo1,photo2,photo3
+FROM spaces
+WHERE type LIKE '%?%';
 
-SELECT e.*,eq.nombre,eq.cantidad FROM espacios e, equipamiento eq
-where e.id=eq.espacio_id
-AND eq.nombre like '%?%';
+SELECT s.*,eq.name,eq.number FROM spaces s, equipment eq
+where s.id=eq.space_id
+AND eq.name like '%?%';
 
-select e.*,r.* from espacios e
-left join reservas r
-on  e.id=r.espacio_id
-where r.fecha_fin is null or r.fecha_fin < "2020-05-05";
+select s.*,r.* from spaces s
+left join reserves r
+on  s.id=r.space_id
+where r.end_date is null or r.end_date < "2020-05-05";
 
 -- Listar datos usuario
 
-SELECT id,nombre,apellidos FROM usuarios;
+SELECT id,name,surname,nickname,email,city,community,avatar FROM users;
 
 
 -- Listar un espacio concreto y su info + rating
 
-SELECT e.*, avg(r.puntuacion)
-FROM espacios e
+SELECT s.*, avg(r.score)
+FROM spaces s
 left join ratings r
-on e.id=r.espacio_id
-where e.id = ?
-group by e.id
+on s.id=r.space_id
+where s.id = 2
+group by s.id
 ORDER BY create_space DESC;
 
 
 
 -- Listar reserva "mi coworking" (incidencias + listar el espacio reservado)
 
-select r.*,i.* from reservas r,incidencias i
-where r.id = i.reserva_id 
-and espacio_id = ?;
+select r.*,i.* from reserves r,incidents i
+where r.id = i.reserve_id 
+and space_id = ?;
 
 -- Listar espacios publicados por un usuario concreto
 
-select u.nombre, u.apellidos , e.* from usuarios u,espacios e
-where u.id=e.propietario_id
-and u.id=?;
+select u.name, u.surname , s.* from users u,spaces s
+where u.id=s.owner_id
+and u.id=2;
