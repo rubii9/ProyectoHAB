@@ -1,4 +1,4 @@
-insert into users (id, name, surname, nickname, email, password, city, community, phone) values (1, 'Dyane', 'Lanktree', 'dlanktree0', 'dlanktree0@virginia.edu', 'WGOf13Z', 'Madrid', 'Madrid', '6462487705');
+insert into users (id, name, surname, nickname, email, password, city, community, phone) values (1, 'Rubén', 'Pérez', 'rubii9', 'rubenpo167@gmail.com', 'WGOf13Z', 'Noia', 'Galicia', '6462487705');
 insert into users (id, name, surname, nickname, email, password, city, community, phone,is_owner) values (2, 'Uriel', 'Hellsdon', 'uhellsdon1', 'uhellsdon1@toplist.cz', '4BXDhJr', 'Telde', 'Canarias', '6622954423',true);
 insert into users (id, name, surname, nickname, email, password, city, community, phone,is_owner) values (3, 'Benjamin', 'Mellodey', 'bmellodey2', 'bmellodey2@dmoz.org', 'QW1gU5o5', 'Santiago De Compostela', 'Galicia', '7736800054',true);
 insert into users (id, name, surname, nickname, email, password, city, community, phone,is_owner) values (4, 'Rhiamon', 'Custed', 'rcusted3', 'rcusted3@wufoo.com', 'jJ5b5vZc', 'Ourense', 'Galicia', '2318408230',true);
