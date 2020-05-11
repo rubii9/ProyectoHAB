@@ -12,16 +12,19 @@ DROP TABLE IF EXISTS incident;
 
 create table users (
 id int unsigned primary key auto_increment,
-name varchar(30)not null,
-surname varchar(60) not null,
+name varchar(100)not null,
 nickname varchar(30)not null unique,
 email varchar(60) not null unique,
 password varchar(255) not null,
-city varchar(50) not null,
-community varchar(50) not null,
+city varchar(50) default null,
+community varchar(50) default null,
 avatar varchar(255) default null,
-phone varchar(15) not null,
+phone varchar(15) default null,
 is_owner bool default false,
+role enum("normal","admin") default "normal" not null,
+active bool default false not null,
+registrartionCode varchar(255),
+lastPasswordUpdate timestamp default current_timestamp not null,
 create_user timestamp default current_timestamp,
 update_user timestamp default current_timestamp on update current_timestamp);
 
