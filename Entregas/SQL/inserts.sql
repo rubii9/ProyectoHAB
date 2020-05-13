@@ -46,31 +46,31 @@ insert into equipment (id, space_id, name, number) values (20, 4, 'pantallas', 1
 
 -- RATINGS
 
-insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta la iluminacion",2,1);
-insert into ratings (  score, comment,user_id,space_id) values(  5, "me gusta encanta",3,1);
-insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta mucho este espacio",4,1);
-insert into ratings (  score, comment,user_id,space_id) values (  1, "no me convence",5,1);
+insert into ratings (  score, comment,user_id,space_id) values (4, "me gusta la iluminacion",2,1);
+insert into ratings (  score, comment,user_id,space_id) values(5, "me gusta encanta",3,1);
+insert into ratings (  score, comment,user_id,space_id) values (4, "me gusta mucho este espacio",4,1);
+insert into ratings (  score, comment,user_id,space_id) values (1, "no me convence",5,1);
 
 
-insert into ratings (  score, comment,user_id,space_id) values (  1, "no me gusta",2,2);
-insert into ratings (  score, comment,user_id,space_id) values(  2, "no está mal",3,2);
-insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta la oficina",4,2);
-insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,2);
-insert into ratings (  score, comment,user_id,space_id) values ( 1, "no es mi estilio",6,2);
+insert into ratings (  score, comment,user_id,space_id) values (1, "no me gusta",2,2);
+insert into ratings (  score, comment,user_id,space_id) values(2, "no está mal",3,2);
+insert into ratings (  score, comment,user_id,space_id) values (4, "me gusta la oficina",4,2);
+insert into ratings (  score, comment,user_id,space_id) values(3, "recomendable",5,2);
+insert into ratings (  score, comment,user_id,space_id) values (1, "no es mi estilio",6,2);
 
 
-insert into ratings (  score, comment,user_id,space_id) values (  2, "no me gusta",2,3);
-insert into ratings (  score, comment,user_id,space_id) values(  4, "no está mal",3,3);
-insert into ratings (  score, comment,user_id,space_id) values (  5, "me gusta la decoración",4,3);
-insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,3);
-insert into ratings (  score, comment,user_id,space_id) values ( 1, "no es mi estilio",6,3);
+insert into ratings (  score, comment,user_id,space_id) values (2, "no me gusta",2,3);
+insert into ratings (  score, comment,user_id,space_id) values(4, "no está mal",3,3);
+insert into ratings (  score, comment,user_id,space_id) values (5, "me gusta la decoración",4,3);
+insert into ratings (  score, comment,user_id,space_id) values(3, "recomendable",5,3);
+insert into ratings (  score, comment,user_id,space_id) values (1, "no es mi estilio",6,3);
 
 
-insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta",2,4);
-insert into ratings (  score, comment,user_id,space_id) values(  4, "no está mal",3,4);
-insert into ratings (  score, comment,user_id,space_id) values (  4, "butacas muy comodas",4,4);
-insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,4);
-insert into ratings (  score, comment,user_id,space_id) values ( 1, "no se ve bien",6,4);
+insert into ratings (  score, comment,user_id,space_id) values (4, "me gusta",2,4);
+insert into ratings (  score, comment,user_id,space_id) values(4, "no está mal",3,4);
+insert into ratings (  score, comment,user_id,space_id) values (4, "butacas muy comodas",4,4);
+insert into ratings (  score, comment,user_id,space_id) values(3, "recomendable",5,4);
+insert into ratings (  score, comment,user_id,space_id) values (1, "no se ve bien",6,4);
 
 -- RESERVES
 insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values ("2020-04-07", "2020-05-07", true, true,4,1);

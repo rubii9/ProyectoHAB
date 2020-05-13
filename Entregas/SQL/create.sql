@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS spaces;
 DROP TABLE IF EXISTS reserves;
 DROP TABLE IF EXISTS ratings;
 DROP TABLE IF EXISTS equipment;
-DROP TABLE IF EXISTS incident;
+DROP TABLE IF EXISTS incidents;
 
 
 create table users (
@@ -52,7 +52,7 @@ id int unsigned primary key auto_increment,
 space_id int unsigned not null,
 name varchar(30) not null,
 number int unsigned not null,
-constraint fk_equipments_spaces_id foreign key (space_id) references spaces(id)on delete cascade);
+constraint fk_equipments_spaces_id foreign key (space_id) references spaces(id));
 
 create table reserves (
 id int unsigned primary key auto_increment,
