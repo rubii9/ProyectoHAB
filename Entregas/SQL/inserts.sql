@@ -1,14 +1,14 @@
 -- USERS
-insert into users (id, name, nickname, email, password, city, community, phone,role,active) values (1, 'Rubén Pérez', 'rubii9', 'rubenpo167@gmail.com', 'WGOf13Z', 'Noia', 'Galicia', '6462487705',"admin",true);
-insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values (2, 'Uriel Hellsdon', 'uhellsdon1', 'uhellsdon1@toplist.cz', '4BXDhJr', 'Telde', 'Canarias', '6622954423',true,true);
-insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (3, 'Benjamin Mellodey', 'bmellodey2', 'bmellodey2@dmoz.org', 'QW1gU5o5', 'Santiago De Compostela', 'Galicia', '7736800054',true,true);
-insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (4, 'Rhiamon Custed', 'rcusted3', 'rcusted3@wufoo.com', 'jJ5b5vZc', 'Ourense', 'Galicia', '2318408230',true,true);
-insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (5, 'Chrissy Gemlett', 'cgemlett4', 'cgemlett4@amazon.co.jp', '6TkmJz', 'Valladolid', 'Castilla - Leon', '1004079953',true,true);
-insert into users (id, name, nickname, email, password, city, community, phone,active) values  (6, 'Biddie Reddihough', 'breddihough5', 'breddihough5@discuz.net', 'VDMBpZLN4r1', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',true);
-insert into users (id, name, nickname, email, password, city, community, phone,active) values  (7, 'Hurley Atcheson', 'hatcheson6', 'hatcheson6@smh.com.au', 'tLwALzGDd9X', 'Palma De Mallorca', 'Baleares', '1574598212',true);
-insert into users (id, name, nickname, email, password, city, community, phone,active) values  (8, 'Robbie Fouracre', 'rfouracre7', 'rfouracre7@goo.gl', '22YQxJ6eDGIZ', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',true);
-insert into users (id, name, nickname, email, password, city, community, phone,active) values  (9, 'Bobette Dunaway', 'bdunaway8', 'bdunaway8@shareasale.com', 'IKIXy6tq', 'Huesca', 'Aragon', '2804685614',true);
-insert into users (id, name, nickname, email, password, city, community, phone,active) values  (10, 'Carson Killford', 'ckillford9', 'ckillford9@printfriendly.com', 'tDR4mXH4N', 'Albacete', 'Castilla - La Mancha', '4984652382',true);
+insert into users (id, name, nickname, email, password, city, community, phone,role,active) values (1, 'Rubén Pérez', 'rubii9', 'rubenpo167@gmail.com', '123456', 'Noia', 'Galicia', '6462487705',"admin",true);
+insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values (2, 'Uriel Hellsdon', 'uhellsdon1', 'uhellsdon1@toplist.cz', '123456', 'Telde', 'Canarias', '6622954423',true,true);
+insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (3, 'Benjamin Mellodey', 'bmellodey2', 'bmellodey2@dmoz.org', '123456', 'Santiago De Compostela', 'Galicia', '7736800054',true,true);
+insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (4, 'Rhiamon Custed', 'rcusted3', 'rcusted3@wufoo.com', '123456', 'Ourense', 'Galicia', '2318408230',true,true);
+insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active) values  (5, 'Chrissy Gemlett', 'cgemlett4', 'cgemlett4@amazon.co.jp', '123456', 'Valladolid', 'Castilla - Leon', '1004079953',true,true);
+insert into users (id, name, nickname, email, password, city, community, phone,active) values  (6, 'Biddie Reddihough', 'breddihough5', 'breddihough5@discuz.net', '123456', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',true);
+insert into users (id, name, nickname, email, password, city, community, phone,active) values  (7, 'Hurley Atcheson', 'hatcheson6', 'hatcheson6@smh.com.au', '123456', 'Palma De Mallorca', 'Baleares', '1574598212',true);
+insert into users (id, name, nickname, email, password, city, community, phone,active) values  (8, 'Robbie Fouracre', 'rfouracre7', 'rfouracre7@goo.gl', '123456', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',true);
+insert into users (id, name, nickname, email, password, city, community, phone,active) values  (9, 'Bobette Dunaway', 'bdunaway8', 'bdunaway8@shareasale.com', '123456', 'Huesca', 'Aragon', '2804685614',true);
+insert into users (id, name, nickname, email, password, city, community, phone,active) values  (10, 'Carson Killford', 'ckillford9', 'ckillford9@printfriendly.com', '123456', 'Albacete', 'Castilla - La Mancha', '4984652382',true);
 
 
 -- SPACES
@@ -45,17 +45,37 @@ insert into equipment (id, space_id, name, number) values(19, 4, 'mesas', 3);
 insert into equipment (id, space_id, name, number) values (20, 4, 'pantallas', 1);
 
 -- RATINGS
-insert into ratings (  score, comment,user_id,space_id) values (  2, "me gusta mucho este espacio",4,1);
+
 insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta la iluminacion",2,1);
 insert into ratings (  score, comment,user_id,space_id) values(  5, "me gusta encanta",3,1);
-insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta la oficina",4,2);
+insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta mucho este espacio",4,1);
+insert into ratings (  score, comment,user_id,space_id) values (  1, "no me convence",5,1);
+
+
 insert into ratings (  score, comment,user_id,space_id) values (  1, "no me gusta",2,2);
 insert into ratings (  score, comment,user_id,space_id) values(  2, "no está mal",3,2);
+insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta la oficina",4,2);
+insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,2);
+insert into ratings (  score, comment,user_id,space_id) values ( 1, "no es mi estilio",6,2);
+
+
+insert into ratings (  score, comment,user_id,space_id) values (  2, "no me gusta",2,3);
+insert into ratings (  score, comment,user_id,space_id) values(  4, "no está mal",3,3);
+insert into ratings (  score, comment,user_id,space_id) values (  5, "me gusta la decoración",4,3);
+insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,3);
+insert into ratings (  score, comment,user_id,space_id) values ( 1, "no es mi estilio",6,3);
+
+
+insert into ratings (  score, comment,user_id,space_id) values (  4, "me gusta",2,4);
+insert into ratings (  score, comment,user_id,space_id) values(  4, "no está mal",3,4);
+insert into ratings (  score, comment,user_id,space_id) values (  4, "butacas muy comodas",4,4);
+insert into ratings (  score, comment,user_id,space_id) values(  3, "recomendable",5,4);
+insert into ratings (  score, comment,user_id,space_id) values ( 1, "no se ve bien",6,4);
 
 -- RESERVES
 insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values ("2020-04-07", "2020-05-07", true, true,4,1);
-insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values  ("2020-04-07", "2020-05-07",  false, true,2,2);
-insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values  ( "2020-04-07", "2020-05-07",  false, false,3,3);
+insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values  ("2020-06-07", "2020-08-07",  false, true,2,2);
+insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values  ( "2020-03-07", "2020-05-01",  false, false,3,3);
 
 -- INCIDENTS
 insert into incidents (   comment,reserve_id) values (  "todo correcto",1);
