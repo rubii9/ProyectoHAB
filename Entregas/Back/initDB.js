@@ -35,8 +35,8 @@ async function main() {
       is_owner bool default false,
       role enum("normal","admin") default "normal" not null,
       active bool default false not null,
-      registrartionCode varchar(255),
-      lastPasswordUpdate timestamp default current_timestamp not null,
+      registrationCode varchar(255),
+      lastPasswordUpdate datetime not null,
       create_user timestamp default current_timestamp,
       update_user timestamp default current_timestamp on update current_timestamp);
    `);
@@ -115,7 +115,7 @@ async function main() {
 
   await connection.query(`
         INSERT INTO users(lastPasswordUpdate, email, password, role, name, active,nickname,city,community,phone)
-        VALUES( NOW(), "rubenpo167@gmail.com", "${password}", "admin", "Rubén Pérez", true,"rubii9","Noia","Galicia","639063381")
+        VALUES( UTC_TIMESTAMP, "rubenpo167@gmail.com", "${password}", "admin", "Rubén Pérez", true,"rubii9","Noia","Galicia","639063381")
       `);
 
   if (addData) {
