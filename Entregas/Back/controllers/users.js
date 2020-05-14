@@ -16,7 +16,8 @@ const {
   deletePhoto,
   randomString,
   sendEmail,
-  generateError
+  generateError,
+  formatDateToDB
 } = require('../helpers');
 
 // POST - /user
@@ -146,7 +147,7 @@ async function getUser(req, res, next) {
     const [userData] = result;
 
     const payload = {
-      registrationDate: userData.create_user,
+      registrationDate: formatDateToDB(userData.create_user),
       realName: userData.name,
       avatar: userData.avatar,
       city: userData.city,
@@ -291,7 +292,7 @@ async function editUser(req, res, next) {
       );
     }
 
-    if (savedFileName) {
+    if (req.files && req.files.avatar) {
       await connection.query(
         `
       UPDATE users SET avatar=? WHERE id=?
