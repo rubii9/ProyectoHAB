@@ -12,7 +12,7 @@ async function userIsAuthenticated(req, res, next) {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      throw generateError('Falta la cabecera de Authorization');
+      throw generateError('Authorization Header needed');
     }
 
     const authorizationParts = authorization.split(' ');
@@ -24,7 +24,7 @@ async function userIsAuthenticated(req, res, next) {
     } else if (authorizationParts[0] === 'Bearer') {
       token = authorizationParts[1];
     } else {
-      throw generateError('No puedo leer el token');
+      throw generateError('Cant read token');
     }
 
     let decoded;
@@ -32,7 +32,7 @@ async function userIsAuthenticated(req, res, next) {
     try {
       decoded = jwt.verify(token, process.env.SECRET);
     } catch (error) {
-      throw new Error('El token no está bien formado');
+      throw new Error('Token is not correct');
     }
 
     // Comprobar que la fecha de expedición del token sea mayor a la
@@ -49,7 +49,7 @@ async function userIsAuthenticated(req, res, next) {
     );
 
     if (!result.length) {
-      throw new Error('El usuario no existe en la base de datos');
+      throw new Error('No user found');
     }
 
     const [user] = result;
@@ -58,7 +58,7 @@ async function userIsAuthenticated(req, res, next) {
     // Tened en cuenta que el iat del token está guardado en segundos y node trabaja en
     // milisegundos
     if (new Date(iat * 1000) < new Date(user.lastPasswordUpdate)) {
-      throw new Error('El token ya no vale, haz login para conseguir otro');
+      throw new Error('Token invalid now,do login to refresh token');
     }
 
     req.auth = decoded;
@@ -73,7 +73,7 @@ async function userIsAuthenticated(req, res, next) {
 
 function userIsAdmin(req, res, next) {
   if (!req.auth || req.auth.role !== 'admin') {
-    const error = new Error('No tienes privilegios de administración');
+    const error = new Error('You have not access, only admins');
     error.httpCode = 401;
     return next(error);
   }

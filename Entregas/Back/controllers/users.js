@@ -36,7 +36,7 @@ async function newUser(req, res, next) {
     ] = await connection.query('SELECT id from users where email=?', [email]);
 
     if (existing.length) {
-      throw generateError('El email ya existe en la base de datos', 409);
+      throw generateError('The email already exits', 409);
     }
 
     // hash password
@@ -48,13 +48,13 @@ async function newUser(req, res, next) {
     try {
       await sendEmail({
         email: email,
-        title: 'Valida tu cuenta de usuario en la app de diario mysql',
-        content: `Para validar tu cuenta de usuario pega esta url en tu navegador: ${validationURL}`
+        title: 'Validate your user acount of coworkings app',
+        content: `To validate your acount clic on link or copy and then paste on your browser: ${validationURL}`
       });
     } catch (error) {
       console.error(error.response.body);
       throw new Error(
-        'Error en el envío de mail. Inténtalo de nuevo más tarde.'
+        'Error sending email. Try again later.'
       );
     }
 
@@ -69,7 +69,7 @@ async function newUser(req, res, next) {
     res.send({
       staus: 'ok',
       message:
-        'Usuario registrado. Mira tu email para activarlo. Mira la carpeta del SPAM que seguro que está allí.'
+        'User registered. Check your email to activate (the email is maybe at spam).'
     });
   } catch (error) {
     next(error);
@@ -95,7 +95,7 @@ async function validateUser(req, res, next) {
     );
 
     if (result.affectedRows === 0) {
-      throw generateError('Validación incorrecta', 400);
+      throw generateError('Invalid validation', 400);
     }
 
     // // Si queremos dar el token descomentar las siguientes líneas
@@ -111,7 +111,7 @@ async function validateUser(req, res, next) {
 
     res.send({
       status: 'ok',
-      message: 'Usuario validado, ya puedes hacer login.'
+      message: 'User validated, now you can login.'
       // data: {
       //   token
       // }
@@ -192,7 +192,7 @@ async function loginUser(req, res, next) {
 
     if (!dbUser.length) {
       throw generateError(
-        'No hay ningún usuario activo con ese email en la base de datos. Si te acabas de registrar valida el email',
+        'There are no user with this email. If you have registered u need to validate email',
         404
       );
     }
@@ -202,7 +202,7 @@ async function loginUser(req, res, next) {
     const passwordsMath = await bcrypt.compare(password, user.password);
 
     if (!passwordsMath) {
-      throw generateError('Password incorrecta', 401);
+      throw generateError('Invalid password ', 401);
     }
 
     // Build jsonwebtoken
@@ -214,7 +214,7 @@ async function loginUser(req, res, next) {
     // Create response
     res.send({
       status: 'ok',
-      message: 'Login correcto',
+      message: 'Login successfull',
       data: { token }
     });
   } catch (error) {
@@ -251,7 +251,7 @@ async function editUser(req, res, next) {
 
     // Check if auth user is the same as :id or is admin
     if (current[0].id !== req.auth.id && req.auth.role !== 'admin') {
-      throw generateError('No tienes permisos para editar este usuario', 401);
+      throw generateError('No permission to edit this user', 401);
     }
 
     // Check if there is a uploaded avatar and process it
@@ -327,7 +327,7 @@ async function editUser(req, res, next) {
       );
     }
 
-    res.send({ status: 'ok', message: 'Usuario actualizado' });
+    res.send({ status: 'ok', message: 'User actualizated' });
   } catch (error) {
     next(error);
   } finally {
@@ -352,14 +352,14 @@ async function updatePasswordUser(req, res, next) {
 
     if (Number(id) !== req.auth.id) {
       throw generateError(
-        `No tienes permisos para cambiar la password del usuario con id ${id}`,
+        `You have not permissions to change password of user whit id ${id}`,
         401
       );
     }
 
     if (oldPassword === newPassword) {
       throw generateError(
-        'La nueva password no puede ser la misma que la antigua',
+        'New password need to be diferent from old password',
         400
       );
     }
@@ -374,7 +374,7 @@ async function updatePasswordUser(req, res, next) {
 
     // Código un poco redundante
     if (!currentUser.length) {
-      throw generateError(`El usuario con id ${id} no existe`, 404);
+      throw generateError(`User with id ${id} does not exist`, 404);
     }
 
     const [dbUser] = currentUser;
@@ -384,7 +384,7 @@ async function updatePasswordUser(req, res, next) {
     const passwordsMath = await bcrypt.compare(oldPassword, dbUser.password);
 
     if (!passwordsMath) {
-      throw generateError('Tu password antigua es incorrecta', 401);
+      throw generateError('Old password incorrect', 401);
     }
 
     // generar hash de la password
@@ -401,7 +401,7 @@ async function updatePasswordUser(req, res, next) {
     res.send({
       status: 'ok',
       message:
-        'Cambio de password realizado correctamente. Todos tus tokens quedan invalidados. Haz login de nuevo para conseguir un token válido.'
+        'Password change succesfull. All your old token are now invalid. Do new login to take a valid token.'
     });
   } catch (error) {
     next(error);
