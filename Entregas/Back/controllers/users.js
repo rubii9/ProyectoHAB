@@ -262,14 +262,15 @@ async function editUser(req, res, next) {
       try {
         savedFileName = await processAndSavePhoto(req.files.avatar);
 
-        if (current && current.avatar) {
-          await deletePhoto(current.avatar);
+          
+        if (current && current[0].avatar) {
+          await deletePhoto(current[0].avatar);
         }
       } catch (error) {
         throw generateError('Can not process upload image. Try again.', 400);
       }
     } else {
-      savedFileName = current.avatar;
+      savedFileName = current[0].avatar;
     }
 
     // Update user
@@ -421,7 +422,8 @@ async function deleteUser(req, res, next) {
     const [
       current
     ] = await connection.query('SELECT id, avatar from users where id=?', [id]);
-
+        
+    
     if (!current.length) {
       const error = new Error(`There is no user with id ${id}`);
       error.httpCode = 400;
@@ -434,8 +436,8 @@ async function deleteUser(req, res, next) {
     }
 
 
-    if (current.avatar) {
-      await deletePhoto(current.avatar);
+    if (current[0].avatar) {
+      await deletePhoto(current[0].avatar);
     }
 
     await connection.query(`
