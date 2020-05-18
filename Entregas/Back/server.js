@@ -19,7 +19,8 @@ const {
   editUser,
   loginUser,
   updatePasswordUser,
-  validateUser
+  validateUser,
+  deleteUser
 } = require('./controllers/users');
 
 // Auth middlewares
@@ -47,6 +48,7 @@ app.get('/users/validate', validateUser);
 app.post('/users/:id/password', userIsAuthenticated, updatePasswordUser);
 app.get('/users/:id', userIsAuthenticated, getUser);
 app.put('/users/:id', userIsAuthenticated, editUser);
+app.delete('/users/:id', userIsAuthenticated,  deleteUser);
 
 // Error middleware
 app.use((error, req, res, next) => {

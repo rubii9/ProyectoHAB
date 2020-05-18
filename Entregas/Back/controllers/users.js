@@ -410,11 +410,64 @@ async function updatePasswordUser(req, res, next) {
   }
 }
 
+async function deleteUser(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    const connection = await getConnection();
+
+    // Delete image if exists!
+    const [
+      current
+    ] = await connection.query('SELECT avatar from users where id=?', [id]);
+
+    if (!current.length) {
+      const error = new Error(`There is no user with id ${id}`);
+      error.httpCode = 400;
+      throw error;
+    }
+
+    if (current.avatar) {
+      await deletePhoto(current.avatar);
+    }
+
+    await connection.query(`
+    delete from equipment where space_id = (
+      select id from spaces where owner_id = ?);`, [id]);
+    await connection.query(`
+    delete from incidents where reserve_id =
+    (select id from reserves where space_id = (
+      select id from spaces where owner_id = ?)
+          );`, [id]);
+
+    await connection.query(`delete from reserves where space_id =(
+      select id from spaces where owner_id = ?);`, [id]);
+
+    await connection.query(`delete from ratings where user_id=? ;`,[id]);
+
+    await connection.query(`delete from ratings where user_id =?;`,[id]);
+
+    await connection.query(`delete from spaces where owner_id = ?;`,[id]);
+
+    await connection.query(`delete from users where id = ?;`,[id]);
+
+    connection.release();
+
+    res.send({
+      status: 'ok',
+      message: `The entry with id ${id} has been deleted`
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   newUser,
   loginUser,
   getUser,
   editUser,
   updatePasswordUser,
-  validateUser
+  validateUser,
+  deleteUser
 };
