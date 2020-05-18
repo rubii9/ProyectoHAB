@@ -416,16 +416,23 @@ async function deleteUser(req, res, next) {
 
     const connection = await getConnection();
 
+   
     // Delete image if exists!
     const [
       current
-    ] = await connection.query('SELECT avatar from users where id=?', [id]);
+    ] = await connection.query('SELECT id, avatar from users where id=?', [id]);
 
     if (!current.length) {
       const error = new Error(`There is no user with id ${id}`);
       error.httpCode = 400;
       throw error;
     }
+
+     // Check if auth user is the same as :id or is admin
+     if (current[0].id !== req.auth.id && req.auth.role !== 'admin') {
+      throw generateError('No permission to edit this user', 401);
+    }
+
 
     if (current.avatar) {
       await deletePhoto(current.avatar);
