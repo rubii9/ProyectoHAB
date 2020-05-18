@@ -192,7 +192,7 @@ async function loginUser(req, res, next) {
 
     if (!dbUser.length) {
       throw generateError(
-        'There are no user with this email. If you have registered u need to validate email',
+        'There are no user with this email. If you have registered you need to validate email',
         404
       );
     }
