@@ -6,47 +6,32 @@ const { generateError } = require('../../helpers');
 const searchSchema = Joi.string()
   .min(2)
   .required()
-  .error(
-    generateError(
-      'El campo de búsqueda debe de ser de máis de 2 caracteres',
-      400
-    )
-  );
+  .error(generateError('Search must be more than 2 characters', 400));
 
 const nameSchema = Joi.string()
   .required()
   .max(100)
-  .error(
-    generateError(
-      'El nombre no puede pasar de 100 caracteres y es requerido',
-      400
-    )
-  );
+  .error(generateError('Name required and max 255 characters', 400));
 
 const nicknameSchema = Joi.string()
   .min(5)
   .max(30)
   .required()
   .error(
-    generateError(
-      'El campo nickname debe de ser de más de 5 caracteres y es requerido',
-      400
-    )
+    generateError('Nickname need at least 5 characters and is required', 400)
   );
 
 const emailSchema = Joi.string()
   .email()
   .required()
   .max(60)
-  .error(generateError('El campo email debe ser un email bien formado', 400));
+  .error(generateError('Email must be well formed', 400));
 
 const passwordSchema = Joi.string()
   .min(6)
   .max(100)
   .required()
-  .error(
-    generateError('La password debe de tener entre 6 y 100 carateres', 400)
-  );
+  .error(generateError('Password need at least 6 characters and max 100', 400));
 
 const userSchemaRegister = Joi.object().keys({
   email: emailSchema,
@@ -63,36 +48,24 @@ const userSchema = Joi.object().keys({
 const editUserSchema = Joi.object().keys({
   email: Joi.string()
     .email()
-    .error(generateError('El campo email debe ser un email bien formado', 400)),
+    .error(generateError('Email must be well formed', 400)),
   name: Joi.string()
     .max(255)
-    .error(
-      generateError(
-        'El nombre no puede pasar de 255 caracteres y es requerido',
-        400
-      )
-    ),
+    .error(generateError('Name required and max 255 characters', 400)),
   nickname: Joi.string()
     .min(5)
     .error(
-      generateError(
-        'El campo nickname debe de ser de más de 5 caracteres y es requerido',
-        400
-      )
+      generateError('Nickname need at least 5 characters and is required', 400)
     ),
   city: Joi.string()
     .max(60)
-    .error(
-      generateError('El nombre real no puede pasar de 60 caracteres', 400)
-    ),
+    .error(generateError('City is required and max 60 characters', 400)),
   community: Joi.string()
     .max(60)
-    .error(
-      generateError('El nombre real no puede pasar de 60 caracteres', 400)
-    ),
+    .error(generateError('Community is required and max 60 characters', 400)),
   phone: Joi.string()
     .max(15)
-    .error(generateError('El nombre real no puede pasar de 15 caracteres', 400))
+    .error(generateError('Phone has max 15 characters', 400))
 });
 
 const editPasswordUserSchema = Joi.object().keys({
@@ -100,7 +73,7 @@ const editPasswordUserSchema = Joi.object().keys({
   newPassword: passwordSchema,
   newPasswordRepeat: Joi.any()
     .valid(Joi.ref('newPassword'))
-    .error(generateError('Las passwords debe ser iguales', 400))
+    .error(generateError('Passwords dont match', 400))
 });
 
 // Object Schemas
@@ -109,46 +82,48 @@ const entrySchema = Joi.object().keys({
     .max(100)
     .required()
     .error(
-      generateError(
-        'El campo place es obligatorio y no puede tener más de 100 caracteres',
-        400
-      )
+      generateError('The space name is required and max 100 characters', 400)
     ),
   description: Joi.string()
     .max(1000)
     .required()
     .error(
       generateError(
-        'El campo description es obligatorio y non puede tener más de 1000 caracteres',
+        'The space description is required and max 1000 characters',
         400
       )
     ),
   city: Joi.string()
     .max(60)
     .required()
-    .error(
-      generateError('El nombre real no puede pasar de 60 caracteres', 400)
-    ),
+    .error(generateError('City is required and max 60 characters', 400)),
   community: Joi.string()
     .max(60)
     .required()
-    .error(
-      generateError('El nombre real no puede pasar de 60 caracteres', 400)
-    ),
+    .error(generateError('Community is required and max 60 characters', 400)),
 
   adress: Joi.string()
     .max(255)
     .required()
-    .error(
-      generateError(
-        'El campo adress es obligatorio y non puede tener más de 255 caracteres',
-        400
-      )
-    ),
+    .error(generateError('Adress is required and max 255 characters', 400)),
   price: Joi.number()
     .min(1)
     .required()
-    .error(generateError('El campo precio debe existir ', 400))
+    .error(generateError('Price is required ', 400)),
+
+  type: Joi.string()
+    .max(30)
+    .required()
+    .error(generateError('Type is required and max 30 characters', 400)),
+
+  number: Joi.number().required().error(generateError('Number is required')),
+
+  eq_name: Joi.string()
+    .max(30)
+    .required()
+    .error(
+      generateError('The equipment name is required and max 30 characters', 400)
+    )
 });
 
 const voteSchema = Joi.object().keys({
@@ -157,12 +132,7 @@ const voteSchema = Joi.object().keys({
     .max(5)
     .integer()
     .required()
-    .error(
-      generateError(
-        'El campo voto debe existir y ser un número entre 1 y 5',
-        400
-      )
-    )
+    .error(generateError('Vote is required and should be between 1 y 5', 400))
 });
 
 module.exports = {

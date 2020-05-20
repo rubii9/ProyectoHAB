@@ -2,12 +2,15 @@
 
 -- Listar todos los espacios disponibles
 
-select s.* from spaces s
-left join reserves r
-on  s.id=r.space_id
-where r.end_date is null and r.start_date is null or r.end_date < now() 
-order by s.create_space desc;
-
+select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where r.end_date is null and r.start_date is null or r.end_date < UTC_TIMESTAMP
+        group by s.id
+        order by s.create_space desc
+        
 
 -- Realizar consulta para busqueda(nombre,localidad,tipo,equipamiento,fechas)
 

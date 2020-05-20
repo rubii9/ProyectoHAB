@@ -53,9 +53,7 @@ async function newUser(req, res, next) {
       });
     } catch (error) {
       console.error(error.response.body);
-      throw new Error(
-        'Error sending email. Try again later.'
-      );
+      throw new Error('Error sending email. Try again later.');
     }
 
     await connection.query(
@@ -262,7 +260,6 @@ async function editUser(req, res, next) {
       try {
         savedFileName = await processAndSavePhoto(req.files.avatar);
 
-          
         if (current && current[0].avatar) {
           await deletePhoto(current[0].avatar);
         }
@@ -411,54 +408,61 @@ async function updatePasswordUser(req, res, next) {
   }
 }
 
+//DELETE - /users/:id
 async function deleteUser(req, res, next) {
   try {
     const { id } = req.params;
 
     const connection = await getConnection();
 
-   
     // Delete image if exists!
     const [
       current
     ] = await connection.query('SELECT id, avatar from users where id=?', [id]);
-        
-    
+
     if (!current.length) {
       const error = new Error(`There is no user with id ${id}`);
       error.httpCode = 400;
       throw error;
     }
 
-     // Check if auth user is the same as :id or is admin
-     if (current[0].id !== req.auth.id && req.auth.role !== 'admin') {
+    // Check if auth user is the same as :id or is admin
+    if (current[0].id !== req.auth.id && req.auth.role !== 'admin') {
       throw generateError('No permission to edit this user', 401);
     }
-
 
     if (current[0].avatar) {
       await deletePhoto(current[0].avatar);
     }
 
-    await connection.query(`
+    await connection.query(
+      `
     delete from equipment where space_id = (
-      select id from spaces where owner_id = ?);`, [id]);
-    await connection.query(`
+      select id from spaces where owner_id = ?);`,
+      [id]
+    );
+    await connection.query(
+      `
     delete from incidents where reserve_id =
     (select id from reserves where space_id = (
       select id from spaces where owner_id = ?)
-          );`, [id]);
+          );`,
+      [id]
+    );
 
-    await connection.query(`delete from reserves where space_id =(
-      select id from spaces where owner_id = ?);`, [id]);
+    await connection.query(
+      `delete from reserves where space_id =(
+      select id from spaces where owner_id = ?);`,
+      [id]
+    );
 
-    await connection.query(`delete from ratings where user_id=? ;`,[id]);
+    await connection.query(`delete from ratings where user_id=? ;`, [id]);
 
-    await connection.query(`delete from ratings where user_id =?;`,[id]);
+    await connection.query(`delete from ratings where user_id =?;`, [id]);
 
-    await connection.query(`delete from spaces where owner_id = ?;`,[id]);
+    await connection.query(`delete from spaces where owner_id = ?;`, [id]);
 
-    await connection.query(`delete from users where id = ?;`,[id]);
+    await connection.query(`delete from users where id = ?;`, [id]);
 
     connection.release();
 

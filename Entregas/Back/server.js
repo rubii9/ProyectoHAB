@@ -12,7 +12,6 @@ const app = express();
 const port = process.env.PORT;
 
 // User Controllers
-
 const {
   newUser,
   getUser,
@@ -22,6 +21,17 @@ const {
   validateUser,
   deleteUser
 } = require('./controllers/users');
+
+// EntrnewEntryy Controllers
+const {
+  listSpaces,
+  newSpace,
+  getSpace,
+  deleteSpace,
+  editSpace,
+  voteSpaces,
+  getSpaceVotes
+} = require('./controllers/spaces');
 
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
@@ -50,6 +60,16 @@ app.get('/users/:id', userIsAuthenticated, getUser);
 app.put('/users/:id', userIsAuthenticated, editUser);
 app.delete('/users/:id', userIsAuthenticated, deleteUser);
 
+//Spaces Routes
+app.get('/spaces', listSpaces);
+app.get('/spaces/:id', getSpace);
+app.post('/spaces', userIsAuthenticated, newSpace);
+app.put('/spaces/:id', userIsAuthenticated, editSpace);
+app.get('/spaces/:id/votes', getSpaceVotes);
+/*
+app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces); // Solo usuarios
+app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
+ */
 // Error middleware
 app.use((error, req, res, next) => {
   // console.error(error);
