@@ -12,12 +12,80 @@ const { entrySchema, voteSchema, searchSchema } = require('./validations');
 async function listSpaces(req, res, next) {
   try {
     const connection = await getConnection();
-    const { search } = req.query;
+    const { search, filter } = req.query;
 
     let result;
 
-    if (search) {
-      //hacer buscador
+    if (search && filter === 'name') {
+      await searchSchema.validateAsync(search);
+      result = await connection.query(
+        `select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where s.name like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        group by s.id
+        order by s.create_space desc
+        `,
+        [`%${search}%`]
+      );
+    } else if (search && filter === 'location') {
+      await searchSchema.validateAsync(search);
+      result = await connection.query(
+        `select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where (s.city like ? or s.community like ?)  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        group by s.id
+        order by s.create_space desc
+        `,
+        [`%${search}%`, `%${search}%`]
+      );
+    } else if (search && filter === 'type') {
+      await searchSchema.validateAsync(search);
+      result = await connection.query(
+        `select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where s.type like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        group by s.id
+        order by s.create_space desc
+        `,
+        [`%${search}%`]
+      );
+    } else if (search && filter === 'equipment') {
+      await searchSchema.validateAsync(search);
+      result = await connection.query(
+        `select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where s.equipment like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        group by s.id
+        order by s.create_space desc
+        `,
+        [`%${search}%`]
+      );
+    } else if (search && filter === 'date') {
+      await searchSchema.validateAsync(search);
+      result = await connection.query(
+        `
+        select s.* , avg(rt.score) as score from spaces s
+        left join reserves r
+        on  s.id=r.space_id
+        join ratings rt
+        on rt.space_id=s.id
+        where s.equipment like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < ?)
+        group by s.id
+        order by s.create_space desc`,
+        [formatDateToDB(new Date(search))]
+      );
     } else {
       result = await connection.query(
         `select s.* , avg(rt.score) as score from spaces s
@@ -30,6 +98,11 @@ async function listSpaces(req, res, next) {
         order by s.create_space desc
         `
       );
+    }
+    if (!result) {
+      const resultError = new Error('Not results');
+      resultError.httpCode = 400;
+      throw resultError;
     }
     const [entries] = result;
 

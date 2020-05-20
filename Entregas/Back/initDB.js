@@ -117,15 +117,15 @@ async function main() {
 
     await connection.query(`
       insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active,lastPasswordUpdate) values 
-      (2, 'Uriel Hellsdon', 'uhellsdon1', 'uhellsdon1@toplist.cz', '${passwordRandomUsers}', 'Telde', 'Canarias', '6622954423',true,true,UTC_TIMESTAMP),
-      (3, 'Benjamin Mellodey', 'bmellodey2', 'bmellodey2@dmoz.org', '${passwordRandomUsers}', 'Santiago De Compostela', 'Galicia', '7736800054',true,true,UTC_TIMESTAMP),
-      (4, 'Rhiamon Custed', 'rcusted3', 'rcusted3@wufoo.com', '${passwordRandomUsers}', 'Ourense', 'Galicia', '2318408230',true,true,UTC_TIMESTAMP),
-      (5, 'Chrissy Gemlett', 'cgemlett4', 'cgemlett4@amazon.co.jp', '${passwordRandomUsers}', 'Valladolid', 'Castilla - Leon', '1004079953',true,true,UTC_TIMESTAMP),
-      (6, 'Biddie Reddihough', 'breddihough5', 'breddihough5@discuz.net', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',false,true,UTC_TIMESTAMP),
-      (7, 'Hurley Atcheson', 'hatcheson6', 'hatcheson6@smh.com.au', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP),
-      (8, 'Robbie Fouracre', 'rfouracre7', 'rfouracre7@goo.gl', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',false,true,UTC_TIMESTAMP),
-      (9, 'Bobette Dunaway', 'bdunaway8', 'bdunaway8@shareasale.com', '${passwordRandomUsers}', 'Huesca', 'Aragon', '2804685614',false,true,UTC_TIMESTAMP),
-      (10, 'Carson Killford', 'ckillford9', 'ckillford9@printfriendly.com', '${passwordRandomUsers}', 'Albacete', 'Castilla - La Mancha', '4984652382',false,true,UTC_TIMESTAMP);
+      (2, 'Uriel Hellsdon', 'uhellsdon1', 'rubenpo167+user2@gmail.com', '${passwordRandomUsers}', 'Telde', 'Canarias', '6622954423',true,true,UTC_TIMESTAMP),
+      (3, 'Benjamin Mellodey', 'bmellodey2', 'rubenpo167+user3@gmail.com', '${passwordRandomUsers}', 'Santiago De Compostela', 'Galicia', '7736800054',false,true,UTC_TIMESTAMP),
+      (4, 'Rhiamon Custed', 'rcusted3', 'rubenpo167+user4@gmail.com', '${passwordRandomUsers}', 'Ourense', 'Galicia', '2318408230',false,true,UTC_TIMESTAMP),
+      (5, 'Chrissy Gemlett', 'cgemlett4', 'rubenpo167+user5@gmail.com', '${passwordRandomUsers}', 'Valladolid', 'Castilla - Leon', '1004079953',false,true,UTC_TIMESTAMP),
+      (6, 'Biddie Reddihough', 'breddihough5', 'rubenpo167+user6@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',false,true,UTC_TIMESTAMP),
+      (7, 'Hurley Atcheson', 'hatcheson6', 'rubenpo167+user7@gmail.com', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP),
+      (8, 'Robbie Fouracre', 'rfouracre7', 'rubenpo167+user8@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',false,true,UTC_TIMESTAMP),
+      (9, 'Bobette Dunaway', 'bdunaway8', 'rubenpo167+user9@gmail.com', '${passwordRandomUsers}', 'Huesca', 'Aragon', '2804685614',false,true,UTC_TIMESTAMP),
+      (10, 'Carson Killford', 'ckillford9', 'rubenpo167+user10@gmail.com', '${passwordRandomUsers}', 'Albacete', 'Castilla - La Mancha', '4984652382',false,true,UTC_TIMESTAMP);
       `);
 
     await connection.query(`
@@ -137,7 +137,7 @@ async function main() {
     `);
 
     await connection.query(`
-    insert into ratings (  score, comment,user_id,space_id) values 
+    insert into ratings (score, comment,user_id,space_id) values 
     (4, "me gusta la iluminacion",2,1),
     (5, "me gusta encanta",3,1),
     (4, "me gusta mucho este espacio",4,1),
@@ -160,6 +160,14 @@ async function main() {
     (4, "butacas muy comodas",4,4),
     (3, "recomendable",5,4),
     (1, "no se ve bien",6,4);
+    `);
+
+    await connection.query(`
+    insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id) values ("2020-04-07", "2020-05-07", true, true,2,1);
+    `);
+
+    await connection.query(`
+    insert into incidents (comment,reserve_id) values ("me falla el monitor",1);
     `);
   }
 
