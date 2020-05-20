@@ -54,19 +54,11 @@ async function main() {
       type varchar(40) not null,
       price decimal not null,
       description text not null,
+      equipment text not null,
       owner_id int unsigned not null,
       create_space timestamp default current_timestamp,
       update_space timestamp default current_timestamp on update current_timestamp,
       constraint fk_spaces_users_id foreign key (owner_id) references users(id)) ;
-   `);
-
-  await connection.query(`
-   create table equipment (
-      id int unsigned primary key auto_increment,
-      space_id int unsigned not null,
-      name varchar(30) not null,
-      number int unsigned not null,
-      constraint fk_equipments_spaces_id foreign key (space_id) references spaces(id));
    `);
 
   await connection.query(`
@@ -137,38 +129,11 @@ async function main() {
       `);
 
     await connection.query(`
-    insert into spaces (id, name, city, community, adress, type, price,  description, owner_id) values
-    (1, 'Zamit', 'Palmas De Gran Canaria, Las', 'Canarias', 'Avenida de Las Canteras 43', 'puesto trabajo', 200,  'Este es el espacio de trabajo ideal si estás buscando algo sencillo pero eficiente, ya que tiene todo el material necesario para realizar tu trabajo de forma cómoda. Es una sala amplía en al que hay 10 puestos individuales de trabajo para personas que no quieran reservar una oficina entera', 5),
-    (2, 'Blue office', 'Barcelona', 'Cataluña', 'Carrer de la Princesa 7', 'oficina', 2100, 'Un espacio amplio, diáfano y domotizado, inundado por luz natural, con capacidad para 20 puestos de trabajo, con zona de reprografía y zonas de descanso y de reunión de libre uso. Además, es eficiente y sostenible; planteado para mejorar la eficiencia energética y la correcta gestión de residuos. Los puestos de trabajo están equipados con mobiliario ergonómico y de diseño con separaciones independientes y cuidados hasta el último detalle, es el espacio perfecto para un equipo de trabajo.', 2),
-    (3, 'La paz', 'Vigo', 'Galicia', 'Av de la Florida 11', 'sala fotografíca', 49.99,  'Esta sala es ideal para realizar sesiones de fotos, o cualquier otro proyecto. Tiene instrumentos necesarios para realizar las mejores imágenes. ', 3),
-    (4, 'Meetings', 'Pontevedra', 'Galicia', 'Calle de la Peregrina 5', 'sala', 120,  'Esta espacio es una sala ideal para realizar reuniones,exponer proyectos o realizar eventos de otro tipo. Cuenta con 20 butacas que las podemos colocar en función de su necesidad, ya sea para una reunion(con una mesa central y coladas alredeor las butacas) a una exposición (colocadas por filas para ver la pantalla).', 4);
-    `);
-
-    await connection.query(`
-    insert into equipment (id, space_id, name, number) values
-    (1, 1, 'sillas', 1),
-    (2, 1, 'mesas', 1),
-    (3, 1, 'monitores', 2),
-    (4, 1, 'internet (MB)', 200),
-    (5, 1, 'enchufes', 4),
-
-    (6, 2, 'sillas', 20),
-    (7, 2, 'mesas', 20),
-    (8, 2, 'monitores', 20),
-    (9, 2, 'internet (MB)', 200),
-    (10, 2, 'impresoras', 2),
-    (11, 2, 'taquillas', 20),
-
-    (12, 3, 'sillas', 3),
-    (13, 3, 'fondos', 3),
-    (14, 3, 'ventanas de luz', 3),
-    (15, 3, 'tripodes', 2),
-    (16, 3, 'pantallas', 1),
-    
-    (17, 4, 'butacas', 20),
-    (18, 4, 'proyectores', 1),
-    (19, 4, 'mesas', 3),
-    (20, 4, 'pantallas', 1);
+    insert into spaces (id, name, city, community, adress, type, price,  description, owner_id,equipment) values
+    (1, 'Zamit', 'Palmas De Gran Canaria, Las', 'Canarias', 'Avenida de Las Canteras 43', 'puesto trabajo', 200,  'Este es el espacio de trabajo ideal si estás buscando algo sencillo pero eficiente, ya que tiene todo el material necesario para realizar tu trabajo de forma cómoda. Es una sala amplía en al que hay 10 puestos individuales de trabajo para personas que no quieran reservar una oficina entera', 5,'silla,escritorio,monitores,internet(300MB),impresora'),
+    (2, 'Blue office', 'Barcelona', 'Cataluña', 'Carrer de la Princesa 7', 'oficina', 2100, 'Un espacio amplio, diáfano y domotizado, inundado por luz natural, con capacidad para 20 puestos de trabajo, con zona de reprografía y zonas de descanso y de reunión de libre uso. Además, es eficiente y sostenible; planteado para mejorar la eficiencia energética y la correcta gestión de residuos. Los puestos de trabajo están equipados con mobiliario ergonómico y de diseño con separaciones independientes y cuidados hasta el último detalle, es el espacio perfecto para un equipo de trabajo.', 2,'sillas,escritorios,monitores,internet(300MB),impresoras,taquillsa'),
+    (3, 'La paz', 'Vigo', 'Galicia', 'Av de la Florida 11', 'sala fotografíca', 49.99,  'Esta sala es ideal para realizar sesiones de fotos, o cualquier otro proyecto. Tiene instrumentos necesarios para realizar las mejores imágenes. ', 3,'sillas,fondos,ventanas de luz,tripodes,pantallas,camára'),
+    (4, 'Meetings', 'Pontevedra', 'Galicia', 'Calle de la Peregrina 5', 'sala', 120,  'Esta espacio es una sala ideal para realizar reuniones,exponer proyectos o realizar eventos de otro tipo. Cuenta con 20 butacas que las podemos colocar en función de su necesidad, ya sea para una reunion(con una mesa central y coladas alredeor las butacas) a una exposición (colocadas por filas para ver la pantalla).', 4,'butacas,proyectores,mesas,pantallas');
     `);
 
     await connection.query(`

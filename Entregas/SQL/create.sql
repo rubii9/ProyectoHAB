@@ -41,18 +41,13 @@ photo3 varchar(255) default null,
 type varchar(40) not null,
 price decimal not null,
 description text not null,
+equipment text not null,
 owner_id int unsigned not null,
 create_space timestamp default current_timestamp,
 update_space timestamp default current_timestamp on update current_timestamp,
 constraint fk_spaces_users_id foreign key (owner_id) references users(id)) ;
 
 
-create table equipment (
-id int unsigned primary key auto_increment,
-space_id int unsigned not null,
-name varchar(30) not null,
-number int unsigned not null,
-constraint fk_equipments_spaces_id foreign key (space_id) references spaces(id));
 
 create table reserves (
 id int unsigned primary key auto_increment,

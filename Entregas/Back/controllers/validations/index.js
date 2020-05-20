@@ -116,13 +116,14 @@ const entrySchema = Joi.object().keys({
     .required()
     .error(generateError('Type is required and max 30 characters', 400)),
 
-  number: Joi.number().required().error(generateError('Number is required')),
-
-  eq_name: Joi.string()
-    .max(30)
+  equipment: Joi.string()
+    .max(3000)
     .required()
     .error(
-      generateError('The equipment name is required and max 30 characters', 400)
+      generateError(
+        'The equipment name is required and max 3000 characters',
+        400
+      )
     )
 });
 

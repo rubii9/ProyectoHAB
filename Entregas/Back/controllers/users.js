@@ -437,12 +437,6 @@ async function deleteUser(req, res, next) {
 
     await connection.query(
       `
-    delete from equipment where space_id = (
-      select id from spaces where owner_id = ?);`,
-      [id]
-    );
-    await connection.query(
-      `
     delete from incidents where reserve_id =
     (select id from reserves where space_id = (
       select id from spaces where owner_id = ?)

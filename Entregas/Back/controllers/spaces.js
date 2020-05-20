@@ -50,11 +50,11 @@ async function newSpace(req, res, next) {
   try {
     await entrySchema.validateAsync(req.body);
 
-    const { eq_name, number } = req.body;
     const {
       name,
       city,
       community,
+      equipment,
       adress,
       description,
       type,
@@ -106,13 +106,14 @@ async function newSpace(req, res, next) {
     const [
       result
     ] = await connection.query(
-      `INSERT INTO spaces(name,city,community,adress,description,photo1,photo2,photo3,type,price,owner_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO spaces(name,city,community,adress,description,photo1,photo2,photo3,type,price,owner_id,equipment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         city,
         community,
         adress,
         description,
+        equipment,
         savedFileName1,
         savedFileName2,
         savedFileName3,
@@ -120,11 +121,6 @@ async function newSpace(req, res, next) {
         price,
         req.auth.id
       ]
-    );
-
-    await connection.query(
-      'INSERT INTO equipment(name,number,space_id) VALUES (?,?,?)',
-      [eq_name, number, result.insertId]
     );
 
     connection.release();
@@ -137,14 +133,13 @@ async function newSpace(req, res, next) {
         community,
         adress,
         description,
+        equipment,
         savedFileName1,
         savedFileName2,
         savedFileName3,
         type,
         price,
-        owner_id: req.auth.id,
-        eq_name,
-        number
+        owner_id: req.auth.id
       }
     });
   } catch (error) {
@@ -155,8 +150,7 @@ async function newSpace(req, res, next) {
 // PUT - /spaces/:id
 async function editSpace(req, res, next) {
   try {
-    const { eq_name, number } = req.body;
-    const { name, description, type, price } = req.body;
+    const { name, description, type, price, equipment } = req.body;
     const { id } = req.params;
 
     await entrySchema.validateAsync(req.body);
@@ -269,17 +263,10 @@ async function editSpace(req, res, next) {
       ]);
     }
 
-    if (eq_name) {
-      await connection.query('UPDATE equipment SET name=?,  WHERE space_id=?', [
-        eq_name,
-        id
-      ]);
-    }
-
-    if (number) {
+    if (equipment) {
       await connection.query(
-        'UPDATE equipment SET number=?,  WHERE space_id=?',
-        [number, id]
+        'UPDATE spaces SET equipment=?,  WHERE space_id=?',
+        [equipment, id]
       );
     }
 
@@ -395,8 +382,6 @@ async function deleteSpace(req, res, next) {
       select id from spaces where owner_id = ?)`,
       [id]
     );
-
-    await connection.query(`delete from equipment where space_id = ?`, [id]);
 
     await connection.query(
       `delete from incidents where reserve_id =

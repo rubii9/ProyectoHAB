@@ -12,37 +12,14 @@ insert into users (id, name, nickname, email, password, city, community, phone,a
 
 
 -- SPACES
-insert into spaces (id, name, city, community, adress, type, price,  description, owner_id) values(2, 'Blue office', 'Barcelona', 'Cataluña', 'Carrer de la Princesa 7', 'oficina', 2100, 'Un espacio amplio, diáfano y domotizado, inundado por luz natural, con capacidad para 20 puestos de trabajo, con zona de reprografía y zonas de descanso y de reunión de libre uso. Además, es eficiente y sostenible; planteado para mejorar la eficiencia energética y la correcta gestión de residuos. Los puestos de trabajo están equipados con mobiliario ergonómico y de diseño con separaciones independientes y cuidados hasta el último detalle, es el espacio perfecto para un equipo de trabajo.', 2);
-insert into spaces (id, name, city, community, adress, type, price,  description, owner_id) values (3, 'La paz', 'Vigo', 'Galicia', 'Av de la Florida 11', 'sala fotografíca', 49.99,  'Esta sala es ideal para realizar sesiones de fotos, o cualquier otro proyecto. Tiene instrumentos necesarios para realizar las mejores imágenes. ', 3);
-insert into spaces (id, name, city, community, adress, type, price,  description, owner_id) values (4, 'Meetings', 'Pontevedra', 'Galicia', 'Calle de la Peregrina 5', 'sala', 120,  'Esta espacio es una sala ideal para realizar reuniones,exponer proyectos o realizar eventos de otro tipo. Cuenta con 20 butacas que las podemos colocar en función de su necesidad, ya sea para una reunion(con una mesa central y coladas alredeor las butacas) a una exposición (colocadas por filas para ver la pantalla).', 4);
-insert into spaces (id, name, city, community, adress, type, price,  description, owner_id) values (1, 'Zamit', 'Palmas De Gran Canaria, Las', 'Canarias', 'Avenida de Las Canteras 43', 'puesto trabajo', 200,  'Este es el espacio de trabajo ideal si estás buscando algo sencillo pero eficiente, ya que tiene todo el material necesario para realizar tu trabajo de forma cómoda. Es una sala amplía en al que hay 10 puestos individuales de trabajo para personas que no quieran reservar una oficina entera', 5);
+insert into spaces (id, name, city, community, adress, type, price,  description, owner_id,equipment) values
+    (1, 'Zamit', 'Palmas De Gran Canaria, Las', 'Canarias', 'Avenida de Las Canteras 43', 'puesto trabajo', 200,  'Este es el espacio de trabajo ideal si estás buscando algo sencillo pero eficiente, ya que tiene todo el material necesario para realizar tu trabajo de forma cómoda. Es una sala amplía en al que hay 10 puestos individuales de trabajo para personas que no quieran reservar una oficina entera', 5,'silla,escritorio,monitores,internet(300MB),impresora'),
+    (2, 'Blue office', 'Barcelona', 'Cataluña', 'Carrer de la Princesa 7', 'oficina', 2100, 'Un espacio amplio, diáfano y domotizado, inundado por luz natural, con capacidad para 20 puestos de trabajo, con zona de reprografía y zonas de descanso y de reunión de libre uso. Además, es eficiente y sostenible; planteado para mejorar la eficiencia energética y la correcta gestión de residuos. Los puestos de trabajo están equipados con mobiliario ergonómico y de diseño con separaciones independientes y cuidados hasta el último detalle, es el espacio perfecto para un equipo de trabajo.', 2,'sillas,escritorios,monitores,internet(300MB),impresoras,taquillsa'),
+    (3, 'La paz', 'Vigo', 'Galicia', 'Av de la Florida 11', 'sala fotografíca', 49.99,  'Esta sala es ideal para realizar sesiones de fotos, o cualquier otro proyecto. Tiene instrumentos necesarios para realizar las mejores imágenes. ', 3,'sillas,fondos,ventanas de luz,tripodes,pantallas,camára'),
+    (4, 'Meetings', 'Pontevedra', 'Galicia', 'Calle de la Peregrina 5', 'sala', 120,  'Esta espacio es una sala ideal para realizar reuniones,exponer proyectos o realizar eventos de otro tipo. Cuenta con 20 butacas que las podemos colocar en función de su necesidad, ya sea para una reunion(con una mesa central y coladas alredeor las butacas) a una exposición (colocadas por filas para ver la pantalla).', 4,'butacas,proyectores,mesas,pantallas');
+    
 
--- EQUIPMENT
--- Espacio 1
-insert into equipment (id, space_id, name, number) values (1, 1, 'sillas', 1);
-insert into equipment (id, space_id, name, number) values (2, 1, 'mesas', 1);
-insert into equipment (id, space_id, name, number) values (3, 1, 'monitores', 2);
-insert into equipment (id, space_id, name, number) values (4, 1, 'internet (MB)', 200);
-insert into equipment (id, space_id, name, number) values (5, 1, 'enchufes', 4);
--- Espacio 2
-insert into equipment (id, space_id, name, number) values (6, 2, 'sillas', 20);
-insert into equipment (id, space_id, name, number) values (7, 2, 'mesas', 20);
-insert into equipment (id, space_id, name, number) values (8, 2, 'monitores', 20);
-insert into equipment (id, space_id, name, number) values (9, 2, 'internet (MB)', 200);
-insert into equipment (id, space_id, name, number) values (10, 2, 'impresoras', 2);
-insert into equipment (id, space_id, name, number) values (11, 2, 'taquillas', 20);
 
--- Espacio 3
-insert into equipment (id, space_id, name, number) values (12, 3, 'sillas', 3);
-insert into equipment (id, space_id, name, number) values (13, 3, 'fondos', 3);
-insert into equipment (id, space_id, name, number) values (14, 3, 'ventanas de luz', 3);
-insert into equipment (id, space_id, name, number) values (15, 3, 'tripodes', 2);
-insert into equipment (id, space_id, name, number) values (16, 3, 'pantallas', 1);
--- Espacio 4
-insert into equipment (id, space_id, name, number) values(17, 4, 'butacas', 20);
-insert into equipment (id, space_id, name, number) values (18, 4, 'proyectores', 1);
-insert into equipment (id, space_id, name, number) values(19, 4, 'mesas', 3);
-insert into equipment (id, space_id, name, number) values (20, 4, 'pantallas', 1);
 
 -- RATINGS
 
