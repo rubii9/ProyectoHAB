@@ -127,12 +127,16 @@ const entrySchema = Joi.object().keys({
 });
 
 const voteSchema = Joi.object().keys({
-  vote: Joi.number()
+  score: Joi.number()
     .min(1)
     .max(5)
     .integer()
     .required()
-    .error(generateError('Vote is required and should be between 1 y 5', 400))
+    .error(generateError('Vote is required and should be between 1 y 5', 400)),
+
+  comment: Joi.string()
+    .max(1000)
+    .error(generateError('Comment should be less than 1000 characters', 400))
 });
 
 module.exports = {

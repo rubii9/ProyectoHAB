@@ -369,20 +369,46 @@ async function deleteSpace(req, res, next) {
     // Delete image if exists!
     const [
       current
-    ] = await connection.query('SELECT image from diary where id=?', [id]);
+    ] = await connection.query(
+      'SELECT photo1,photo2,photo3 from diary where id=?',
+      [id]
+    );
 
-    if (!current.length) {
+    if (!current[0].length) {
       const error = new Error(`There is no entry with id ${id}`);
       error.httpCode = 400;
       throw error;
     }
 
-    if (current.image) {
-      await deletePhoto(current.image);
+    if (current[0].photo1) {
+      await deletePhoto(current[0].photo1);
+    }
+    if (current[0].photo2) {
+      await deletePhoto(current[0].photo2);
+    }
+    if (current[0].photo3) {
+      await deletePhoto(current[0].photo3);
     }
 
-    await connection.query('DELETE from diary WHERE id=?', [id]);
-    await connection.query('DELETE FROM diary_votes WHERE entry_id=?', [id]);
+    await connection.query(
+      `delete from reserves where space_id =(
+      select id from spaces where owner_id = ?)`,
+      [id]
+    );
+
+    await connection.query(`delete from equipment where space_id = ?`, [id]);
+
+    await connection.query(
+      `delete from incidents where reserve_id =
+    (select id from reserves where space_id =?)`,
+      [id]
+    );
+
+    await connection.query(`delete from reserves where space_id =?`, [id]);
+
+    await connection.query(`delete from ratings where space_id =?`, [id]);
+
+    await connection.query(`delete from spaces where id = ?`, [id]);
 
     connection.release();
 
@@ -403,17 +429,17 @@ async function voteSpaces(req, res, next) {
     // Validate payload
     await voteSchema.validateAsync(req.body);
 
-    const { vote } = req.body;
+    const { score, comment } = req.body;
 
     const connection = await getConnection();
 
     // Check if the entry actually exists
-    const [entry] = await connection.query('SELECT id from diary where id=?', [
+    const [entry] = await connection.query('SELECT id from spaces where id=?', [
       id
     ]);
 
     if (!entry.length) {
-      const error = new Error('La entrada con la id específicada no existe');
+      const error = new Error(`No found space with id ${id}`);
       error.httpCode = 404;
       throw error;
     }
@@ -422,12 +448,12 @@ async function voteSpaces(req, res, next) {
     const [
       existingVote
     ] = await connection.query(
-      'SELECT id from diary_votes where entry_id=? AND user_id=?',
+      'SELECT id from ratings where space_id=? AND user_id=?',
       [id, req.auth.id]
     );
 
     if (existingVote.length) {
-      const error = new Error('Ya se votó a esta entrada tu usuario');
+      const error = new Error('You have already voted');
       error.httpCode = 403;
       throw error;
     }
@@ -435,22 +461,23 @@ async function voteSpaces(req, res, next) {
     //Vote
     await connection.query(
       `
-      INSERT INTO diary_votes(entry_id, vote, date, user_id) 
+      INSERT INTO ratings(space_id, score, comment, user_id) 
       VALUES(?, ?, ?, ?)`,
-      [id, vote, formatDateToDB(new Date()), req.auth.id]
+      [id, score, comment, req.auth.id]
     );
 
     connection.release();
 
     res.send({
       status: 'ok',
-      message: `The vote (${vote} points) to the entry with id ${id} was successful`
+      message: `The vote (${score} points) to the entry with id ${id} was successful`
     });
   } catch (error) {
     next(error);
   }
 }
 
+//GET - /spaces/:id/votes
 async function getSpaceVotes(req, res, next) {
   try {
     const { id } = req.params;

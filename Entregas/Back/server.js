@@ -66,10 +66,9 @@ app.get('/spaces/:id', getSpace);
 app.post('/spaces', userIsAuthenticated, newSpace);
 app.put('/spaces/:id', userIsAuthenticated, editSpace);
 app.get('/spaces/:id/votes', getSpaceVotes);
-/*
-app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces); // Solo usuarios
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
- */
+app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
+
 // Error middleware
 app.use((error, req, res, next) => {
   // console.error(error);
