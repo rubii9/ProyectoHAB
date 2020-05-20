@@ -132,7 +132,7 @@ const voteSchema = Joi.object().keys({
     .max(5)
     .integer()
     .required()
-    .error(generateError('Vote is required and should be between 1 y 5', 400)),
+    .error(generateError('Score is required and should be between 1 y 5', 400)),
 
   comment: Joi.string()
     .max(1000)

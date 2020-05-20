@@ -483,9 +483,14 @@ async function getSpaceVotes(req, res, next) {
     const { id } = req.params;
     const connection = await getConnection();
 
-    const [
-      votes
-    ] = await connection.query('SELECT * from ratings WHERE space_id=?', [id]);
+    const [votes] = await connection.query(
+      `
+      SELECT r.*,u.name,u.nickname from ratings r
+        inner join users u
+        on u.id=r.user_id
+        WHERE space_id=?`,
+      [id]
+    );
 
     connection.release();
 
