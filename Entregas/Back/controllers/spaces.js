@@ -81,7 +81,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         join ratings rt
         on rt.space_id=s.id
-        where s.equipment like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < ?)
+        where (r.end_date is null and r.start_date is null) or r.end_date < ?
         group by s.id
         order by s.create_space desc`,
         [formatDateToDB(new Date(search))]
