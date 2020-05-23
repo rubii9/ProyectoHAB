@@ -22,7 +22,7 @@ const {
   deleteUser
 } = require('./controllers/users');
 
-// EntrnewEntryy Controllers
+//Spaces Controllers
 const {
   listSpaces,
   newSpace,
@@ -32,6 +32,9 @@ const {
   voteSpaces,
   getSpaceVotes
 } = require('./controllers/spaces');
+
+//My coworking
+const { listMyCoworking } = require('./controllers/mycoworking');
 
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
@@ -69,6 +72,8 @@ app.get('/spaces/:id/votes', getSpaceVotes);
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
 app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
 
+//My Coworking
+app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
 // Error middleware
 app.use((error, req, res, next) => {
   // console.error(error);
