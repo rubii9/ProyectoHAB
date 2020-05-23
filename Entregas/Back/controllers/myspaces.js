@@ -1,6 +1,6 @@
 const { getConnection } = require('../db');
 
-async function listMyCoworking(req, res, next) {
+async function listMySpaces(req, res, next) {
   try {
     const connection = await getConnection();
 
@@ -8,14 +8,16 @@ async function listMyCoworking(req, res, next) {
 
     result = await connection.query(
       `
-    select s.* ,r.*,i.*from reserves r,incidents i, spaces s
-    where r.id = i.reserve_id and r.space_id = s.id
-    and r.user_id = ?  
+      select u.name, s.*,i.* from users u,spaces s,incidents i,reserves r
+      where u.id=s.owner_id and r.id=i.reserve_id
+      and s.owner_id = ?
     `,
       [req.auth.id]
     );
     if (!result) {
-      const resultError = new Error('You have not reserves');
+      const resultError = new Error(
+        'You have not spaces, try tu post a new space'
+      );
       resultError.httpCode = 400;
       throw resultError;
     }
@@ -32,5 +34,5 @@ async function listMyCoworking(req, res, next) {
 }
 
 module.exports = {
-  listMyCoworking
+  listMySpaces
 };

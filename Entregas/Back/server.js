@@ -36,6 +36,9 @@ const {
 //My coworking
 const { listMyCoworking } = require('./controllers/mycoworking');
 
+//My spaces
+const { listMySpaces } = require('./controllers/myspaces');
+
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
 
@@ -74,6 +77,10 @@ app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
 
 //My Coworking
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
+
+//My Spaces
+app.get('/myspaces', userIsAuthenticated, listMySpaces);
+
 // Error middleware
 app.use((error, req, res, next) => {
   // console.error(error);
