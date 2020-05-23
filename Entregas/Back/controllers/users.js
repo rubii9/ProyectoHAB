@@ -96,23 +96,9 @@ async function validateUser(req, res, next) {
       throw generateError('Invalid validation', 400);
     }
 
-    // // Si queremos dar el token descomentar las siguientes líneas
-    // const [user] = await connection.query('SELECT role from users where id=?', [
-    //   id
-    // ]);
-
-    // // Build jsonwebtoken
-    // const tokenPayload = { id: id, role: user[0].role };
-    // const token = jwt.sign(tokenPayload, process.env.SECRET, {
-    //   expiresIn: '30d'
-    // });
-
     res.send({
       status: 'ok',
       message: 'User validated, now you can login.'
-      // data: {
-      //   token
-      // }
     });
   } catch (error) {
     next(error);

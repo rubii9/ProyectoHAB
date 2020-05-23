@@ -34,7 +34,11 @@ const {
 } = require('./controllers/spaces');
 
 //My coworking
-const { listMyCoworking } = require('./controllers/mycoworking');
+const {
+  listMyCoworking,
+  newIncident,
+  payment
+} = require('./controllers/mycoworking');
 
 //My spaces
 const { listMySpaces } = require('./controllers/myspaces');
@@ -77,6 +81,8 @@ app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
 
 //My Coworking
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
+app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
+app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);

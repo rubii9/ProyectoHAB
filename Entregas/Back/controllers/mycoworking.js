@@ -1,5 +1,5 @@
 const { getConnection } = require('../db');
-
+const { incident } = require('./validations');
 async function listMyCoworking(req, res, next) {
   try {
     const connection = await getConnection();
@@ -8,8 +8,8 @@ async function listMyCoworking(req, res, next) {
 
     result = await connection.query(
       `
-    select s.* ,r.*,i.*from reserves r,incidents i, spaces s
-    where r.id = i.reserve_id and r.space_id = s.id
+    select s.* ,r.*from reserves r, spaces s
+    where r.space_id = s.id
     and r.user_id = ?  
     `,
       [req.auth.id]
@@ -21,7 +21,7 @@ async function listMyCoworking(req, res, next) {
     }
 
     const [entries] = result;
-
+    connection.release();
     res.send({
       status: 'ok',
       data: entries
@@ -31,6 +31,52 @@ async function listMyCoworking(req, res, next) {
   }
 }
 
+//pagar la reserva
+async function payment() {}
+
+//crear incidencia
+async function newIncident(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    await incident.validateAsync(req.body);
+
+    const { comment } = req.body;
+
+    const connection = await getConnection();
+
+    const [
+      entry
+    ] = await connection.query('SELECT id from reserves where space_id = ?', [
+      id
+    ]);
+
+    if (!entry.length) {
+      const error = new Error(`No found space with id ${id}`);
+      error.httpCode = 404;
+      throw error;
+    }
+
+    await connection.query(
+      `
+    INSERT INTO incidents (comment,reserve_id) 
+    VALUES(?, ?)`,
+      [comment, id]
+    );
+
+    connection.release();
+
+    res.send({
+      status: 'ok',
+      message: `The new incedent to the reserve with id ${id} was successful`
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
-  listMyCoworking
+  listMyCoworking,
+  newIncident,
+  payment
 };

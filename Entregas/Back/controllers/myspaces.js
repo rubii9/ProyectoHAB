@@ -5,11 +5,11 @@ async function listMySpaces(req, res, next) {
     const connection = await getConnection();
 
     let result;
-
+    let incidents;
     result = await connection.query(
       `
-      select u.name, s.*,i.* from users u,spaces s,incidents i,reserves r
-      where u.id=s.owner_id and r.id=i.reserve_id
+      select u.name, s.* from users u,spaces s
+      where u.id=s.owner_id 
       and s.owner_id = ?
     `,
       [req.auth.id]
@@ -21,12 +21,20 @@ async function listMySpaces(req, res, next) {
       resultError.httpCode = 400;
       throw resultError;
     }
-
+    incidents = await connection.query(
+      `
+    select i.comment from incidents i,reserves r
+    where r.id = i.reserve_id
+    and r.user_id = ?`,
+      [req.auth.id]
+    );
+    const [comments] = incidents;
     const [entries] = result;
-
+    connection.release();
     res.send({
       status: 'ok',
-      data: entries
+      data: entries,
+      dataIncidents: comments
     });
   } catch (error) {
     next(error);

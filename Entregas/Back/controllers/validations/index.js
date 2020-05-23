@@ -140,6 +140,10 @@ const voteSchema = Joi.object().keys({
     .error(generateError('Comment should be less than 1000 characters', 400))
 });
 
+const incident = Joi.object().keys({
+  comment: Joi.string().max(300).required()
+});
+
 module.exports = {
   entrySchema,
   voteSchema,
@@ -147,5 +151,6 @@ module.exports = {
   userSchema,
   editUserSchema,
   editPasswordUserSchema,
-  userSchemaRegister
+  userSchemaRegister,
+  incident
 };
