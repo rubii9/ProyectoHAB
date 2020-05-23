@@ -23,10 +23,9 @@ async function listMySpaces(req, res, next) {
     }
     incidents = await connection.query(
       `
-    select i.comment from incidents i,reserves r
-    where r.id = i.reserve_id
-    and r.user_id = ?`,
-      [req.auth.id]
+    select i.comment,r.space_id from incidents i,reserves r
+    where r.id = i.reserve_id and i.state="abierta"
+    `
     );
     const [comments] = incidents;
     const [entries] = result;
