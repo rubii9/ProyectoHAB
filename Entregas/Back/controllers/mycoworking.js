@@ -40,7 +40,6 @@ async function validatePay(req, res, next) {
   try {
     const { code } = req.query;
     connection = await getConnection();
-    // Actualizamos el usuario
     const [
       result
     ] = await connection.query(
@@ -66,7 +65,7 @@ async function validatePay(req, res, next) {
 async function payment(req, res, next) {
   let connection;
   try {
-    //
+    //hacer el codigo de payment
   } catch (error) {
     next(error);
   } finally {

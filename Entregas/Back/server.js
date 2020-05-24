@@ -89,10 +89,10 @@ app.put('/spaces/:id', userIsAuthenticated, editSpace);
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
 
 //My Coworking
+app.get('/mycoworking/validate', validatePay);
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
 app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
-/* app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
-app.get('/mycoworking/validate',userIsAuthenticated,validatePay); */
+app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);
