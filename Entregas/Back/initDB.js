@@ -82,7 +82,7 @@ async function main() {
    create table incidents (
       id int unsigned primary key auto_increment,
       comment text default null,
-      state enum ("abierta","cerrada") default "abierta",
+      state enum ("open","close") default "open",
       reserve_id int unsigned not null,
       create_incident timestamp default current_timestamp,
       update_incident timestamp default current_timestamp on update current_timestamp,

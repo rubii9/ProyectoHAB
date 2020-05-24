@@ -24,7 +24,7 @@ async function listMySpaces(req, res, next) {
     incidents = await connection.query(
       `
     select i.comment,r.space_id from incidents i,reserves r
-    where r.id = i.reserve_id and i.state="abierta"
+    where r.id = i.reserve_id and i.state="open"
     `
     );
     const [comments] = incidents;
@@ -40,6 +40,75 @@ async function listMySpaces(req, res, next) {
   }
 }
 
+//Close incidents
+
+async function closeIncident(req, res, next) {
+  try {
+    const { id } = req.params;
+    const connection = await getConnection();
+
+    const [
+      current
+    ] = await connection.query('SELECT id,owner_id FROM spaces WHERE id=?', [
+      id
+    ]);
+
+    if (!current.length) {
+      const error = new Error(`The space with id ${id} does not exist`);
+      error.httpCode = 404;
+      throw error;
+    }
+
+    if (current[0].owner_id !== req.auth.id && req.auth.role !== 'admin') {
+      const error = new Error('Access denied');
+      error.httpCode = 401;
+      throw error;
+    }
+
+    const [comments] = await connection.query(
+      `select i.comment from incidents i,reserves r
+      where r.id = i.reserve_id and i.state="open" and r.space_id = ?`,
+      [id]
+    );
+
+    await connection.query(`SET SQL_SAFE_UPDATES = 0`);
+
+    await connection.query(
+      `
+    UPDATE incidents i
+    inner join reserves r
+    on i.reserve_id=r.id
+    set state = "close"
+    where state="open" and r.space_id = ?`,
+      [id]
+    );
+
+    await connection.query(`SET SQL_SAFE_UPDATES = 1`);
+
+    connection.release();
+    res.send({
+      status: 'ok',
+      data: {
+        id,
+        comments
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+//Clean Space
+async function cleanSpace(req, res, next) {
+  try {
+    const connection = await getConnection();
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
-  listMySpaces
+  listMySpaces,
+  cleanSpace,
+  closeIncident
 };

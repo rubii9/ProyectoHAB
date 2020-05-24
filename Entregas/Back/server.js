@@ -41,7 +41,11 @@ const {
 } = require('./controllers/mycoworking');
 
 //My spaces
-const { listMySpaces } = require('./controllers/myspaces');
+const {
+  listMySpaces,
+  cleanSpace,
+  closeIncident
+} = require('./controllers/myspaces');
 
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
@@ -87,7 +91,8 @@ app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);
-/* app.put('/myspaces', userIsAuthenticated, editMySpaces); */
+/* app.put('/myspaces/:id', userIsAuthenticated, cleanSpace); */
+app.put('/myspaces/:id', userIsAuthenticated, closeIncident);
 
 // Error middleware
 app.use((error, req, res, next) => {
