@@ -3,7 +3,8 @@ const { getConnection } = require('../db');
 const {
   formatDateToDB,
   processAndSavePhoto,
-  deletePhoto
+  deletePhoto,
+  generateError
 } = require('../helpers');
 
 const { entrySchema, voteSchema, searchSchema } = require('./validations');
@@ -101,9 +102,7 @@ async function listSpaces(req, res, next) {
       );
     }
     if (!result) {
-      const resultError = new Error('Not results');
-      resultError.httpCode = 400;
-      throw resultError;
+      throw generateError('Not results', 400);
     }
     const [entries] = result;
 
@@ -245,16 +244,12 @@ async function editSpace(req, res, next) {
     );
 
     if (!current.length) {
-      const error = new Error(`The entry with id ${id} does not exist`);
-      error.httpCode = 404;
-      throw error;
+      throw generateError(`The entry with id ${id} does not exist`, 404);
     }
 
     // Check if the authenticated user is the entry author or admin
     if (current[0].user_id !== req.auth.id && req.auth.role !== 'admin') {
-      const error = new Error('Access denied');
-      error.httpCode = 401;
-      throw error;
+      throw generateError('Access denied', 401);
     }
 
     let savedFileName1;
@@ -269,11 +264,7 @@ async function editSpace(req, res, next) {
           await deletePhoto(current.photo1);
         }
       } catch (error) {
-        const imageError = new Error(
-          'Can not process upload image. Try again.'
-        );
-        imageError.httpCode = 400;
-        throw imageError;
+        throw generateError('Can not process upload image 1. Try again.', 400);
       }
     } else {
       savedFileName1 = current.photo1;
@@ -287,11 +278,7 @@ async function editSpace(req, res, next) {
           await deletePhoto(current.photo2);
         }
       } catch (error) {
-        const imageError = new Error(
-          'Can not process upload image. Try again.'
-        );
-        imageError.httpCode = 400;
-        throw imageError;
+        throw generateError('Can not process upload image 2. Try again.', 400);
       }
     } else {
       savedFileName2 = current.photo2;
@@ -305,11 +292,7 @@ async function editSpace(req, res, next) {
           await deletePhoto(current.photo1);
         }
       } catch (error) {
-        const imageError = new Error(
-          'Can not process upload image. Try again.'
-        );
-        imageError.httpCode = 400;
-        throw imageError;
+        throw generateError('Can not process upload image 3. Try again.', 400);
       }
     } else {
       savedFileName3 = current.photo3;
@@ -413,9 +396,7 @@ async function getSpace(req, res, next) {
     );
 
     if (!result[0].id) {
-      const error = new Error(`The entry with id ${id} does not exist`);
-      error.httpCode = 404;
-      throw error;
+      throw generateError(`The entry with id ${id} does not exist`, 404);
     }
 
     connection.release();
@@ -448,9 +429,7 @@ async function deleteSpace(req, res, next) {
     );
 
     if (!current[0].length) {
-      const error = new Error(`There is no entry with id ${id}`);
-      error.httpCode = 400;
-      throw error;
+      throw generateError(`There is no entry with id ${id}`, 400);
     }
 
     if (current[0].photo1) {
@@ -513,9 +492,7 @@ async function voteSpaces(req, res, next) {
     ]);
 
     if (!entry.length) {
-      const error = new Error(`No found space with id ${id}`);
-      error.httpCode = 404;
-      throw error;
+      throw generateError(`No found space with id ${id}`, 404);
     }
 
     // Check if the user with the current ID already voted for this entry
@@ -527,9 +504,7 @@ async function voteSpaces(req, res, next) {
     );
 
     if (existingVote.length) {
-      const error = new Error('You have already voted');
-      error.httpCode = 403;
-      throw error;
+      throw generateError('You have already voted', 403);
     }
 
     //Vote
@@ -582,6 +557,28 @@ async function getSpaceVotes(req, res, next) {
   }
 }
 
+async function validateReserve(req, res, next) {
+  let connection;
+  try {
+    //
+  } catch (error) {
+    next(error);
+  } finally {
+    if (connection) connection.release();
+  }
+}
+
+async function reserveSpace(req, res, next) {
+  let connection;
+  try {
+    //
+  } catch (error) {
+    next(error);
+  } finally {
+    if (connection) connection.release();
+  }
+}
+
 module.exports = {
   listSpaces,
   newSpace,
@@ -589,5 +586,7 @@ module.exports = {
   deleteSpace,
   editSpace,
   voteSpaces,
-  getSpaceVotes
+  getSpaceVotes,
+  validateReserve,
+  reserveSpace
 };

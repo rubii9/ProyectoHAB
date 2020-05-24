@@ -1,5 +1,7 @@
 const { getConnection } = require('../db');
 const { incident } = require('./validations');
+const { generateError } = require('../helpers');
+
 async function listMyCoworking(req, res, next) {
   let connection;
   try {
@@ -16,9 +18,7 @@ async function listMyCoworking(req, res, next) {
       [req.auth.id]
     );
     if (!result) {
-      const resultError = new Error('You have not reserves');
-      resultError.httpCode = 400;
-      throw resultError;
+      throw generateError('You have not reserves', 400);
     }
 
     const [entries] = result;
@@ -36,6 +36,17 @@ async function listMyCoworking(req, res, next) {
 
 //pagar la reserva
 async function payment(req, res, next) {
+  let connection;
+  try {
+    //
+  } catch (error) {
+    next(error);
+  } finally {
+    if (connection) connection.release();
+  }
+}
+
+async function validatePay(req, res, next) {
   let connection;
   try {
     //
@@ -65,9 +76,7 @@ async function newIncident(req, res, next) {
     ]);
 
     if (!entry.length) {
-      const error = new Error(`No found space with id ${id}`);
-      error.httpCode = 404;
-      throw error;
+      throw generateError(`No found space with id ${id}`, 404);
     }
 
     await connection.query(
@@ -93,5 +102,6 @@ async function newIncident(req, res, next) {
 module.exports = {
   listMyCoworking,
   newIncident,
-  payment
+  payment,
+  validatePay
 };

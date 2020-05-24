@@ -30,14 +30,17 @@ const {
   deleteSpace,
   editSpace,
   voteSpaces,
-  getSpaceVotes
+  getSpaceVotes,
+  validateReserve,
+  reserveSpace
 } = require('./controllers/spaces');
 
 //My coworking
 const {
   listMyCoworking,
   newIncident,
-  payment
+  payment,
+  validatePay
 } = require('./controllers/mycoworking');
 
 //My spaces
@@ -82,14 +85,14 @@ app.put('/spaces/:id', userIsAuthenticated, editSpace);
 app.get('/spaces/:id/votes', getSpaceVotes);
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
 app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
-/* app.post('/spaces/:id/reserve', userIsAuthenticated, reserveSpace); */
-/* app.get('/spaces/validate', validateReserve); */
+/* app.post('/spaces/:id/reserve', userIsAuthenticated, reserveSpace);
+app.get('/spaces/validate', validateReserve); */
 
 //My Coworking
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
 app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
-/* app.post('/mycoworking/:id/pay', userIsAuthenticated, payment); */
-/* app.get('/mycoworking/validate', validatePay); */
+/* app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
+app.get('/mycoworking/validate', validatePay); */
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);
