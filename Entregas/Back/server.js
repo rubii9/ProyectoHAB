@@ -83,11 +83,13 @@ app.get('/spaces/:id/votes', getSpaceVotes);
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
 app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
 /* app.post('/spaces/:id/reserve', userIsAuthenticated, reserveSpace); */
+/* app.get('/spaces/validate', validateReserve); */
 
 //My Coworking
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
 app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
 /* app.post('/mycoworking/:id/pay', userIsAuthenticated, payment); */
+/* app.get('/mycoworking/validate', validatePay); */
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);

@@ -1,8 +1,9 @@
 const { getConnection } = require('../db');
 
 async function listMySpaces(req, res, next) {
+  let connection;
   try {
-    const connection = await getConnection();
+    connection = await getConnection();
 
     let result;
     let incidents;
@@ -37,15 +38,18 @@ async function listMySpaces(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 //Close incidents
 
 async function closeIncident(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
-    const connection = await getConnection();
+    connection = await getConnection();
 
     const [
       current
@@ -94,14 +98,17 @@ async function closeIncident(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 //Clean Space
 async function cleanSpace(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
-    const connection = await getConnection();
+    connection = await getConnection();
     let state;
     const [
       current
@@ -143,6 +150,8 @@ async function cleanSpace(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 

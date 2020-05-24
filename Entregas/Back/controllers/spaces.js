@@ -10,8 +10,9 @@ const { entrySchema, voteSchema, searchSchema } = require('./validations');
 
 // GET - /spaces
 async function listSpaces(req, res, next) {
+  let connection;
   try {
-    const connection = await getConnection();
+    connection = await getConnection();
     const { search, filter } = req.query;
 
     let result;
@@ -114,12 +115,15 @@ async function listSpaces(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 // POST - /spaces
 async function newSpace(req, res, next) {
   //Meterlos en la base de datos
+  let connection;
   try {
     await entrySchema.validateAsync(req.body);
 
@@ -174,7 +178,7 @@ async function newSpace(req, res, next) {
       }
     }
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     const [
       result
@@ -217,18 +221,21 @@ async function newSpace(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 // PUT - /spaces/:id
 async function editSpace(req, res, next) {
+  let connection;
   try {
     const { name, description, type, price, equipment } = req.body;
     const { id } = req.params;
 
     await entrySchema.validateAsync(req.body);
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     const [
       current
@@ -381,15 +388,18 @@ async function editSpace(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 // GET - /spaces/:id
 async function getSpace(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     const [result] = await connection.query(
       `SELECT s.*, avg(r.score)
@@ -416,15 +426,18 @@ async function getSpace(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 // DELETE - /spaces/:id
 async function deleteSpace(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     // Delete image if exists!
     const [
@@ -476,11 +489,14 @@ async function deleteSpace(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 // POST - /spaces/:id/votes
 async function voteSpaces(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
 
@@ -489,7 +505,7 @@ async function voteSpaces(req, res, next) {
 
     const { score, comment } = req.body;
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     // Check if the entry actually exists
     const [entry] = await connection.query('SELECT id from spaces where id=?', [
@@ -532,11 +548,14 @@ async function voteSpaces(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 //GET - /spaces/:id/votes
 async function getSpaceVotes(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
     const connection = await getConnection();
@@ -558,6 +577,8 @@ async function getSpaceVotes(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 

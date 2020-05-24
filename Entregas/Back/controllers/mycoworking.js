@@ -1,8 +1,9 @@
 const { getConnection } = require('../db');
 const { incident } = require('./validations');
 async function listMyCoworking(req, res, next) {
+  let connection;
   try {
-    const connection = await getConnection();
+    connection = await getConnection();
 
     let result;
 
@@ -28,14 +29,26 @@ async function listMyCoworking(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 //pagar la reserva
-async function payment() {}
+async function payment(req, res, next) {
+  let connection;
+  try {
+    //
+  } catch (error) {
+    next(error);
+  } finally {
+    if (connection) connection.release();
+  }
+}
 
 //crear incidencia
 async function newIncident(req, res, next) {
+  let connection;
   try {
     const { id } = req.params;
 
@@ -43,7 +56,7 @@ async function newIncident(req, res, next) {
 
     const { comment } = req.body;
 
-    const connection = await getConnection();
+    connection = await getConnection();
 
     const [
       entry
@@ -72,6 +85,8 @@ async function newIncident(req, res, next) {
     });
   } catch (error) {
     next(error);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
