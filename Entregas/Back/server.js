@@ -91,8 +91,8 @@ app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);
-/* app.put('/myspaces/:id', userIsAuthenticated, cleanSpace); */
-app.put('/myspaces/:id', userIsAuthenticated, closeIncident);
+app.put('/myspaces/:id/clean', userIsAuthenticated, cleanSpace);
+app.put('/myspaces/:id/close', userIsAuthenticated, closeIncident);
 
 // Error middleware
 app.use((error, req, res, next) => {

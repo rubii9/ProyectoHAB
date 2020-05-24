@@ -49,9 +49,7 @@ async function closeIncident(req, res, next) {
 
     const [
       current
-    ] = await connection.query('SELECT id,owner_id FROM spaces WHERE id=?', [
-      id
-    ]);
+    ] = await connection.query('SELECT owner_id FROM spaces WHERE id=?', [id]);
 
     if (!current.length) {
       const error = new Error(`The space with id ${id} does not exist`);
@@ -90,7 +88,8 @@ async function closeIncident(req, res, next) {
       status: 'ok',
       data: {
         id,
-        comments
+        comments,
+        current
       }
     });
   } catch (error) {
@@ -101,7 +100,47 @@ async function closeIncident(req, res, next) {
 //Clean Space
 async function cleanSpace(req, res, next) {
   try {
+    const { id } = req.params;
     const connection = await getConnection();
+    let state;
+    const [
+      current
+    ] = await connection.query('SELECT id,owner_id FROM spaces WHERE id=?', [
+      id
+    ]);
+
+    if (!current.length) {
+      const error = new Error(`The space with id ${id} does not exist`);
+      error.httpCode = 404;
+      throw error;
+    }
+
+    if (current[0].owner_id !== req.auth.id && req.auth.role !== 'admin') {
+      const error = new Error('Access denied');
+      error.httpCode = 401;
+      throw error;
+    }
+
+    await connection.query(
+      `UPDATE reserves set is_clean = true where space_id = ?`,
+      [id]
+    );
+
+    [
+      state
+    ] = await connection.query(
+      `Select is_clean,space_id from reserves where space_id = ?`,
+      [id]
+    );
+
+    connection.release();
+    res.send({
+      status: 'ok',
+      data: {
+        id,
+        state
+      }
+    });
   } catch (error) {
     next(error);
   }
