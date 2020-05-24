@@ -78,21 +78,21 @@ app.put('/users/:id', userIsAuthenticated, editUser);
 app.delete('/users/:id', userIsAuthenticated, deleteUser);
 
 //Spaces Routes
-app.get('/spaces', listSpaces);
+app.get('/spaces/validate', validateReserve);
+app.get('/spaces/:id/votes', getSpaceVotes);
 app.get('/spaces/:id', getSpace);
+app.get('/spaces', listSpaces);
+app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
+app.post('/spaces/:id/reserve', userIsAuthenticated, reserveSpace);
 app.post('/spaces', userIsAuthenticated, newSpace);
 app.put('/spaces/:id', userIsAuthenticated, editSpace);
-app.get('/spaces/:id/votes', getSpaceVotes);
 app.delete('/spaces/:id', userIsAuthenticated, userIsAdmin, deleteSpace);
-app.post('/spaces/:id/votes', userIsAuthenticated, voteSpaces);
-/* app.post('/spaces/:id/reserve', userIsAuthenticated, reserveSpace);
-app.get('/spaces/validate', validateReserve); */
 
 //My Coworking
 app.get('/mycoworking', userIsAuthenticated, listMyCoworking);
 app.post('/mycoworking/:id/incident', userIsAuthenticated, newIncident);
 /* app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
-app.get('/mycoworking/validate', validatePay); */
+app.get('/mycoworking/validate',userIsAuthenticated,validatePay); */
 
 //My Spaces
 app.get('/myspaces', userIsAuthenticated, listMySpaces);

@@ -4,10 +4,17 @@ const {
   formatDateToDB,
   processAndSavePhoto,
   deletePhoto,
-  generateError
+  generateError,
+  sendEmail,
+  randomString
 } = require('../helpers');
 
-const { entrySchema, voteSchema, searchSchema } = require('./validations');
+const {
+  entrySchema,
+  voteSchema,
+  searchSchema,
+  editEntrySchema
+} = require('./validations');
 
 // GET - /spaces
 async function listSpaces(req, res, next) {
@@ -189,13 +196,13 @@ async function newSpace(req, res, next) {
         community,
         adress,
         description,
-        equipment,
         savedFileName1,
         savedFileName2,
         savedFileName3,
         type,
         price,
-        req.auth.id
+        req.auth.id,
+        equipment
       ]
     );
 
@@ -232,14 +239,14 @@ async function editSpace(req, res, next) {
     const { name, description, type, price, equipment } = req.body;
     const { id } = req.params;
 
-    await entrySchema.validateAsync(req.body);
+    await editEntrySchema.validateAsync(req.body);
 
     connection = await getConnection();
 
     const [
       current
     ] = await connection.query(
-      'SELECT photo1,photo2,photo3, user_id FROM spaces WHERE id=?',
+      'SELECT photo1,photo2,photo3, owner_id FROM spaces WHERE id=?',
       [id]
     );
 
@@ -248,7 +255,7 @@ async function editSpace(req, res, next) {
     }
 
     // Check if the authenticated user is the entry author or admin
-    if (current[0].user_id !== req.auth.id && req.auth.role !== 'admin') {
+    if (current[0].owner_id !== req.auth.id && req.auth.role !== 'admin') {
       throw generateError('Access denied', 401);
     }
 
@@ -299,38 +306,35 @@ async function editSpace(req, res, next) {
     }
 
     if (name) {
-      await connection.query('UPDATE spaces SET name=?,  WHERE id=?', [
+      await connection.query('UPDATE spaces SET name=?  WHERE id=?', [
         name,
         id
       ]);
     }
 
     if (description) {
-      await connection.query('UPDATE spaces SET description=?,  WHERE id=?', [
+      await connection.query('UPDATE spaces SET description=?  WHERE id=?', [
         description,
         id
       ]);
     }
 
     if (type) {
-      await connection.query('UPDATE spaces SET type=?,  WHERE id=?', [
-        type,
-        id
-      ]);
+      await connection.query('UPDATE spaces SET type=? WHERE id=?', [type, id]);
     }
 
     if (price) {
-      await connection.query('UPDATE spaces SET price=?,  WHERE id=?', [
+      await connection.query('UPDATE spaces SET price=? WHERE id=?', [
         price,
         id
       ]);
     }
 
     if (equipment) {
-      await connection.query(
-        'UPDATE spaces SET equipment=?,  WHERE space_id=?',
-        [equipment, id]
-      );
+      await connection.query('UPDATE spaces SET equipment=?  WHERE id=?', [
+        equipment,
+        id
+      ]);
     }
 
     if (req.files && req.files.photo1) {
@@ -365,8 +369,9 @@ async function editSpace(req, res, next) {
         id,
         name,
         description,
+        type,
         price,
-        type
+        equipment
       }
     });
   } catch (error) {
@@ -560,7 +565,25 @@ async function getSpaceVotes(req, res, next) {
 async function validateReserve(req, res, next) {
   let connection;
   try {
-    //
+    const { code } = req.query;
+    connection = await getConnection();
+    const [
+      result
+    ] = await connection.query(
+      'UPDATE reserves SET is_confirmed=1,confirmationCode=NULL WHERE confirmationCode=?',
+      [code]
+    );
+
+    if (result.affectedRows === 0) {
+      throw generateError('Invalid validation', 400);
+    }
+
+    res.send({
+      status: 'ok',
+      message: 'Reserve was successfull, now you can pay at my coworking'
+    });
+
+    connection.release();
   } catch (error) {
     next(error);
   } finally {
@@ -571,7 +594,47 @@ async function validateReserve(req, res, next) {
 async function reserveSpace(req, res, next) {
   let connection;
   try {
-    //
+    connection = await getConnection();
+    const { id } = req.params;
+    const { start, end } = req.body;
+    const reserveCode = randomString(40);
+    const validationURL = `${process.env.PUBLIC_HOST}/spaces/validate?code=${reserveCode}`;
+
+    const [
+      email
+    ] = await connection.query(`Select email from users where id = ?`, [
+      req.auth.id
+    ]);
+
+    try {
+      await sendEmail({
+        email: email,
+        title: 'Validate your reserve of coworkings app',
+        content: `To validate your reserve clic on link or copy and then paste on your browser: ${validationURL}`
+      });
+    } catch (error) {
+      console.error(error.response.body);
+      throw new Error('Error sending email. Try again later.');
+    }
+
+    await connection.query(
+      `INSERT INTO reserves (confirmationCode,user_id,space_id,start_date,end_date)
+      VALUES(?,?,?,?,?)
+    `,
+      [
+        reserveCode,
+        req.auth.id,
+        id,
+        formatDateToDB(new Date(start)),
+        formatDateToDB(new Date(end))
+      ]
+    );
+
+    res.send({
+      staus: 'ok',
+      message:
+        'Reserve done. Check your email to activate (the email is maybe at spam).'
+    });
   } catch (error) {
     next(error);
   } finally {

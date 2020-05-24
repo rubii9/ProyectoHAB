@@ -127,6 +127,46 @@ const entrySchema = Joi.object().keys({
     )
 });
 
+const editEntrySchema = Joi.object().keys({
+  name: Joi.string()
+    .max(100)
+    .error(
+      generateError('The space name is required and max 100 characters', 400)
+    ),
+  description: Joi.string()
+    .max(1000)
+    .error(
+      generateError(
+        'The space description is required and max 1000 characters',
+        400
+      )
+    ),
+  city: Joi.string()
+    .max(60)
+    .error(generateError('City is required and max 60 characters', 400)),
+  community: Joi.string()
+    .max(60)
+    .error(generateError('Community is required and max 60 characters', 400)),
+
+  adress: Joi.string()
+    .max(255)
+    .error(generateError('Adress is required and max 255 characters', 400)),
+  price: Joi.number().min(1).error(generateError('Price is required ', 400)),
+
+  type: Joi.string()
+    .max(30)
+    .error(generateError('Type is required and max 30 characters', 400)),
+
+  equipment: Joi.string()
+    .max(3000)
+    .error(
+      generateError(
+        'The equipment name is required and max 3000 characters',
+        400
+      )
+    )
+});
+
 const voteSchema = Joi.object().keys({
   score: Joi.number()
     .min(1)
@@ -152,5 +192,6 @@ module.exports = {
   editUserSchema,
   editPasswordUserSchema,
   userSchemaRegister,
-  incident
+  incident,
+  editEntrySchema
 };

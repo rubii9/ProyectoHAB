@@ -1,6 +1,6 @@
 const { getConnection } = require('../db');
 const { incident } = require('./validations');
-const { generateError } = require('../helpers');
+const { generateError, sendEmail, randomString } = require('../helpers');
 
 async function listMyCoworking(req, res, next) {
   let connection;
@@ -35,10 +35,27 @@ async function listMyCoworking(req, res, next) {
 }
 
 //pagar la reserva
-async function payment(req, res, next) {
+async function validatePay(req, res, next) {
   let connection;
   try {
-    //
+    const { code } = req.query;
+    connection = await getConnection();
+    // Actualizamos el usuario
+    const [
+      result
+    ] = await connection.query(
+      'UPDATE reserves SET is_paid=1,paymentCode=NULL WHERE paymentCode=?',
+      [code]
+    );
+
+    if (result.affectedRows === 0) {
+      throw generateError('Invalid validation', 400);
+    }
+
+    res.send({
+      status: 'ok',
+      message: 'Payment was successfull'
+    });
   } catch (error) {
     next(error);
   } finally {
@@ -46,7 +63,7 @@ async function payment(req, res, next) {
   }
 }
 
-async function validatePay(req, res, next) {
+async function payment(req, res, next) {
   let connection;
   try {
     //
