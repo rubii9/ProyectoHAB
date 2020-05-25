@@ -28,8 +28,10 @@ async function listMySpaces(req, res, next) {
     where r.id = i.reserve_id and i.state="open"
     `
     );
+
     const [comments] = incidents;
     const [entries] = result;
+
     connection.release();
     res.send({
       status: 'ok',

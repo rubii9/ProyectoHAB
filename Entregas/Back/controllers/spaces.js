@@ -595,6 +595,7 @@ async function reserveSpace(req, res, next) {
   let connection;
   try {
     connection = await getConnection();
+    //id=space_id
     const { id } = req.params;
     const { start, end } = req.body;
     const reserveCode = randomString(40);

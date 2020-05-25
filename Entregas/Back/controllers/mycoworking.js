@@ -34,7 +34,7 @@ async function listMyCoworking(req, res, next) {
   }
 }
 
-//pagar la reserva
+//validate payment
 async function validatePay(req, res, next) {
   let connection;
   try {
@@ -62,10 +62,42 @@ async function validatePay(req, res, next) {
   }
 }
 
+//Pay reserve
 async function payment(req, res, next) {
   let connection;
   try {
-    //hacer el codigo de payment
+    connection = await getConnection();
+    //id = space_id
+    const { id } = req.params;
+    const paymentCode = randomString(40);
+    const validationURL = `${process.env.PUBLIC_HOST}/mycoworking/validate?code=${paymentCode}`;
+    const [
+      email
+    ] = await connection.query(`Select email from users where id = ?`, [
+      req.auth.id
+    ]);
+
+    try {
+      await sendEmail({
+        email: email,
+        title: 'Validate your payment of coworkings app',
+        content: `To validate your payment click on link or copy and then paste on your browser: ${validationURL}`
+      });
+    } catch (error) {
+      console.error(error.response.body);
+      throw new Error('Error sending email. Try again later.');
+    }
+
+    await connection.query(
+      'UPDATE reserves SET paymentCode=? WHERE user_id=? and space_id = ?',
+      [paymentCode, req.auth.id, id]
+    );
+
+    res.send({
+      staus: 'ok',
+      message:
+        'Payment done. Check your email to activate (the email is maybe at spam).'
+    });
   } catch (error) {
     next(error);
   } finally {
