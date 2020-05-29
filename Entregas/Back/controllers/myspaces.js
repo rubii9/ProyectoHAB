@@ -24,7 +24,7 @@ async function listMySpaces(req, res, next) {
     }
     incidents = await connection.query(
       `
-      select i.comment,r.space_id from incidents i,reserves r,spaces s
+      select i.id,i.comment,r.space_id from incidents i,reserves r,spaces s
       where r.id = i.reserve_id and s.id=r.space_id
       and i.state="open" and s.owner_id=?
     `,
@@ -73,7 +73,7 @@ async function closeIncident(req, res, next) {
     }
 
     const [comments] = await connection.query(
-      `select i.comment from incidents i,reserves r
+      `select i.comment,i.state from incidents i,reserves r
       where r.id = i.reserve_id and i.state="open" and r.space_id = ?`,
       [id]
     );
@@ -97,8 +97,7 @@ async function closeIncident(req, res, next) {
       status: 'ok',
       data: {
         id,
-        comments,
-        current
+        comments
       }
     });
   } catch (error) {
