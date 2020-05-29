@@ -110,6 +110,7 @@ async function newIncident(req, res, next) {
   let connection;
   try {
     const { id } = req.params;
+    //id del espacio
 
     await incident.validateAsync(req.body);
 
@@ -119,26 +120,26 @@ async function newIncident(req, res, next) {
 
     const [
       entry
-    ] = await connection.query('SELECT id from reserves where space_id = ?', [
+    ] = await connection.query('SELECT id from reserves where space_id= ?', [
       id
     ]);
 
     if (!entry.length) {
-      throw generateError(`No found space with id ${id}`, 404);
+      throw generateError(`No found reserve with id ${id}`, 404);
     }
 
     await connection.query(
       `
     INSERT INTO incidents (comment,reserve_id) 
     VALUES(?, ?)`,
-      [comment, id]
+      [comment, entry[0].id]
     );
 
     connection.release();
 
     res.send({
       status: 'ok',
-      message: `The new incedent to the reserve with id ${id} was successful`
+      message: `The new incedent to the reserve with id ${entry[0].id} and space wiht id ${id} was successful`
     });
   } catch (error) {
     next(error);

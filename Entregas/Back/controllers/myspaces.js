@@ -24,9 +24,11 @@ async function listMySpaces(req, res, next) {
     }
     incidents = await connection.query(
       `
-    select i.comment,r.space_id from incidents i,reserves r
-    where r.id = i.reserve_id and i.state="open"
-    `
+      select i.comment,r.space_id from incidents i,reserves r,spaces s
+      where r.id = i.reserve_id and s.id=r.space_id
+      and i.state="open" and s.owner_id=?
+    `,
+      [req.auth.id]
     );
 
     const [comments] = incidents;
@@ -51,6 +53,7 @@ async function closeIncident(req, res, next) {
   let connection;
   try {
     const { id } = req.params;
+    //id del espacio
     connection = await getConnection();
 
     const [
@@ -110,6 +113,7 @@ async function cleanSpace(req, res, next) {
   let connection;
   try {
     const { id } = req.params;
+    //id del espacio
     connection = await getConnection();
     let state;
     const [
