@@ -8,6 +8,7 @@ async function listMyCoworking(req, res, next) {
     connection = await getConnection();
 
     let result;
+    let incedents;
 
     result = await connection.query(
       `
@@ -20,12 +21,20 @@ async function listMyCoworking(req, res, next) {
     if (!result) {
       throw generateError('You have not reserves', 400);
     }
-
+    incedents = await connection.query(
+      `
+    select  i.comment,i.state from reserves r, incidents i
+    where  i.reserve_id=r.id
+    and r.user_id = ?`,
+      [req.auth.id]
+    );
     const [entries] = result;
+    const [comments] = incedents;
     connection.release();
     res.send({
       status: 'ok',
-      data: entries
+      data: entries,
+      dataIncidents: comments
     });
   } catch (error) {
     next(error);
