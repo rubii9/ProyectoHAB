@@ -69,8 +69,8 @@ export default {
             community: self.community
           })
           .then(function(response) {
-            self.emptyFields();
             console.log(response);
+            self.$router.push("/login");
           })
           .catch(function(error) {
             console.log(error);
@@ -78,6 +78,8 @@ export default {
       } else {
         alert("No has rellenado todos los campos.");
       }
+
+      this.emptyFields();
     },
     emptyFields() {
       this.email === "";
