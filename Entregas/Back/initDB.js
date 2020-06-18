@@ -25,7 +25,6 @@ async function main() {
    create table users (
       id int unsigned primary key auto_increment,
       name varchar(100)not null,
-      nickname varchar(30)not null unique,
       email varchar(60) not null unique,
       password varchar(255) not null,
       city varchar(50) default null,
@@ -106,8 +105,8 @@ async function main() {
   const password = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD, 10);
 
   await connection.query(`
-        INSERT INTO users(lastPasswordUpdate, email, password, role, name, active,nickname,city,community,phone)
-        VALUES( UTC_TIMESTAMP, "rubenpo167@gmail.com", "${password}", "admin", "Rubén Pérez", true,"rubii9","Noia","Galicia","639063381")
+        INSERT INTO users(lastPasswordUpdate, email, password, role, name, active,city,community,phone)
+        VALUES( UTC_TIMESTAMP, "rubenpo167@gmail.com", "${password}", "admin", "Rubén Pérez", true,"Noia","Galicia","639063381")
       `);
 
   if (addData) {
@@ -116,16 +115,16 @@ async function main() {
     const passwordRandomUsers = await bcrypt.hash('123456', 10);
 
     await connection.query(`
-      insert into users (id, name, nickname, email, password, city, community, phone,is_owner,active,lastPasswordUpdate) values 
-      (2, 'Uriel Hellsdon', 'uhellsdon1', 'rubenpo167+user2@gmail.com', '${passwordRandomUsers}', 'Telde', 'Canarias', '6622954423',true,true,UTC_TIMESTAMP),
-      (3, 'Benjamin Mellodey', 'bmellodey2', 'rubenpo167+user3@gmail.com', '${passwordRandomUsers}', 'Santiago De Compostela', 'Galicia', '7736800054',false,true,UTC_TIMESTAMP),
-      (4, 'Rhiamon Custed', 'rcusted3', 'rubenpo167+user4@gmail.com', '${passwordRandomUsers}', 'Ourense', 'Galicia', '2318408230',false,true,UTC_TIMESTAMP),
-      (5, 'Chrissy Gemlett', 'cgemlett4', 'rubenpo167+user5@gmail.com', '${passwordRandomUsers}', 'Valladolid', 'Castilla - Leon', '1004079953',false,true,UTC_TIMESTAMP),
-      (6, 'Biddie Reddihough', 'breddihough5', 'rubenpo167+user6@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',false,true,UTC_TIMESTAMP),
-      (7, 'Hurley Atcheson', 'hatcheson6', 'rubenpo167+user7@gmail.com', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP),
-      (8, 'Robbie Fouracre', 'rfouracre7', 'rubenpo167+user8@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',false,true,UTC_TIMESTAMP),
-      (9, 'Bobette Dunaway', 'bdunaway8', 'rubenpo167+user9@gmail.com', '${passwordRandomUsers}', 'Huesca', 'Aragon', '2804685614',false,true,UTC_TIMESTAMP),
-      (10, 'Carson Killford', 'ckillford9', 'rubenpo167+user10@gmail.com', '${passwordRandomUsers}', 'Albacete', 'Castilla - La Mancha', '4984652382',false,true,UTC_TIMESTAMP);
+      insert into users (id, name,  email, password, city, community, phone,is_owner,active,lastPasswordUpdate) values 
+      (2, 'Uriel Hellsdon', 'rubenpo167+user2@gmail.com', '${passwordRandomUsers}', 'Telde', 'Canarias', '6622954423',true,true,UTC_TIMESTAMP),
+      (3, 'Benjamin Mellodey',  'rubenpo167+user3@gmail.com', '${passwordRandomUsers}', 'Santiago De Compostela', 'Galicia', '7736800054',false,true,UTC_TIMESTAMP),
+      (4, 'Rhiamon Custed',  'rubenpo167+user4@gmail.com', '${passwordRandomUsers}', 'Ourense', 'Galicia', '2318408230',false,true,UTC_TIMESTAMP),
+      (5, 'Chrissy Gemlett', 'rubenpo167+user5@gmail.com', '${passwordRandomUsers}', 'Valladolid', 'Castilla - Leon', '1004079953',false,true,UTC_TIMESTAMP),
+      (6, 'Biddie Reddihough',  'rubenpo167+user6@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',false,true,UTC_TIMESTAMP),
+      (7, 'Hurley Atcheson',  'rubenpo167+user7@gmail.com', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP),
+      (8, 'Robbie Fouracre',  'rubenpo167+user8@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',false,true,UTC_TIMESTAMP),
+      (9, 'Bobette Dunaway', 'rubenpo167+user9@gmail.com', '${passwordRandomUsers}', 'Huesca', 'Aragon', '2804685614',false,true,UTC_TIMESTAMP),
+      (10, 'Carson Killford', 'rubenpo167+user10@gmail.com', '${passwordRandomUsers}', 'Albacete', 'Castilla - La Mancha', '4984652382',false,true,UTC_TIMESTAMP);
       `);
 
     await connection.query(`

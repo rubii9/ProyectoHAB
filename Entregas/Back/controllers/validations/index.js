@@ -13,14 +13,6 @@ const nameSchema = Joi.string()
   .max(100)
   .error(generateError('Name required and max 255 characters', 400));
 
-const nicknameSchema = Joi.string()
-  .min(5)
-  .max(30)
-  .required()
-  .error(
-    generateError('Nickname need at least 5 characters and is required', 400)
-  );
-
 const emailSchema = Joi.string()
   .email()
   .required()
@@ -37,7 +29,12 @@ const userSchemaRegister = Joi.object().keys({
   email: emailSchema,
   password: passwordSchema,
   name: nameSchema,
-  nickname: nicknameSchema
+  city: Joi.string()
+    .max(60)
+    .error(generateError('City is required and max 60 characters', 400)),
+  community: Joi.string()
+    .max(60)
+    .error(generateError('Community is required and max 60 characters', 400))
 });
 
 const userSchema = Joi.object().keys({

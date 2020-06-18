@@ -28,7 +28,7 @@ async function newUser(req, res, next) {
     await userSchemaRegister.validateAsync(req.body);
 
     connection = await getConnection();
-    const { email, password, nickname, name } = req.body;
+    const { email, password, name, city, community } = req.body;
 
     // Check if user email is already in the db
     const [
@@ -58,10 +58,10 @@ async function newUser(req, res, next) {
 
     await connection.query(
       `
-      INSERT INTO users ( lastPasswordUpdate, email, password, role, registrationCode,nickname,name)
-      VALUES( UTC_TIMESTAMP, ?, ?, "normal", ?,?,?)
+      INSERT INTO users ( lastPasswordUpdate, email, password, role, registrationCode,name,city,community)
+      VALUES( UTC_TIMESTAMP, ?, ?, "normal", ?,?,?,?)
     `,
-      [email, dbPassword, registrationCode, nickname, name]
+      [email, dbPassword, registrationCode, name, city, community]
     );
 
     res.send({
@@ -190,7 +190,7 @@ async function loginUser(req, res, next) {
     }
 
     // Build jsonwebtoken
-    const tokenPayload = { id: user.id, role: user.role };
+    const tokenPayload = { id: user.id, role: user.role, email: user.email };
     const token = jwt.sign(tokenPayload, process.env.SECRET, {
       expiresIn: '30d'
     });
