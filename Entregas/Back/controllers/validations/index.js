@@ -31,9 +31,11 @@ const userSchemaRegister = Joi.object().keys({
   name: nameSchema,
   city: Joi.string()
     .max(60)
+    .required()
     .error(generateError('City is required and max 60 characters', 400)),
   community: Joi.string()
     .max(60)
+    .required()
     .error(generateError('Community is required and max 60 characters', 400))
 });
 

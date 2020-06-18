@@ -20,7 +20,7 @@ const {
   formatDateToDB
 } = require('../helpers');
 
-// POST - /user
+// POST - /users
 async function newUser(req, res, next) {
   let connection;
   try {
