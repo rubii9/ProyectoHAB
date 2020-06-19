@@ -3,22 +3,39 @@
     <!-- FORMULARIO -->
     <div class="registerform">
       <p v-show="required">Tienes datos aún por rellenar</p>
-      <label for="email">Email:</label>
-      <input type="email" name="email" placeholder="Email..." v-model="email" />
-      <br />
-      <label for="password">Password:</label>
-      <input type="password" name="password" placeholder="Password..." v-model="password" />
-      <br />
-      <label for="name">Name:</label>
-      <input type="text" name="name" placeholder="Name..." v-model="name" />
-      <br />
-      <label for="city">City:</label>
-      <input type="text" name="city" placeholder="City..." v-model="city" />
-      <br />
-      <label for="community">Community:</label>
-      <input type="text" name="commuity" placeholder="Community..." v-model="community" />
-      <br />
-      <button @click="addUser()">CREAR</button>
+      <form>
+        <label for="email">Email:</label>
+        <input
+          minlength="3"
+          maxlength="60"
+          required
+          type="email"
+          placeholder="Email..."
+          v-model="email"
+        />
+        <br />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          minlength="6"
+          maxlength="100"
+          name="password"
+          required
+          placeholder="Password..."
+          v-model="password"
+        />
+        <br />
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="Name..." required v-model="name" />
+        <br />
+        <label for="city">City:</label>
+        <input type="text" name="city" placeholder="City..." required v-model="city" />
+        <br />
+        <label for="community">Community:</label>
+        <input type="text" name="commuity" placeholder="Community..." required v-model="community" />
+        <br />
+        <button @click="addUser()">CREAR</button>
+      </form>
     </div>
   </div>
 </template>
@@ -76,7 +93,7 @@ export default {
             console.log(error);
           });
       } else {
-        alert("No has rellenado todos los campos.");
+        console.log("No has rellenado todos los campos.");
       }
 
       this.emptyFields();
