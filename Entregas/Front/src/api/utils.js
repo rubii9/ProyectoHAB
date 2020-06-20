@@ -20,7 +20,7 @@ export function loginUser(email, password) {
       setAuthToken(res.data.data.token);
       resolve();
     } catch (err) {
-      if (err.response.status === 404) {
+      if (err.response) {
         alert(err.response.data.message);
       }
 

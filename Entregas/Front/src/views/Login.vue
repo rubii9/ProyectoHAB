@@ -1,8 +1,9 @@
 <template>
   <div class="login">
-    <h1>HACK A MARKET</h1>
-    <h2>Login:</h2>
+    <h1>Welcome!</h1>
+    <h2>Login</h2>
     <form>
+      <p v-show="required">{{message}}</p>
       <input
         minlength="3"
         maxlength="60"
@@ -17,8 +18,10 @@
         maxlength="100"
         placeholder="Passsword..."
         v-model="password"
+        required
       />
-      <button @click="login()">LOGIN</button>
+      <button type="#" @click="login()">LOGIN</button>
+      <router-link :to="{name:'Register'}">Register</router-link>
     </form>
   </div>
 </template>
@@ -33,14 +36,17 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      message: "Error",
+      required: false
     };
   },
   methods: {
     async login() {
       try {
         if (this.email === "" || this.password === "")
-          throw Error("Datos vacios");
+          throw Error("Empty fields");
+        this.required = false;
         await loginUser(this.email, this.password);
 
         //GUARDAR EL EMAIL EN LOCALSTORAGE
@@ -50,6 +56,11 @@ export default {
         this.$router.push("/");
       } catch (error) {
         console.log(error);
+        this.message = error.message;
+        this.required = true;
+        if (error.response) {
+          alert(error);
+        }
       }
     }
   }
@@ -57,4 +68,7 @@ export default {
 </script>
 
 <style scoped>
+p {
+  color: red;
+}
 </style>
