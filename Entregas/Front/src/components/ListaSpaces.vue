@@ -10,6 +10,8 @@
       <p>Adress: {{space.adress}}</p>
       <p>Equipment: {{space.equipment}}</p>
       <p>Score: {{Number(space.score).toFixed([2])}}</p>
+      <br />
+      <img :src="space.photo1" alt />
     </div>
   </div>
 </template>
