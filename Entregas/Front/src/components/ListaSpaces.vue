@@ -11,7 +11,7 @@
       <p>Equipment: {{space.equipment}}</p>
       <p>Score: {{Number(space.score).toFixed([2])}}</p>
       <br />
-      <img :src="space.photo1" alt />
+      <img :src="path + space.photo1" alt />
     </div>
   </div>
 </template>
@@ -19,6 +19,11 @@
 <script>
 export default {
   name: "ListaSpaces",
+  data() {
+    return {
+      path: "http://localhost:3001/uploads/"
+    };
+  },
   props: {
     spaces: Array
   }

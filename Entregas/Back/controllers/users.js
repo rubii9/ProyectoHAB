@@ -281,7 +281,7 @@ async function editUser(req, res, next) {
         `
       UPDATE users SET avatar=? WHERE id=?
     `,
-        ['http://localhost:3001/uploads/' + savedFileName, id]
+        [savedFileName, id]
       );
     }
 

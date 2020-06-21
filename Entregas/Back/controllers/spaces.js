@@ -341,7 +341,7 @@ async function editSpace(req, res, next) {
       await connection.query(
         `
       UPDATE spaces SET photo1=? WHERE id=?`,
-        ['http://localhost:3001/uploads/' + savedFileName1, id]
+        [savedFileName1, id]
       );
     }
 
@@ -349,7 +349,7 @@ async function editSpace(req, res, next) {
       await connection.query(
         `
       UPDATE spaces SET photo1=? WHERE id=?`,
-        ['http://localhost:3001/uploads/' + savedFileName2, id]
+        [savedFileName2, id]
       );
     }
 
@@ -357,7 +357,7 @@ async function editSpace(req, res, next) {
       await connection.query(
         `
       UPDATE spaces SET photo1=? WHERE id=?`,
-        ['http://localhost:3001/uploads/' + savedFileName3, id]
+        [savedFileName3, id]
       );
     }
 

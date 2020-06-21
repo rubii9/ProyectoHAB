@@ -2,8 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Error from "../views/Error.vue";
+import axios from "axios";
 
 Vue.use(VueRouter);
+
+axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+  "authToken"
+);
 
 const routes = [
   {
