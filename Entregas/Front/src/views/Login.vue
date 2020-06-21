@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <vue-headful title="Login" description="Login page" />
     <h1>Welcome!</h1>
     <h2>Login</h2>
     <form>

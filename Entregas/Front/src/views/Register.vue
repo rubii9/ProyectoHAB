@@ -1,5 +1,6 @@
 <template>
   <div class="register">
+    <vue-headful title="Register" description="Register page" />
     <!-- FORMULARIO -->
     <div class="registerform">
       <p v-show="required">{{message}}</p>
@@ -43,6 +44,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "Register",
@@ -91,6 +93,12 @@ export default {
           .then(function(response) {
             console.log(response);
             this.emptyFields();
+            Swal.fire({
+              icon: "success",
+              title: "User registered",
+              text: "Check your email to validate",
+              confirmButtonText: "Ok"
+            });
             self.$router.push("/login");
           })
           .catch(function(error) {
