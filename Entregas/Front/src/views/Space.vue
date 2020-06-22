@@ -1,6 +1,6 @@
 <template>
   <div class="SpaceID">
-    <vue-headful title="Space" description="Space page" />
+    <vue-headful title="Space View" description="Space page" />
 
     <!-- MENU -->
     <menucustom></menucustom>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- SPACE VIEW -->
-    <spaceview :space="space" v-show="!loading"></spaceview>
+    <spaceview :space="space" :comments="comments" v-show="!loading"></spaceview>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       space: {},
+      comments: [],
       loading: true
     };
   },
@@ -54,11 +55,27 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    getVotes() {
+      let self = this;
+      axios
+        .get("http://localhost:3001/spaces/" + self.$route.params.id + "/votes")
+        .then(function(response) {
+          //TIEMPO DE CARGA
+          setTimeout(function() {
+            self.loading = false;
+            self.comments = response.data.data;
+          }, 1000);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
 
   created() {
     this.getSpaces();
+    this.getVotes();
   }
 };
 </script>

@@ -1,17 +1,11 @@
 <template>
   <div>
     <div class="space" v-for="space in spaces" :key="space.id">
-      <p>ID: {{ space.id }}</p>
+      <img :src="path + space.photo1" alt />
       <p>Nombre: {{ space.name }}</p>
       <p>Tipo: {{ space.type }}</p>
       <p>Ciudad: {{ space.city }}</p>
       <p>Comunidad: {{ space.community }}</p>
-      <p>Descripción: {{space.description}}</p>
-      <p>Dirección: {{space.adress}}</p>
-      <p>Equipamiento: {{space.equipment}}</p>
-      <p>Score: {{Number(space.score).toFixed([2])}}</p>
-      <br />
-      <img :src="path + space.photo1" alt />
       <router-link :to=" {name:'Space', params:{id:space.id}} ">VER</router-link>
     </div>
   </div>

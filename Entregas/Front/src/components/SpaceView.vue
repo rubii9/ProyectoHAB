@@ -10,6 +10,12 @@
       <p>Dirección: {{space.adress}}</p>
       <p>Equipamiento: {{space.equipment}}</p>
       <p>Score: {{Number(space.score).toFixed([2])}}</p>
+      <div v-for="comment in comments" :key="comment.id">
+        <p>
+          <span>{{comment.name}}:</span>
+          {{comment.comment}}, {{comment.score}}
+        </p>
+      </div>
       <br />
       <img :src="path + space.photo1" alt />
     </div>
@@ -25,7 +31,8 @@ export default {
     };
   },
   props: {
-    space: Object
+    space: Object,
+    comments: Array
   },
   methods: {
     capitalize() {

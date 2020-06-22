@@ -11,14 +11,14 @@
         required
         type="email"
         placeholder="Email..."
-        v-model="email"
+        v-model.trim="email"
       />
       <input
         type="password"
         minlength="6"
         maxlength="100"
         placeholder="Passsword..."
-        v-model="password"
+        v-model.trim="password"
         required
       />
       <button type="#" @click="login()">LOGIN</button>

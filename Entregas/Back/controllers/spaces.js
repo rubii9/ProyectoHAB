@@ -542,7 +542,7 @@ async function getSpaceVotes(req, res, next) {
 
     const [votes] = await connection.query(
       `
-      SELECT r.*,u.name,u.nickname from ratings r
+      SELECT r.*,u.name from ratings r
         inner join users u
         on u.id=r.user_id
         WHERE space_id=?`,

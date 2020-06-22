@@ -12,7 +12,7 @@
           required
           type="email"
           placeholder="Email..."
-          v-model="email"
+          v-model.trim="email"
         />
         <br />
         <label for="password">Password:</label>
@@ -23,17 +23,23 @@
           name="password"
           required
           placeholder="Password..."
-          v-model="password"
+          v-model.trim="password"
         />
         <br />
         <label for="name">Name:</label>
-        <input type="text" name="name" placeholder="Name..." required v-model="name" />
+        <input type="text" name="name" placeholder="Name..." required v-model.trim="name" />
         <br />
         <label for="city">City:</label>
-        <input type="text" name="city" placeholder="City..." required v-model="city" />
+        <input type="text" name="city" placeholder="City..." required v-model.trim="city" />
         <br />
         <label for="community">Community:</label>
-        <input type="text" name="commuity" placeholder="Community..." required v-model="community" />
+        <input
+          type="text"
+          name="commuity"
+          placeholder="Community..."
+          required
+          v-model.trim="community"
+        />
         <br />
         <button type="button" @click="addUser()">CREAR</button>
         <router-link :to="{name:'Login'}">Login</router-link>
