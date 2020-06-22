@@ -6,10 +6,34 @@
     <menucustom></menucustom>
 
     <!-- BUSQUEDA -->
-    <!--  <div class="searchProduct">
-      <label for="bySearch">Search a space:</label>
-      <input v-model="search" id="search" name="bySearch" type="search" placeholder="Write..." />
-    </div>-->
+    <div class="searchProduct">
+      <select v-model="filter">
+        <option disabled value>Select filter</option>
+        <option value="name">Name</option>
+        <option value="location">Location</option>
+        <option value="type">Type</option>
+        <option value="equipment">Equipment</option>
+        <option value="date">Date</option>
+      </select>
+      <input
+        v-model.trim="search"
+        id="search"
+        name="bySearch"
+        type="search"
+        placeholder="Write..."
+        v-show="!dateInput"
+      />
+      <input
+        v-model.trim="search"
+        id="search"
+        name="bySearch"
+        type="date"
+        placeholder="Write..."
+        v-show="dateInput"
+      />
+      <button @click="getSpaces()">Search</button>
+      <button @click="clearInput()">Clear</button>
+    </div>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -25,6 +49,9 @@
 
     <!-- COMPONENTE SPACES -->
     <spaceslist :spaces="spaces"></spaceslist>
+
+    <!-- NO RESULTS -->
+    <p v-show="noResults" style="color:red">No results</p>
   </div>
 </template>
 
@@ -41,14 +68,20 @@ export default {
   data() {
     return {
       spaces: [],
-      loading: true
+      loading: true,
+      search: "",
+      filter: "",
+      dateInput: false,
+      noResults: false
     };
   },
   methods: {
     getSpaces() {
       let self = this;
       axios
-        .get("http://localhost:3001/spaces")
+        .get(
+          `http://localhost:3001/spaces?search=${self.search}&filter=${self.filter}`
+        )
         .then(function(response) {
           //TIEMPO DE CARGA
           setTimeout(function() {
@@ -59,6 +92,27 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    clearInput() {
+      (this.search = ""), (this.filter = "");
+      this.getSpaces();
+    }
+  },
+  watch: {
+    // cada vez que la pregunta cambie, esta función será ejecutada
+    filter: function() {
+      if (this.filter === "date") {
+        this.dateInput = true;
+      } else {
+        this.dateInput = false;
+      }
+    },
+    spaces: function() {
+      if (this.spaces.length < 1) {
+        this.noResults = true;
+      } else {
+        this.noResults = false;
+      }
     }
   },
   created() {
