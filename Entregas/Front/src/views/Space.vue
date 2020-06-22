@@ -19,9 +19,11 @@
 
     <!-- SPACE VIEW -->
     <spaceview :space="space" :comments="comments" v-show="!loading"></spaceview>
+    <div v-show="!loading">
+      <button v-show="logged" @click="openModal()">Votar</button>
+      <button v-show="logged" @click="reservar()">Reservar</button>
+    </div>
 
-    <button v-show="!loading" @click="openModal()">Votar</button>
-    <button v-show="!loading" @click="reservar()">Reservar</button>
     <!-- MODAL PARA VOTAR -->
     <div class="modal" v-show="modal">
       <div class="modalBox">
@@ -54,6 +56,8 @@ import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO SPACES
 import spaceview from "@/components/SpaceView.vue";
 
+import { isLoggedIn } from "../api/utils";
+
 export default {
   name: "Space",
   components: { menucustom, spaceview, StarRating },
@@ -65,7 +69,8 @@ export default {
       loading: true,
       modal: false,
       rating: 0,
-      comentary: ""
+      comentary: "",
+      logged: false
     };
   },
   methods: {
@@ -147,12 +152,20 @@ export default {
       setTimeout(function() {
         location.reload();
       }, 1500);
+    },
+    checkLogged() {
+      if (isLoggedIn()) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
     }
   },
 
   created() {
     this.getSpaces();
     this.getVotes();
+    this.checkLogged();
   }
 };
 </script>

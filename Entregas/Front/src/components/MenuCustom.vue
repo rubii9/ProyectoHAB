@@ -4,12 +4,14 @@
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
         <router-link :to="{name:'About'}">About</router-link>
-        <router-link :to="{ name: 'Profile', params:{ id: this.userID }}">Mi perfil</router-link>
+        <router-link :to="{ name: 'Profile', params:{ id: this.userID }}" v-show="logged">Mi perfil</router-link>
       </div>
 
       <div class="user">
         <p>{{nombreUsuario}}</p>
-        <button @click="logoutUser()">Logout</button>
+        <button v-show="!logged" @click="goLogin()">Login</button>
+
+        <button v-show="logged" @click="logoutUser()">Logout</button>
       </div>
     </div>
   </div>
@@ -22,13 +24,16 @@ export default {
   data() {
     return {
       nombreUsuario: "",
-      userID: 0
+      userID: 0,
+      logged: false
     };
   },
   methods: {
     logoutUser() {
       this.nombreUsuario = "";
       this.userID = 0;
+      this.logged = false;
+      location.reload();
       return clearLogin();
     },
     getUserName() {
@@ -38,10 +43,18 @@ export default {
       } else {
         this.userID = 0;
       }
+    },
+    goLogin() {
+      this.$router.push("/login");
     }
   },
   created() {
     this.getUserName();
+    if (isLoggedIn()) {
+      this.logged = true;
+    } else {
+      this.logged = false;
+    }
   }
 };
 </script>

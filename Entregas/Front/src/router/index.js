@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Error from "../views/Error.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { isLoggedIn } from "../api/utils";
 
 Vue.use(VueRouter);
 
@@ -14,11 +16,27 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/login",
     name: "Login",
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (isLoggedIn() === true) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Pero si ya estas logeado!",
+        });
+        next({
+          path: "/home",
+          query: { redirect: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    },
 
     component: () => import("../views/Login.vue"),
   },
@@ -27,6 +45,22 @@ const routes = [
     name: "Register",
 
     component: () => import("../views/Register.vue"),
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (isLoggedIn() === true) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Pero si ya estas logeado!",
+        });
+        next({
+          path: "/home",
+          query: { redirect: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/about",
@@ -44,6 +78,22 @@ const routes = [
     path: "/profile/:id",
     name: "Profile",
     component: () => import("../views/Profile.vue"),
+    meta: {
+      // RUTA PRIVADA
+      allowAnonymous: false,
+    },
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (!to.meta.allowAnonymous && !isLoggedIn()) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Tienes que logearte!",
+        });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "*",
