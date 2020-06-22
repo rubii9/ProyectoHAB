@@ -35,7 +35,7 @@
         <label for="community">Community:</label>
         <input type="text" name="commuity" placeholder="Community..." required v-model="community" />
         <br />
-        <button type="#" @click="addUser()">CREAR</button>
+        <button type="button" @click="addUser()">CREAR</button>
         <router-link :to="{name:'Login'}">Login</router-link>
       </form>
     </div>
@@ -92,14 +92,7 @@ export default {
           })
           .then(function(response) {
             console.log(response);
-            this.emptyFields();
-            Swal.fire({
-              icon: "success",
-              title: "User registered",
-              text: "Check your email to validate",
-              confirmButtonText: "Ok"
-            });
-            self.$router.push("/login");
+            self.emptyFields();
           })
           .catch(function(error) {
             if (error.response) {
@@ -116,6 +109,13 @@ export default {
       this.name === "";
       this.city === "";
       this.community === "";
+      Swal.fire({
+        icon: "success",
+        title: "User registered",
+        text: "Check your email to validate",
+        confirmButtonText: "Ok"
+      });
+      this.$router.push("/login");
     }
   }
 };
