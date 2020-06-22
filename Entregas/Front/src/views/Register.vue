@@ -3,7 +3,7 @@
     <vue-headful title="Register" description="Register page" />
     <!-- FORMULARIO -->
     <div class="registerform">
-      <p v-show="required">{{message}}</p>
+      <p v-show="required">{{ message }}</p>
       <form>
         <label for="email">Email:</label>
         <input
@@ -27,10 +27,22 @@
         />
         <br />
         <label for="name">Name:</label>
-        <input type="text" name="name" placeholder="Name..." required v-model.trim="name" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name..."
+          required
+          v-model.trim="name"
+        />
         <br />
         <label for="city">City:</label>
-        <input type="text" name="city" placeholder="City..." required v-model.trim="city" />
+        <input
+          type="text"
+          name="city"
+          placeholder="City..."
+          required
+          v-model.trim="city"
+        />
         <br />
         <label for="community">Community:</label>
         <input
@@ -42,7 +54,7 @@
         />
         <br />
         <button type="button" @click="addUser()">CREAR</button>
-        <router-link :to="{name:'Login'}">Login</router-link>
+        <router-link :to="{ name: 'Login' }">Login</router-link>
       </form>
     </div>
   </div>
@@ -64,7 +76,7 @@ export default {
       community: "",
       correctData: false,
       required: false,
-      message: "Error"
+      message: "Error",
     };
   },
   methods: {
@@ -94,7 +106,7 @@ export default {
             password: self.password,
             name: self.name,
             city: self.city,
-            community: self.community
+            community: self.community,
           })
           .then(function(response) {
             console.log(response);
@@ -110,22 +122,21 @@ export default {
       }
     },
     emptyFields() {
-      this.email === "";
-      this.password === "";
-      this.name === "";
-      this.city === "";
-      this.community === "";
+      this.email = "";
+      this.password = "";
+      this.name = "";
+      this.city = "";
+      this.community = "";
       Swal.fire({
         icon: "success",
-        title: "User registered",
-        text: "Check your email to validate",
-        confirmButtonText: "Ok"
+        title: "Usuario registrado",
+        text: "Comprueba el email para validar tu cuenta",
+        confirmButtonText: "Ok",
       });
       this.$router.push("/login");
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

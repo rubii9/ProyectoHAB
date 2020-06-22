@@ -18,12 +18,41 @@
     </div>
 
     <!-- SPACE VIEW -->
-    <spaceview :space="space" :comments="comments" v-show="!loading"></spaceview>
+    <spaceview
+      :space="space"
+      :comments="comments"
+      v-show="!loading"
+    ></spaceview>
+
+    <button v-show="!loading" @click="openModal()">Votar</button>
+    <button v-show="!loading" @click="reservar()">Reservar</button>
+    <!-- MODAL PARA VOTAR -->
+    <div class="modal" v-show="modal">
+      <div class="modalBox">
+        <h3>Votar espacio</h3>
+        <label for="commentary">Commentary:</label>
+        <textarea
+          name="comentary"
+          placeholder="Commentary..."
+          v-model.trim="comentary"
+          rows="10"
+          cols="50"
+        />
+        <label for="rating">Score:</label>
+        <star-rating v-model="rating" class="vote"></star-rating>
+        <div>
+          <button @click="closeModal()">Cancel</button>
+          <button @click="vote()">Enviar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import StarRating from "vue-star-rating";
+import Swal from "sweetalert2";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO SPACES
@@ -31,16 +60,27 @@ import spaceview from "@/components/SpaceView.vue";
 
 export default {
   name: "Space",
-  components: { menucustom, spaceview },
+  components: { menucustom, spaceview, StarRating },
   props: ["id"],
   data() {
     return {
       space: {},
       comments: [],
-      loading: true
+      loading: true,
+      modal: false,
+      rating: 0,
+      comentary: "",
     };
   },
   methods: {
+    //FUNCION QUE ABRE EL POP UP PARA EDITAR
+    openModal(data) {
+      this.modal = true;
+    },
+    //FUNCION QUE CIERRA EL POP UP PARA EDITAR
+    closeModal() {
+      this.modal = false;
+    },
     getSpaces() {
       let self = this;
       axios
@@ -53,7 +93,9 @@ export default {
           }, 1000);
         })
         .catch(function(error) {
-          console.log(error);
+          if (error.response) {
+            alert(error.response.data.message);
+          }
         });
     },
     getVotes() {
@@ -68,19 +110,85 @@ export default {
           }, 1000);
         })
         .catch(function(error) {
-          console.log(error);
+          if (error.response) {
+            alert(error.response.data.message);
+          }
         });
-    }
+    },
+    vote() {
+      let self = this;
+      axios
+        .post(
+          "http://localhost:3001/spaces/" + self.$route.params.id + "/votes",
+          {
+            score: self.rating,
+            comment: self.comentary,
+          }
+        )
+        .then(function(response) {
+          console.log(response);
+          self.emptyFields();
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    reservar() {},
+    emptyFields() {
+      this.rating = 0;
+      this.comentary = "";
+      this.closeModal();
+      Swal.fire({
+        icon: "success",
+        title: "Voto enviado",
+        text: "Gracias",
+        confirmButtonText: "Ok",
+      });
+      setTimeout(function() {
+        location.reload();
+      }, 1500);
+    },
   },
 
   created() {
     this.getSpaces();
     this.getVotes();
-  }
+  },
 };
 </script>
 
 <style scoped>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.modalBox {
+  background: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.vote {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
 .lds-roller {
   display: inline-block;
   position: relative;

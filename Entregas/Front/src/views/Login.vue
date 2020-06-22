@@ -4,7 +4,7 @@
     <h1>Welcome!</h1>
     <h2>Login</h2>
     <form>
-      <p v-show="required">{{message}}</p>
+      <p v-show="required">{{ message }}</p>
       <input
         minlength="3"
         maxlength="60"
@@ -21,8 +21,8 @@
         v-model.trim="password"
         required
       />
-      <button type="#" @click="login()">LOGIN</button>
-      <router-link :to="{name:'Register'}">Register</router-link>
+      <button type="button" @click="login()">LOGIN</button>
+      <router-link :to="{ name: 'Register' }">Register</router-link>
     </form>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
       email: "",
       password: "",
       message: "Error",
-      required: false
+      required: false,
     };
   },
   methods: {
@@ -63,8 +63,8 @@ export default {
           alert(error);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
