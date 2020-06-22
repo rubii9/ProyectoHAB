@@ -4,6 +4,7 @@
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
         <router-link :to="{name:'About'}">About</router-link>
+        <router-link :to="{ name: 'Profile', params:{ id: this.userID }}">Mi perfil</router-link>
       </div>
 
       <div class="user">
@@ -20,16 +21,19 @@ export default {
   name: "MenuCustom",
   data() {
     return {
-      nombreUsuario: ""
+      nombreUsuario: "",
+      userID: 0
     };
   },
   methods: {
     logoutUser() {
       this.nombreUsuario = "";
+      this.userID = 0;
       return clearLogin();
     },
     getUserName() {
       this.nombreUsuario = localStorage.getItem("Usuario");
+      this.userID = localStorage.getItem("userID");
     }
   },
   created() {
@@ -38,9 +42,6 @@ export default {
 };
 </script>
 <style scoped>
-.menu {
-  color: white;
-}
 .user {
   display: flex;
   justify-content: center;

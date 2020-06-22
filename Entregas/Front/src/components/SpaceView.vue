@@ -13,7 +13,7 @@
       <p>Score: {{ Number(space.score).toFixed([2]) }}</p>
       <div v-for="comment in comments" :key="comment.id">
         <p>
-          <span>{{ comment.name }}:</span>
+          <router-link :to="{ name: 'Profile', params:{ id: comment.user_id }}">{{ comment.name }}:</router-link>
           {{ comment.comment }}, Score: {{ comment.score }} ⭐
         </p>
       </div>
@@ -28,18 +28,18 @@ export default {
 
   data() {
     return {
-      path: "http://localhost:3001/uploads/",
+      path: "http://localhost:3001/uploads/"
     };
   },
   props: {
     space: Object,
-    comments: Array,
+    comments: Array
   },
   methods: {
     capitalize() {
       return this.charAt(0).toUpperCase() + this.slice(1);
-    },
-  },
+    }
+  }
 };
 </script>
 

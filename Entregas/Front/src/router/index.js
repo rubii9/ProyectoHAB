@@ -41,6 +41,11 @@ const routes = [
     component: () => import("../views/Space.vue"),
   },
   {
+    path: "/profile/:id",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+  },
+  {
     path: "*",
     name: Error,
     component: Error,
