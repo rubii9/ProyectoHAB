@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="space" v-for="space in spaces" :key="space.id">
+    <div class="space">
       <p>ID: {{ space.id }}</p>
       <p>Nombre: {{ space.name }}</p>
       <p>Tipo: {{ space.type }}</p>
@@ -12,21 +12,28 @@
       <p>Score: {{Number(space.score).toFixed([2])}}</p>
       <br />
       <img :src="path + space.photo1" alt />
-      <router-link :to=" {name:'Space', params:{id:space.id}} ">VER</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ListaSpaces",
+  name: "SpaceView",
   data() {
     return {
       path: "http://localhost:3001/uploads/"
     };
   },
   props: {
-    spaces: Array
+    space: Object
+  },
+  methods: {
+    capitalize() {
+      return this.charAt(0).toUpperCase() + this.slice(1);
+    }
   }
 };
 </script>
+
+<style>
+</style>

@@ -35,6 +35,12 @@ const routes = [
     component: () => import("../views/About.vue"),
   },
   {
+    path: "/spaceview/:id",
+    name: "Space",
+
+    component: () => import("../views/Space.vue"),
+  },
+  {
     path: "*",
     name: Error,
     component: Error,

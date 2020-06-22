@@ -1,39 +1,9 @@
 <template>
-  <div class="home">
-    <vue-headful title="Home" description="Home page" />
+  <div class="SpaceID">
+    <vue-headful title="Space" description="Space page" />
 
     <!-- MENU -->
     <menucustom></menucustom>
-
-    <!-- BUSQUEDA -->
-    <div class="searchProduct">
-      <select v-model="filter">
-        <option disabled value>Filtrado por...</option>
-        <option value="name">Nombre</option>
-        <option value="location">Ubicación</option>
-        <option value="type">Tipo</option>
-        <option value="equipment">Equipmiento</option>
-        <option value="date">Datas</option>
-      </select>
-      <input
-        v-model.trim="search"
-        id="search"
-        name="bySearch"
-        type="search"
-        placeholder="Búsqueda..."
-        v-show="!dateInput"
-      />
-      <input
-        v-model.trim="search"
-        id="search"
-        name="bySearch"
-        type="date"
-        placeholder="Write..."
-        v-show="dateInput"
-      />
-      <button @click="getSpaces()">Buscar</button>
-      <button @click="clearInput()">Clean</button>
-    </div>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -47,11 +17,8 @@
       <div></div>
     </div>
 
-    <!-- COMPONENTE SPACES -->
-    <spaceslist :spaces="spaces"></spaceslist>
-
-    <!-- NO RESULTS -->
-    <p v-show="noResults" style="color:red">No results</p>
+    <!-- SPACE VIEW -->
+    <spaceview :space="space" v-show="!loading"></spaceview>
   </div>
 </template>
 
@@ -60,61 +27,36 @@ import axios from "axios";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO SPACES
-import spaceslist from "@/components/ListaSpaces.vue";
+import spaceview from "@/components/SpaceView.vue";
 
 export default {
-  name: "Home",
-  components: { menucustom, spaceslist },
+  name: "Space",
+  components: { menucustom, spaceview },
+  props: ["id"],
   data() {
     return {
-      spaces: [],
-      loading: true,
-      search: "",
-      filter: "",
-      dateInput: false,
-      noResults: false
+      space: {},
+      loading: true
     };
   },
   methods: {
     getSpaces() {
       let self = this;
       axios
-        .get(
-          `http://localhost:3001/spaces?search=${self.search}&filter=${self.filter}`
-        )
+        .get("http://localhost:3001/spaces/" + self.$route.params.id)
         .then(function(response) {
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;
-            self.spaces = response.data.data;
+            self.space = response.data.data;
           }, 1000);
         })
         .catch(function(error) {
           console.log(error);
         });
-    },
-    clearInput() {
-      (this.search = ""), (this.filter = "");
-      this.getSpaces();
     }
   },
-  watch: {
-    // cada vez que la pregunta cambie, esta función será ejecutada
-    filter: function() {
-      if (this.filter === "date") {
-        this.dateInput = true;
-      } else {
-        this.dateInput = false;
-      }
-    },
-    spaces: function() {
-      if (this.spaces.length < 1) {
-        this.noResults = true;
-      } else {
-        this.noResults = false;
-      }
-    }
-  },
+
   created() {
     this.getSpaces();
   }

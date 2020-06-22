@@ -390,7 +390,7 @@ async function getSpace(req, res, next) {
     connection = await getConnection();
 
     const [result] = await connection.query(
-      `SELECT s.*, avg(r.score)
+      `SELECT s.*, avg(r.score) as score
       FROM spaces s
       left join ratings r
       on s.id=r.space_id
