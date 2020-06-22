@@ -1,8 +1,8 @@
 <template>
   <div class="login">
     <vue-headful title="Login" description="Login page" />
-    <h1>Welcome!</h1>
-    <h2>Login</h2>
+
+    <h1>Login</h1>
     <form>
       <p v-show="required">{{ message }}</p>
       <input
@@ -21,7 +21,7 @@
         v-model.trim="password"
         required
       />
-      <button type="button" @click="login()">LOGIN</button>
+      <button type="button" @click="login()">Login</button>
       <router-link :to="{ name: 'Register' }">Register</router-link>
     </form>
   </div>
@@ -39,7 +39,7 @@ export default {
       email: "",
       password: "",
       message: "Error",
-      required: false,
+      required: false
     };
   },
   methods: {
@@ -63,8 +63,8 @@ export default {
           alert(error);
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
