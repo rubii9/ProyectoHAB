@@ -17,7 +17,9 @@ export function loginUser(email, password) {
           password: password,
         }, // DATOS DE LA AUTENTIFICACIÓN
       });
-      setAuthToken(res.data.data.token);
+
+      setAuthToken(res.data.data.token, res.data.data.tokenPayload);
+
       resolve();
     } catch (err) {
       if (err.response) {
@@ -34,15 +36,17 @@ export function clearLogin() {
   axios.defaults.headers.common["Authorization"] = "";
   localStorage.removeItem(AUTH_TOKEN_KEY);
   localStorage.removeItem("Usuario");
+  localStorage.removeItem("userID");
   clearAdmin();
 }
 
 // ========================= TOKEN =====================
 
 //GUARDAR TOKEN EN LOCALSTORAGE
-export function setAuthToken(token) {
+export function setAuthToken(token, payload) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   localStorage.setItem(AUTH_TOKEN_KEY, token);
+  localStorage.setItem("userID", payload.id);
 }
 
 //COGER EL TOKEN

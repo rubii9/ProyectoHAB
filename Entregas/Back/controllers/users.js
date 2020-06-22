@@ -199,7 +199,7 @@ async function loginUser(req, res, next) {
     res.send({
       status: 'ok',
       message: 'Login successfull',
-      data: { token }
+      data: { token, tokenPayload }
     });
   } catch (error) {
     next(error);

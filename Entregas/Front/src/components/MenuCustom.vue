@@ -26,7 +26,6 @@ export default {
   methods: {
     logoutUser() {
       this.nombreUsuario = "";
-      this.$router.push("/");
       return clearLogin();
     },
     getUserName() {

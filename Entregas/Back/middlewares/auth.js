@@ -62,6 +62,7 @@ async function userIsAuthenticated(req, res, next) {
     }
 
     req.auth = decoded;
+
     next();
   } catch (error) {
     error.httpCode = 401;
