@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { clearLogin } from "../api/utils";
+import { clearLogin, isLoggedIn } from "../api/utils";
 export default {
   name: "MenuCustom",
   data() {
@@ -33,7 +33,11 @@ export default {
     },
     getUserName() {
       this.nombreUsuario = localStorage.getItem("Usuario");
-      this.userID = localStorage.getItem("userID");
+      if (localStorage.getItem("userID")) {
+        this.userID = localStorage.getItem("userID");
+      } else {
+        this.userID = 0;
+      }
     }
   },
   created() {
