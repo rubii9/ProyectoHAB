@@ -80,6 +80,8 @@ export default {
     //FUNCION QUE CIERRA EL POP UP PARA EDITAR
     closeModal() {
       this.modal = false;
+      this.rating = 0;
+      this.comentary = "";
     },
     getSpaces() {
       let self = this;
