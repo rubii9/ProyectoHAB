@@ -545,7 +545,15 @@ async function getSpaceVotes(req, res, next) {
       SELECT r.*,u.name from ratings r
         inner join users u
         on u.id=r.user_id
-        WHERE space_id=?`,
+        WHERE space_id=?
+        `,
+      [id]
+    );
+
+    const [totalvotes] = await connection.query(
+      `SELECT COUNT(id) AS totalvotes
+    FROM ratings
+    WHERE space_id = ?;`,
       [id]
     );
 
@@ -553,7 +561,8 @@ async function getSpaceVotes(req, res, next) {
 
     res.send({
       status: 'ok',
-      data: votes
+      data: votes,
+      info: totalvotes
     });
   } catch (error) {
     next(error);

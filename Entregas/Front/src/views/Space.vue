@@ -18,7 +18,7 @@
     </div>
 
     <!-- SPACE VIEW -->
-    <spaceview :space="space" :comments="comments" v-show="!loading"></spaceview>
+    <spaceview :space="space" :comments="comments" :totalvotes="totalvotes" v-show="!loading"></spaceview>
     <div v-show="!loading">
       <button v-show="logged" @click="openModal()">Votar</button>
       <button v-show="logged" @click="reservar()">Reservar</button>
@@ -70,7 +70,8 @@ export default {
       modal: false,
       rating: 0,
       comentary: "",
-      logged: false
+      logged: false,
+      totalvotes: 0
     };
   },
   methods: {
@@ -107,9 +108,11 @@ export default {
         .get("http://localhost:3001/spaces/" + self.$route.params.id + "/votes")
         .then(function(response) {
           //TIEMPO DE CARGA
+
           setTimeout(function() {
             self.loading = false;
             self.comments = response.data.data;
+            self.totalvotes = response.data.info[0].totalvotes;
           }, 1000);
         })
         .catch(function(error) {

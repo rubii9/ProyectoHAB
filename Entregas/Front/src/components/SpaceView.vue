@@ -10,35 +10,53 @@
       <p>Descripción: {{ space.description }}</p>
       <p>Dirección: {{ space.adress }}</p>
       <p>Equipamiento: {{ space.equipment }}</p>
-      <p>Score: {{ Number(space.score).toFixed([2]) }}</p>
+
+      <p>
+        Valoración:
+        <star-rating
+          :inline="inline"
+          :star-size="startSize"
+          :read-only="onTrue"
+          :rating="Number(space.score)"
+          :fixed-points="fixedPoints"
+          :increment="increment"
+        ></star-rating>
+      </p>
+      <p>Votos totales: {{totalvotes}}</p>
+      <!-- <p>Score: {{ Number(space.score).toFixed([2]) }}</p> -->
+
       <div v-for="comment in comments" :key="comment.id">
         <p>
           <router-link :to="{ name: 'Profile', params:{ id: comment.user_id }}">{{ comment.name }}:</router-link>
-          {{ comment.comment }}, Score: {{ comment.score }} ⭐
+          {{ comment.comment }}. Puntuación: {{ comment.score }} ⭐
         </p>
       </div>
-      <br />
     </div>
   </div>
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
   name: "SpaceView",
-
+  components: {
+    StarRating
+  },
   data() {
     return {
-      path: "http://localhost:3001/uploads/"
+      path: "http://localhost:3001/uploads/",
+      inline: true,
+      startSize: 30,
+      onTrue: true,
+      onFalse: false,
+      increment: 0.01,
+      fixedPoints: 2
     };
   },
   props: {
     space: Object,
-    comments: Array
-  },
-  methods: {
-    capitalize() {
-      return this.charAt(0).toUpperCase() + this.slice(1);
-    }
+    comments: Array,
+    totalvotes: Number
   }
 };
 </script>

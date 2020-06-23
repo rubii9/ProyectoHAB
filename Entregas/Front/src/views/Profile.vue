@@ -45,7 +45,6 @@ export default {
       axios
         .get("http://localhost:3001/users/" + self.$route.params.id)
         .then(function(response) {
-          console.log(response);
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;
