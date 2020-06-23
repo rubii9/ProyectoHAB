@@ -619,8 +619,8 @@ async function reserveSpace(req, res, next) {
     try {
       await sendEmail({
         email: email,
-        title: 'Validate your reserve of coworkings app',
-        content: `To validate your reserve clic on link or copy and then paste on your browser: ${validationURL}`
+        title: 'Validación de la reserva | Coworking.com',
+        content: `Para validar la reserva haz click en el enlace o copia y pega en tu navegador: ${validationURL}`
       });
     } catch (error) {
       console.error(error.response.body);

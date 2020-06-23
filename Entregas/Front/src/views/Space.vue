@@ -20,12 +20,12 @@
     <!-- SPACE VIEW -->
     <spaceview :space="space" :comments="comments" :totalvotes="totalvotes" v-show="!loading"></spaceview>
     <div v-show="!loading">
-      <button v-show="logged" @click="openModal()">Votar</button>
-      <button v-show="logged" @click="reservar()">Reservar</button>
+      <button v-show="logged" @click="openVoteModal()">Votar</button>
+      <button v-show="logged" @click="openReserveModal()">Reservar</button>
     </div>
 
     <!-- MODAL PARA VOTAR -->
-    <div class="modal" v-show="modal">
+    <div class="modal" v-show="modalVote">
       <div class="modalBox">
         <h3>Votar espacio</h3>
         <label for="commentary">Commentary:</label>
@@ -39,8 +39,26 @@
         <label for="rating">Score:</label>
         <star-rating v-model="rating" class="vote"></star-rating>
         <div>
-          <button @click="closeModal()">Cancel</button>
+          <button @click="closeVoteModal()">Cancel</button>
           <button @click="vote()">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PARA RESEVAR -->
+    <div class="modal" v-show="modalReserve">
+      <div class="modalBox">
+        <h3>Reservar espacio</h3>
+        <form>
+          <label for="start_date">Fecha inicio:</label>
+          <input v-model="fecha_inicio" id="start" name="start" type="date" />
+          <label for="end_date">Fecha fin:</label>
+          <input v-model="fecha_fin" id="end" name="end" type="date" />
+        </form>
+
+        <div>
+          <button @click="closeReserveModal()">Cancel</button>
+          <button @click="reservar()">Enviar</button>
         </div>
       </div>
     </div>
@@ -67,23 +85,34 @@ export default {
       space: {},
       comments: [],
       loading: true,
-      modal: false,
+      modalVote: false,
+      modalReserve: false,
       rating: 0,
       comentary: "",
       logged: false,
-      totalvotes: 0
+      totalvotes: 0,
+      fecha_inicio: "",
+      fecha_fin: ""
     };
   },
   methods: {
     //FUNCION QUE ABRE EL POP UP PARA EDITAR
-    openModal(data) {
-      this.modal = true;
+    openVoteModal() {
+      this.modalVote = true;
     },
     //FUNCION QUE CIERRA EL POP UP PARA EDITAR
-    closeModal() {
-      this.modal = false;
+    closeVoteModal() {
+      this.modalVote = false;
       this.rating = 0;
       this.comentary = "";
+    },
+    //FUNCION QUE ABRE EL POP UP PARA RESERVA
+    openReserveModal() {
+      this.modalReserve = true;
+    },
+    //FUNCION QUE CIERRA EL POP UP PARA RESERVA
+    closeReserveModal() {
+      this.modalReserve = false;
     },
     getSpaces() {
       let self = this;
@@ -108,7 +137,6 @@ export default {
         .get("http://localhost:3001/spaces/" + self.$route.params.id + "/votes")
         .then(function(response) {
           //TIEMPO DE CARGA
-
           setTimeout(function() {
             self.loading = false;
             self.comments = response.data.data;
@@ -141,7 +169,34 @@ export default {
           }
         });
     },
-    reservar() {},
+    reservar() {
+      let self = this;
+      axios
+        .post(
+          "http://localhost:3001/spaces/" + self.$route.params.id + "/reserve",
+          {
+            start: self.fecha_inicio,
+            end: self.fecha_fin
+          }
+        )
+        .then(function(response) {
+          console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "Reserva solicitada",
+            text: "Comprueba el email para confirmar",
+            confirmButtonText: "Ok"
+          });
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
     emptyFields() {
       this.rating = 0;
       this.comentary = "";

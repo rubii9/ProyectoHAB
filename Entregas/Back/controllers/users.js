@@ -48,8 +48,8 @@ async function newUser(req, res, next) {
     try {
       await sendEmail({
         email: email,
-        title: 'Validate your user acount of coworkings app',
-        content: `To validate your acount clic on link or copy and then paste on your browser: ${validationURL}`
+        title: 'Validación de usuario Coworking.com',
+        content: `Para validar el usuario haz clic en el enlace o copia y pega en tu navegador: ${validationURL}`
       });
     } catch (error) {
       console.error(error.response.body);
