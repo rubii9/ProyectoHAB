@@ -127,6 +127,7 @@ export default {
         })
         .catch(function(error) {
           if (error.response) {
+            self.$router.push({ path: "/error" });
             alert(error.response.data.message);
           }
         });

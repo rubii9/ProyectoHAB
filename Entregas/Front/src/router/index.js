@@ -71,7 +71,6 @@ const routes = [
   {
     path: "/spaceview/:id",
     name: "Space",
-
     component: () => import("../views/Space.vue"),
   },
   {

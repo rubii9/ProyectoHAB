@@ -2,7 +2,7 @@
   <div>
     <div class="space" v-for="space in spaces" :key="space.id">
       <router-link :to=" {name:'Space', params:{id:space.id}} ">
-        <img :src="path + space.photo1" alt />
+        <img :src="space.photo1 ? path + space.photo1 : ''" alt />
       </router-link>
       <p>Nombre: {{ space.name }}</p>
       <!--      <p>Tipo: {{ space.type }}</p>

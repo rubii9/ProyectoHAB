@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="space">
-      <img :src="path + space.photo1" alt />
+      <img :src="space.photo1 ?  path + space.photo1 : ''" alt />
       <p>ID: {{ space.id }}</p>
       <p>Nombre: {{ space.name }}</p>
       <p>Tipo: {{ space.type }}</p>
