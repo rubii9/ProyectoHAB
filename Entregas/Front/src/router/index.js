@@ -95,6 +95,28 @@ const routes = [
     },
   },
   {
+    path: "/postSpace",
+    name: "PostSpace",
+
+    component: () => import("../views/PostSpace.vue"),
+    meta: {
+      // RUTA PRIVADA
+      allowAnonymous: false,
+    },
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (!to.meta.allowAnonymous && !isLoggedIn()) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Tienes que logearte!",
+        });
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "*",
     name: Error,
     component: Error,

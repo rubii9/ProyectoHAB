@@ -84,7 +84,7 @@ const entrySchema = Joi.object().keys({
       generateError('The space name is required and max 100 characters', 400)
     ),
   description: Joi.string()
-    .max(1000)
+    .max(3000)
     .required()
     .error(
       generateError(

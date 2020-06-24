@@ -4,6 +4,7 @@
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
         <router-link :to="{ name: 'Profile', params:{ id: this.userID }}" v-show="logged">Mi perfil</router-link>
+        <router-link :to="{name:'PostSpace'}" v-show="logged">Nuevo post</router-link>
         <router-link :to="{name:'About'}">About</router-link>
       </div>
 

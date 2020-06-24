@@ -54,7 +54,7 @@ export default {
         .catch(function(error) {
           if (error.response) {
             alert(error.response.data.message);
-            self.$router.push({ path: "/error" });
+            /*   self.$router.push({ path: "/error" }); */
           }
         });
     }

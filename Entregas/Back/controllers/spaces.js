@@ -31,7 +31,7 @@ async function listSpaces(req, res, next) {
         `select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where s.name like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
         group by s.id
@@ -45,7 +45,7 @@ async function listSpaces(req, res, next) {
         `select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where (s.city like ? or s.community like ?)  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
         group by s.id
@@ -59,7 +59,7 @@ async function listSpaces(req, res, next) {
         `select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where s.type like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
         group by s.id
@@ -73,7 +73,7 @@ async function listSpaces(req, res, next) {
         `select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where s.equipment like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
         group by s.id
@@ -88,7 +88,7 @@ async function listSpaces(req, res, next) {
         select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where (r.end_date is null and r.start_date is null) or r.end_date < ?
         group by s.id
@@ -100,7 +100,7 @@ async function listSpaces(req, res, next) {
         `select s.* , avg(rt.score) as score from spaces s
         left join reserves r
         on  s.id=r.space_id
-        join ratings rt
+        left join ratings rt
         on rt.space_id=s.id
         where r.end_date is null and r.start_date is null or r.end_date < UTC_TIMESTAMP
         group by s.id
