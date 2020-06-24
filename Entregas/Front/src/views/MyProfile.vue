@@ -1,6 +1,6 @@
 <template>
   <div class="Profile">
-    <vue-headful title="Profile" description="Profile page" />
+    <vue-headful title="Mi perfil" description="Profile page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

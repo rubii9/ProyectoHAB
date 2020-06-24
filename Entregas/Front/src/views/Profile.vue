@@ -1,5 +1,5 @@
 <template>
-  <div class="Profile">
+  <div class="Perfil usuarios">
     <vue-headful title="Profile" description="Profile page" />
 
     <!-- MENU -->
