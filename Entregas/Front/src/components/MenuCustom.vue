@@ -33,7 +33,7 @@ export default {
       this.nombreUsuario = "";
       this.userID = 0;
       this.logged = false;
-      location.reload();
+      this.$router.push("/");
       return clearLogin();
     },
     getUserName() {

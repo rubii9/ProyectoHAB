@@ -13,7 +13,7 @@
         <option value="location">Ubicación</option>
         <option value="type">Tipo</option>
         <option value="equipment">Equipmiento</option>
-        <option value="date">Datas</option>
+        <option value="date">Fecha</option>
       </select>
       <input
         v-model.trim="search"
@@ -31,7 +31,6 @@
         placeholder="Write..."
         v-show="dateInput"
       />
-      <button @click="getSpaces()">Buscar</button>
       <button @click="clearInput()">Clean</button>
     </div>
 
@@ -113,6 +112,9 @@ export default {
       } else {
         this.noResults = false;
       }
+    },
+    search: function() {
+      this.getSpaces();
     }
   },
   created() {
