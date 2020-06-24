@@ -95,6 +95,27 @@ const routes = [
     },
   },
   {
+    path: "/myprofile/:id",
+    name: "MyProfile",
+    component: () => import("../views/MyProfile.vue"),
+    meta: {
+      // RUTA PRIVADA
+      allowAnonymous: false,
+    },
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (!to.meta.allowAnonymous && !isLoggedIn()) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Tienes que logearte!",
+        });
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "/postSpace",
     name: "PostSpace",
 

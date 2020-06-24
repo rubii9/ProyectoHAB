@@ -19,7 +19,7 @@ export default {
     return {
       defaultAvatar: "http://localhost:3001/uploads/defaultavatar.png",
       path: "http://localhost:3001/uploads/",
-      showInfo: false,
+      showInfo: true,
       userID: 0
     };
   },
@@ -29,14 +29,17 @@ export default {
   methods: {
     checkInfo() {
       this.userID = localStorage.getItem("userID");
-      if (this.$route.params.id === this.userID) {
-        this.showInfo = true;
-      } else {
+      if (this.$route.params.id != this.userID) {
         this.showInfo = false;
+      } else {
+        this.showInfo = true;
       }
     }
   },
   created() {
+    this.checkInfo();
+  },
+  bedoreCreate() {
     this.checkInfo();
   }
 };

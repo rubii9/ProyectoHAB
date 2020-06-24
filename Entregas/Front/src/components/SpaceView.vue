@@ -28,7 +28,9 @@
 
       <div v-for="comment in comments" :key="comment.id">
         <p>
-          <router-link :to="{ name: 'Profile', params:{ id: comment.user_id }}">{{ comment.name }}:</router-link>
+          <router-link
+            :to="{ name:  (comment.user_id == userID) ? 'MyProfile':'Profile', params:{ id: comment.user_id }}"
+          >{{ comment.name }}:</router-link>
           {{ comment.comment }}. Puntuación: {{ comment.score }} ⭐
         </p>
       </div>
@@ -51,13 +53,22 @@ export default {
       onTrue: true,
       onFalse: false,
       increment: 0.01,
-      fixedPoints: 2
+      fixedPoints: 2,
+      userID: 0
     };
   },
   props: {
     space: Object,
     comments: Array,
     totalvotes: Number
+  },
+  methods: {
+    info() {
+      this.userID = localStorage.getItem("userID");
+    }
+  },
+  created() {
+    this.info();
   }
 };
 </script>
