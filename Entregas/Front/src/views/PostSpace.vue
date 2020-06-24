@@ -71,14 +71,15 @@
       />
 
       <label class="imagen" for="imgmeeting">Imagen:</label>
-      <input class="imagen" type="file" id="file" ref="file" v-on:change="handleFileUpload()" />
+      <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
+
       <label for="equipment">Equipamiento:</label>
       <textarea name="equipment" rows="10" cols="50" v-model="equipment"></textarea>
 
       <label for="commentary">Añade una descripción</label>
       <textarea name="commentary" rows="10" cols="50" v-model="description"></textarea>
     </form>
-    <button @click="addSpace()">Post</button>
+    <button @click="uploadEvent()">Post</button>
   </div>
 </template>
 <script>
@@ -92,6 +93,7 @@ export default {
   },
   data() {
     return {
+      file: null,
       name: "",
       city: "",
       community: "",
@@ -99,7 +101,7 @@ export default {
       adress: "",
       description: "",
       type: "",
-      price: 0,
+      price: "",
       correctData: false,
       required: false
     };
@@ -107,10 +109,11 @@ export default {
   methods: {
     validatingData() {
       if (
+        this.type === "" ||
         this.name === "" ||
         this.city === "" ||
         this.community === "" ||
-        this.price === 0 ||
+        this.price === "" ||
         this.adress === "" ||
         this.description === "" ||
         this.equipment === ""
@@ -128,7 +131,8 @@ export default {
       this.name = "";
       this.city = "";
       this.community = "";
-      this.price = 0;
+      this.type = "";
+      this.price = "";
       this.adress = "";
       this.description = "";
       this.equipment = "";
@@ -143,23 +147,25 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-    addSpace() {
-      this.validatingData();
 
+    uploadEvent() {
+      this.validatingData();
       if (this.correctData) {
+        let photoFormData = new FormData();
+        // dict of all elements
+        photoFormData.append("name", this.name);
+        photoFormData.append("city", this.city);
+        photoFormData.append("community", this.community);
+        photoFormData.append("equipment", this.equipment);
+        photoFormData.append("adress", this.adress);
+        photoFormData.append("description", this.description);
+        photoFormData.append("price", this.price);
+        photoFormData.append("type", this.type);
+        photoFormData.append("photo1", this.file);
+
         let self = this;
         axios
-          .post("http://localhost:3001/spaces", {
-            name: self.name,
-            city: self.city,
-            community: self.community,
-            equipment: self.equipment,
-            adress: self.adress,
-            description: self.description,
-            type: self.type,
-            price: self.price,
-            photo1: self.file
-          })
+          .post("http://localhost:3001/spaces", photoFormData)
           .then(function(response) {
             console.log(response);
             self.emptyFields();
@@ -169,6 +175,8 @@ export default {
               alert(error.response.data.message);
             }
           });
+      } else {
+        console.log("Empty fields");
       }
     }
   }

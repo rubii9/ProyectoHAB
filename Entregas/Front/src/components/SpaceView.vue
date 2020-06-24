@@ -10,6 +10,7 @@
       <p>Descripción: {{ space.description }}</p>
       <p>Dirección: {{ space.adress }}</p>
       <p>Equipamiento: {{ space.equipment }}</p>
+      <p>Precio: {{space.price}}€</p>
 
       <p>
         Valoración:
