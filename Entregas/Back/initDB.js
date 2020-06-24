@@ -50,7 +50,7 @@ async function main() {
       photo2 varchar(255) default null,
       photo3 varchar(255) default null,
       type varchar(40) not null,
-      price decimal not null,
+      price decimal(10,2) not null,
       description text not null,
       equipment text not null,
       owner_id int unsigned not null,

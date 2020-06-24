@@ -66,7 +66,7 @@
         name="price"
         required
         type="number"
-        placeholder="Introduce el tipo de espacio"
+        placeholder="Introduce el precio €"
         v-model="price"
       />
 
