@@ -181,7 +181,6 @@ export default {
           }
         )
         .then(function(response) {
-          console.log(response);
           Swal.fire({
             icon: "success",
             title: "Reserva solicitada",

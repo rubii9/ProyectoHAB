@@ -9,28 +9,52 @@
       <p>Precio: {{space.price}}€</p>
       <p>Inicio de reserva: {{space.start_date.substr(0,10)}}</p>
       <p>Fin de reserva: {{space.end_date.substr(0,10)}}</p>
+      <h3>incidents:</h3>
       <div
         v-for="comment in incidents"
         :key="comment.id"
         v-show="comment.space_id == space.id ? true: false"
       >
-        <h3>incidents:</h3>
         <p>{{comment.comment}}</p>
         <p>{{comment.space_id}}</p>
         <p>Estado: {{comment.state === "open" ? "Pendiente" : "Cerrado"}}</p>
+      </div>
+      <button @click="openModal(space.id)">Incidencia</button>
+    </div>
+
+    <!-- MODAL PARA VOTAR -->
+    <div class="modal" v-show="modal">
+      <div class="modalBox">
+        <h3>Crear incidencia</h3>
+        <label for="commentary">Comentario:</label>
+        <textarea
+          name="comentary"
+          placeholder="Commentary..."
+          v-model.trim="comentary"
+          rows="10"
+          cols="50"
+        />
+        <div>
+          <button @click="closeModal()">Cancel</button>
+          <button @click="addIncident()">Enviar</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "CoworkingView",
 
   data() {
     return {
       path: "http://localhost:3001/uploads/",
-      userID: 0
+      modal: false,
+      comentary: "",
+      spaceID: 0
     };
   },
   props: {
@@ -40,7 +64,46 @@ export default {
   methods: {
     info() {
       this.userID = localStorage.getItem("userID");
-    }
+    },
+
+    openModal(data) {
+      this.modal = true;
+      this.spaceID = data;
+      console.log(this.spaceID);
+    },
+    //FUNCION QUE CIERRA EL POP UP PARA EDITAR
+    closeModal() {
+      this.modal = false;
+      this.comentary = "";
+    },
+    addIncident() {
+      let self = this;
+      axios
+        .post(
+          "http://localhost:3001/mycoworking/" + this.spaceID + "/incident",
+          {
+            comment: self.comentary
+          }
+        )
+        .then(function(response) {
+          self.closeModal();
+          Swal.fire({
+            icon: "success",
+            title: "Incidencia creada",
+            text: "Gracias por su información",
+            confirmButtonText: "Ok"
+          });
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    payReserve() {}
   },
   created() {
     this.info();
@@ -52,5 +115,26 @@ export default {
 img {
   height: 400px;
   width: 400px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.modalBox {
+  background: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 </style>
