@@ -20,6 +20,7 @@
         <p>Estado: {{comment.state === "open" ? "Pendiente" : "Cerrado"}}</p>
       </div>
       <button @click="openModal(space.id)">Incidencia</button>
+      <button @click="payReserve(space.id)">Pagar</button>
     </div>
 
     <!-- MODAL PARA VOTAR -->
@@ -103,7 +104,28 @@ export default {
           }
         });
     },
-    payReserve() {}
+    payReserve(data) {
+      let self = this;
+      axios
+        .post("http://localhost:3001/mycoworking/" + data + "/pay", {
+          comment: self.comentary
+        })
+        .then(function(response) {
+          self.closeModal();
+          self.pagado = true;
+          Swal.fire({
+            icon: "success",
+            title: "Pago pendiente de validación",
+            text: "Comprueba el correo para verificar",
+            confirmButtonText: "Ok"
+          });
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    }
   },
   created() {
     this.info();

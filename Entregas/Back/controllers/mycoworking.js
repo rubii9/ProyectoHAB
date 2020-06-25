@@ -50,6 +50,23 @@ async function validatePay(req, res, next) {
   try {
     const { code } = req.query;
     connection = await getConnection();
+
+    const [
+      check
+    ] = await connection.query(
+      'SELECT is_paid from reserves WHERE paymentCode=?',
+      [code]
+    );
+
+    console.log(check[0].is_paid);
+
+    if (check[0].is_paid === 1) {
+      res.send({
+        status: 'ok',
+        message: 'Ya has validado el pago de esta reserva'
+      });
+    }
+
     const [
       result
     ] = await connection.query(
@@ -63,7 +80,7 @@ async function validatePay(req, res, next) {
 
     res.send({
       status: 'ok',
-      message: 'Payment was successfull'
+      message: 'El pago de la reserva fue verificado'
     });
   } catch (error) {
     next(error);
@@ -130,9 +147,10 @@ async function newIncident(req, res, next) {
 
     const [
       entry
-    ] = await connection.query('SELECT id from reserves where space_id= ?', [
-      id
-    ]);
+    ] = await connection.query(
+      'SELECT id from reserves where space_id= ? and user_id = ?',
+      [id, req.auth.id]
+    );
 
     if (!entry.length) {
       throw generateError(`No found reserve with id ${id}`, 404);

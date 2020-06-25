@@ -589,7 +589,8 @@ async function validateReserve(req, res, next) {
 
     res.send({
       status: 'ok',
-      message: 'Reserve was successfull, now you can pay at my coworking'
+      message:
+        'La reserva fue efectuada, puedes realizar el pago en Mi Coworking '
     });
 
     connection.release();

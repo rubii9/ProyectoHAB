@@ -98,7 +98,7 @@ async function validateUser(req, res, next) {
 
     res.send({
       status: 'ok',
-      message: 'User validated, now you can login.'
+      message: 'Usuario validado ya puedes hacer login.'
     });
   } catch (error) {
     next(error);
