@@ -58,8 +58,6 @@ async function validatePay(req, res, next) {
       [code]
     );
 
-    console.log(check[0].is_paid);
-
     if (check[0].is_paid === 1) {
       res.send({
         status: 'ok',
@@ -107,8 +105,8 @@ async function payment(req, res, next) {
     try {
       await sendEmail({
         email: email,
-        title: 'Validate your payment of coworkings app',
-        content: `To validate your payment click on link or copy and then paste on your browser: ${validationURL}`
+        title: 'Valida tu pago de la web Coworking.com',
+        content: `Para validar el pago haz click en el enlace o copia y pega en tu navegador: ${validationURL}`
       });
     } catch (error) {
       console.error(error.response.body);
