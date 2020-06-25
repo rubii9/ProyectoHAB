@@ -138,6 +138,48 @@ const routes = [
     },
   },
   {
+    path: "/coworkings",
+    name: "MyCoworking",
+    component: () => import("../views/MyCoworking.vue"),
+    meta: {
+      // RUTA PRIVADA
+      allowAnonymous: false,
+    },
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (!to.meta.allowAnonymous && !isLoggedIn()) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Tienes que logearte!",
+        });
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/spaces-posted",
+    name: "MySpaces",
+    component: () => import("../views/MySpaces.vue"),
+    meta: {
+      // RUTA PRIVADA
+      allowAnonymous: false,
+    },
+    beforeEnter: (to, from, next) => {
+      // Si la ruta es privada y la persona no tiene token
+      if (!to.meta.allowAnonymous && !isLoggedIn()) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "Tienes que logearte!",
+        });
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "*",
     name: Error,
     component: Error,

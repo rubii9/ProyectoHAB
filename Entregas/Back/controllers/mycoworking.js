@@ -15,6 +15,7 @@ async function listMyCoworking(req, res, next) {
     select s.* ,r.*from reserves r, spaces s
     where r.space_id = s.id
     and r.user_id = ?  
+    order by r.end_date 
     `,
       [req.auth.id]
     );
@@ -23,7 +24,7 @@ async function listMyCoworking(req, res, next) {
     }
     incedents = await connection.query(
       `
-    select  i.comment,i.state from reserves r, incidents i
+    select  i.comment,i.state,r.space_id from reserves r, incidents i
     where  i.reserve_id=r.id
     and r.user_id = ?`,
       [req.auth.id]
