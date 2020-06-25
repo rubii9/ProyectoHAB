@@ -11,6 +11,6 @@ import menucustom from "@/components/MenuCustom.vue";
 
 export default {
   name: "About",
-  components: { menucustom }
+  components: { menucustom },
 };
 </script>
