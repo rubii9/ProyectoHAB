@@ -13,7 +13,7 @@
         <option value="location">Ubicación</option>
         <option value="type">Tipo</option>
         <option value="equipment">Equipmiento</option>
-        <option value="date">Fecha</option>
+        <option value="date">Fecha incio libre</option>
       </select>
       <input
         v-model.trim="search"
@@ -38,6 +38,7 @@
         v-model="search"
         v-show="ubicationInput"
       >
+        <option disabled value>Comunidad Autónoma...</option>
         <option
           v-for="comunidad in comunidades"
           :key="comunidad.id"

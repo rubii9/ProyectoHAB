@@ -51,6 +51,7 @@
         />
         <br />
         <select name="community" required placeholder="Introduce la comunidad" v-model="community">
+          <option disabled value>Comunidad Autónoma...</option>
           <option
             v-for="comunidad in comunidades"
             :key="comunidad.id"
