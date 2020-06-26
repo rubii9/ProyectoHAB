@@ -9,7 +9,9 @@
       <p>Precio: {{space.price}}€</p>
       <p>Inicio de reserva: {{space.start_date.substr(0,10)}}</p>
       <p>Fin de reserva: {{space.end_date.substr(0,10)}}</p>
-      <h3>incidents:</h3>
+      <p>Pagado: {{space.is_paid ? "Realizado" : "Pendiente"}}</p>
+      <p>Limpio: {{space.is_clean ? "Limpio" : "Pendiente"}}</p>
+      <h3>Incidencias:</h3>
       <div
         v-for="comment in incidents"
         :key="comment.id"
@@ -70,7 +72,6 @@ export default {
     openModal(data) {
       this.modal = true;
       this.spaceID = data;
-      console.log(this.spaceID);
     },
     //FUNCION QUE CIERRA EL POP UP PARA EDITAR
     closeModal() {

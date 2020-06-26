@@ -17,7 +17,7 @@
       <div></div>
     </div>
 
-    <coworking v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
+    <coworking v-show="!loading" :spaces="spaces" :incidents="incidents" :noIncident="noIncident"></coworking>
 
     <!-- NO RESULTS -->
     <p v-show="noResults" style="color:red">No tines ninguna reserva</p>
@@ -49,7 +49,7 @@ export default {
         .get(`http://localhost:3001/mycoworking`)
         .then(function(response) {
           //TIEMPO DE CARGA
-
+          console.log(response);
           setTimeout(function() {
             self.loading = false;
             self.spaces = response.data.data;
