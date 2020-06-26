@@ -46,16 +46,13 @@
         @keypress.enter="uploadEvent()"
       />
       <label for="community">Comunidad:</label>
-      <input
-        name="community"
-        required
-        minlength="3"
-        maxlength="60"
-        type="text"
-        placeholder="Introduce tu Comunidad"
-        v-model="community"
-        @keypress.enter="uploadEvent()"
-      />
+      <select name="community" required placeholder="Introduce la comunidad" v-model="community">
+        <option
+          v-for="comunidad in comunidades"
+          :key="comunidad.id"
+          v-bind:value="comunidad.nombre"
+        >{{comunidad.nombre}}</option>
+      </select>
       <label for="type">Tipo:</label>
       <input
         name="type"
@@ -121,7 +118,8 @@ export default {
       type: "",
       price: "",
       correctData: false,
-      required: false
+      required: false,
+      comunidades: []
     };
   },
   methods: {
@@ -196,7 +194,33 @@ export default {
       } else {
         console.log("Empty fields");
       }
+    },
+    async getCommunity() {
+      try {
+        this.comunidades = await this.getCom();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //GET COMUNINADES
+    getCom() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let res = await axios({
+            url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
+            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+          });
+          resolve(res.data.data);
+        } catch (err) {
+          console.log("Error consiguiendo los idiomas: ", err);
+          reject(err);
+        }
+      });
     }
+  },
+
+  mounted() {
+    this.getCommunity();
   }
 };
 </script>

@@ -455,6 +455,26 @@ async function deleteUser(req, res, next) {
   }
 }
 
+// GET - /comunidades
+async function getComunidades(req, res, next) {
+  try {
+    const connection = await getConnection();
+
+    let result;
+
+    result = await connection.query(`SELECT nombre from comunidades`);
+
+    connection.release();
+    const [comunidades] = result;
+    res.send({
+      status: 'ok',
+      data: comunidades
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   newUser,
   loginUser,
@@ -462,5 +482,6 @@ module.exports = {
   editUser,
   updatePasswordUser,
   validateUser,
-  deleteUser
+  deleteUser,
+  getComunidades
 };

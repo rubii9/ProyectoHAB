@@ -50,15 +50,13 @@
           @keypress.enter="addUser()"
         />
         <br />
-        <label for="community">Community:</label>
-        <input
-          type="text"
-          name="commuity"
-          placeholder="Community..."
-          required
-          v-model.trim="community"
-          @keypress.enter="addUser()"
-        />
+        <select name="community" required placeholder="Introduce la comunidad" v-model="community">
+          <option
+            v-for="comunidad in comunidades"
+            :key="comunidad.id"
+            v-bind:value="comunidad.nombre"
+          >{{comunidad.nombre}}</option>
+        </select>
         <br />
         <button type="button" @click="addUser()">Register</button>
         <router-link :to="{ name: 'Login' }">Login</router-link>
@@ -83,7 +81,8 @@ export default {
       community: "",
       correctData: false,
       required: false,
-      message: "Error"
+      message: "Error",
+      comunidades: []
     };
   },
   methods: {
@@ -141,7 +140,33 @@ export default {
         confirmButtonText: "Ok"
       });
       this.$router.push("/login");
+    },
+    async getCommunity() {
+      try {
+        this.comunidades = await this.getCom();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //GET COMUNINADES
+    getCom() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let res = await axios({
+            url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
+            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+          });
+          resolve(res.data.data);
+        } catch (err) {
+          console.log("Error consiguiendo los idiomas: ", err);
+          reject(err);
+        }
+      });
     }
+  },
+
+  mounted() {
+    this.getCommunity();
   }
 };
 </script>

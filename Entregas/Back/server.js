@@ -19,7 +19,8 @@ const {
   loginUser,
   updatePasswordUser,
   validateUser,
-  deleteUser
+  deleteUser,
+  getComunidades
 } = require('./controllers/users');
 
 //Spaces Controllers
@@ -104,6 +105,9 @@ app.put('/myspaces/:id/close', userIsAuthenticated, closeIncident);
 
 //Contacto
 app.post('/contact', contactEmail);
+
+//Comunidades
+app.get('/comunidades', getComunidades);
 
 // Error middleware
 app.use((error, req, res, next) => {
