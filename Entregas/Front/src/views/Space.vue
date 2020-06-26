@@ -35,6 +35,7 @@
           v-model.trim="comentary"
           rows="10"
           cols="50"
+          @keypress.enter="vote()"
         />
         <label for="rating">Score:</label>
         <star-rating v-model="rating" class="vote"></star-rating>
@@ -51,9 +52,15 @@
         <h3>Reservar espacio</h3>
         <form>
           <label for="start_date">Fecha inicio:</label>
-          <input v-model="fecha_inicio" id="start" name="start" type="date" />
+          <input
+            v-model="fecha_inicio"
+            id="start"
+            name="start"
+            type="date"
+            @keypress.enter="reservar()"
+          />
           <label for="end_date">Fecha fin:</label>
-          <input v-model="fecha_fin" id="end" name="end" type="date" />
+          <input v-model="fecha_fin" id="end" name="end" type="date" @keypress.enter="reservar()" />
         </form>
 
         <div>

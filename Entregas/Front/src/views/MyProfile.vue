@@ -26,22 +26,22 @@
         <h3>Editar meeting:</h3>
         <div>
           <label for="newName">Nombre:</label>
-          <input v-model="newName" placeholder="Text appears here" />
+          <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
         </div>
 
         <div>
           <label for="newCity">Ciudad:</label>
-          <input v-model="newCity" placeholder="Text appears here" />
+          <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
         </div>
 
         <div>
           <label for="newCommunity">Comunidad:</label>
-          <input v-model="newCommunity" placeholder="Text appears here" />
+          <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" />
         </div>
 
         <div>
           <label for="newPhone">Telefono:</label>
-          <input v-model="newPhone" placeholder="Text appears here" />
+          <input v-model="newPhone" placeholder="Text appears here" @keypress.enter="edite()" />
         </div>
 
         <div>

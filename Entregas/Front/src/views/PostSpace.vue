@@ -20,6 +20,7 @@
         type="text"
         placeholder="Introduce el nombre"
         v-model="name"
+        @keypress.enter="uploadEvent()"
       />
 
       <label for="adress">Direccion:</label>
@@ -31,6 +32,7 @@
         type="text"
         placeholder="Introduce la dirección"
         v-model="adress"
+        @keypress.enter="uploadEvent()"
       />
       <label for="city">Ciudad:</label>
       <input
@@ -41,6 +43,7 @@
         type="text"
         placeholder="Introduce tu ciudad"
         v-model="city"
+        @keypress.enter="uploadEvent()"
       />
       <label for="community">Comunidad:</label>
       <input
@@ -51,6 +54,7 @@
         type="text"
         placeholder="Introduce tu Comunidad"
         v-model="community"
+        @keypress.enter="uploadEvent()"
       />
       <label for="type">Tipo:</label>
       <input
@@ -60,6 +64,7 @@
         type="text"
         placeholder="Introduce el tipo de espacio"
         v-model="type"
+        @keypress.enter="uploadEvent()"
       />
       <label for="price">Precio:</label>
       <input
@@ -68,6 +73,7 @@
         type="number"
         placeholder="Introduce el precio €"
         v-model="price"
+        @keypress.enter="uploadEvent()"
       />
 
       <label class="imagen" for="imgmeeting">Imagen:</label>

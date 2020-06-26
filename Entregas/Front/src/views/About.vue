@@ -13,10 +13,17 @@
         type="email"
         placeholder="Email..."
         v-model.trim="email"
+        @keypress.enter="sendEmail()"
       />
 
       <label for="asunto">Asunto:</label>
-      <input type="text" v-model="asunto" required placeholder="Asunto..." />
+      <input
+        type="text"
+        v-model="asunto"
+        required
+        placeholder="Asunto..."
+        @keypress.enter="sendEmail()"
+      />
 
       <label for="commentary">Commentary:</label>
       <textarea
@@ -26,6 +33,7 @@
         rows="10"
         cols="50"
         required
+        @keypress.enter="sendEmail()"
       />
     </form>
     <button @click="sendEmail()">Enviar</button>

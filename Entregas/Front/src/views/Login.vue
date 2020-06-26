@@ -12,6 +12,7 @@
         type="email"
         placeholder="Email..."
         v-model.trim="email"
+        @keypress.enter="login()"
       />
       <input
         type="password"
@@ -20,6 +21,7 @@
         placeholder="Passsword..."
         v-model.trim="password"
         required
+        @keypress.enter="login()"
       />
       <button type="button" @click="login()">Login</button>
       <router-link :to="{ name: 'Register' }">Register</router-link>

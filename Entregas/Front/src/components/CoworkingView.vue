@@ -25,7 +25,7 @@
       <button @click="payReserve(space.id)">Pagar</button>
     </div>
 
-    <!-- MODAL PARA VOTAR -->
+    <!-- MODAL PARA INCIDENCIAS -->
     <div class="modal" v-show="modal">
       <div class="modalBox">
         <h3>Crear incidencia</h3>
@@ -36,6 +36,7 @@
           v-model.trim="comentary"
           rows="10"
           cols="50"
+          @keypress.enter="addIncident()"
         />
         <div>
           <button @click="closeModal()">Cancel</button>

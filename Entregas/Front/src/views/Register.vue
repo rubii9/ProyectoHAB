@@ -15,6 +15,7 @@
           type="email"
           placeholder="Email..."
           v-model.trim="email"
+          @keypress.enter="addUser()"
         />
         <br />
         <label for="password">Password:</label>
@@ -26,13 +27,28 @@
           required
           placeholder="Password..."
           v-model.trim="password"
+          @keypress.enter="addUser()"
         />
         <br />
         <label for="name">Name:</label>
-        <input type="text" name="name" placeholder="Name..." required v-model.trim="name" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name..."
+          required
+          v-model.trim="name"
+          @keypress.enter="addUser()"
+        />
         <br />
         <label for="city">City:</label>
-        <input type="text" name="city" placeholder="City..." required v-model.trim="city" />
+        <input
+          type="text"
+          name="city"
+          placeholder="City..."
+          required
+          v-model.trim="city"
+          @keypress.enter="addUser()"
+        />
         <br />
         <label for="community">Community:</label>
         <input
@@ -41,6 +57,7 @@
           placeholder="Community..."
           required
           v-model.trim="community"
+          @keypress.enter="addUser()"
         />
         <br />
         <button type="button" @click="addUser()">Register</button>
