@@ -394,7 +394,7 @@ async function updatePasswordUser(req, res, next) {
   }
 }
 
-//DELETE - /users/:id
+//DELETE - /users
 async function deleteUser(req, res, next) {
   try {
     const { id } = req.params;
@@ -404,7 +404,10 @@ async function deleteUser(req, res, next) {
     // Delete image if exists!
     const [
       current
-    ] = await connection.query('SELECT id, avatar from users where id=?', [id]);
+    ] = await connection.query(
+      'SELECT id, avatar,email from users where id=?',
+      [req.auth.id]
+    );
 
     if (!current.length) {
       const error = new Error(`There is no user with id ${id}`);
@@ -421,28 +424,46 @@ async function deleteUser(req, res, next) {
       await deletePhoto(current[0].avatar);
     }
 
+    await connection.query(`SET FOREIGN_KEY_CHECKS = 0;`);
+
+    //ELIMINAR INCIDENCIAS DE LAS RESERVAS QUE SON ESPACIOS DEL USER
     await connection.query(
       `
     delete from incidents where reserve_id =
-    (select id from reserves where space_id = (
+    (select id from reserves where space_id in (
       select id from spaces where owner_id = ?)
           );`,
-      [id]
+      [req.auth.id]
     );
 
+    //ELIMINAR VOTOS DEL USUARIO
     await connection.query(
-      `delete from reserves where space_id =(
-      select id from spaces where owner_id = ?);`,
-      [id]
+      `
+      delete from ratings where user_id = ?
+     `,
+      [req.auth.id]
     );
 
-    await connection.query(`delete from ratings where user_id=? ;`, [id]);
+    //ELIMINAR RESERVAS DEL ESPACIO DEL USER
+    await connection.query(
+      `delete from reserves where space_id in (
+      select id from spaces where owner_id = ?);`,
+      [req.auth.id]
+    );
 
-    await connection.query(`delete from ratings where user_id =?;`, [id]);
+    //ELIMINAR ESPACIOS DEL USER
+    await connection.query(`delete from spaces where owner_id = ?;`, [
+      req.auth.id
+    ]);
 
-    await connection.query(`delete from spaces where owner_id = ?;`, [id]);
+    //PONEMOS EL USER A ACTIVE 0 Y LE MODIFICAMOS EL EMAIL
+    const formatedMail = 'DELETED: ' + current[0].email.email;
+    await connection.query('UPDATE users SET active=0,email = ? WHERE  id=?', [
+      formatedMail,
+      req.auth.id
+    ]);
 
-    await connection.query(`delete from users where id = ?;`, [id]);
+    await connection.query(`SET FOREIGN_KEY_CHECKS = 1;`);
 
     connection.release();
 

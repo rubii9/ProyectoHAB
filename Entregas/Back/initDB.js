@@ -12,7 +12,7 @@ async function main() {
 
   console.log('Dropping tables...');
   await connection.query('DROP TABLE IF EXISTS incidents');
-  await connection.query('DROP TABLE IF EXISTS equipment');
+  await connection.query('DROP TABLE IF EXISTS comunidades');
   await connection.query('DROP TABLE IF EXISTS reserves');
   await connection.query('DROP TABLE IF EXISTS ratings');
   await connection.query('DROP TABLE IF EXISTS spaces');

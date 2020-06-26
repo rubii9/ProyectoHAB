@@ -83,6 +83,7 @@
         </div>
       </div>
     </div>
+    <button v-show="!loading" @click="message()">Eliminar</button>
     <button v-show="!loading" @click="openModal()">Editar</button>
     <button v-show="!loading" @click="openPassModal()">Cambiar contraseña</button>
   </div>
@@ -196,6 +197,35 @@ export default {
             }
           });
       }
+    },
+    deleteUser() {
+      let self = this;
+      axios
+        .delete("http://localhost:3001/users/")
+        .then(function(response) {})
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    message() {
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "No prodras recuperar tus datos una vez eliminados",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si,eliminar!"
+      }).then(result => {
+        if (result.value) {
+          this.deleteUser();
+          this.logoutUser();
+          this.$router.push("/login");
+          Swal.fire("Borrado!", "Tu cuenta ya no existe :(", "success");
+        }
+      });
     },
     logoutUser() {
       this.$router.push("/");
