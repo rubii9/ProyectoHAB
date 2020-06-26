@@ -61,7 +61,7 @@ async function sendEmail({ email, title, content }) {
     subject: title,
     text: content,
     html: `<div>
-      <h1>Validación</h1>
+      <h1>Coworking App</h1>
       <p>${content}</p>  
     </div>`
   };

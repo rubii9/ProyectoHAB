@@ -50,6 +50,9 @@ const {
   closeIncident
 } = require('./controllers/myspaces');
 
+//Email
+const { contactEmail } = require('./controllers/email');
+
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
 
@@ -98,6 +101,9 @@ app.post('/mycoworking/:id/pay', userIsAuthenticated, payment);
 app.get('/myspaces', userIsAuthenticated, listMySpaces);
 app.put('/myspaces/:id/clean', userIsAuthenticated, cleanSpace);
 app.put('/myspaces/:id/close', userIsAuthenticated, closeIncident);
+
+//Contacto
+app.post('/contact', contactEmail);
 
 // Error middleware
 app.use((error, req, res, next) => {
