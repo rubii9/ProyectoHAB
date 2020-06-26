@@ -4,7 +4,7 @@
       <router-link :to=" {name:'Space', params:{id:space.id}} ">
         <img :src="space.photo1 ? path + space.photo1 : ''" alt />
       </router-link>
-      <p>ID: {{ space.id }}</p>
+      <p>ID: {{ space.space_id }}</p>
       <p>Nombre: {{ space.name }}</p>
       <p>Precio: {{space.price}}€</p>
       <p>Inicio de reserva: {{space.start_date.substr(0,10)}}</p>
@@ -15,14 +15,14 @@
       <div
         v-for="comment in incidents"
         :key="comment.id"
-        v-show="comment.space_id == space.id ? true: false"
+        v-show="comment.space_id == space.space_id ? true: false"
       >
         <p>{{comment.comment}}</p>
         <p>{{comment.space_id}}</p>
         <p>Estado: {{comment.state === "open" ? "Pendiente" : "Cerrado"}}</p>
       </div>
-      <button @click="openModal(space.id)">Incidencia</button>
-      <button @click="payReserve(space.id)">Pagar</button>
+      <button @click="openModal(space.space_id)">Incidencia</button>
+      <button @click="payReserve(space.space_id)">Pagar</button>
     </div>
 
     <!-- MODAL PARA INCIDENCIAS -->

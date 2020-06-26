@@ -23,7 +23,7 @@
     <!-- MODAL PARA EDITAR -->
     <div class="modal" v-show="modal">
       <div class="modalBox">
-        <h3>Editar meeting:</h3>->
+        <h3>Editar Perfil:</h3>
         <div>
           <label for="newName">Nombre:</label>
           <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
@@ -54,7 +54,7 @@
     <!-- MODAL PARA CONTRASEÑA -->
     <div class="modal" v-show="modalpassword">
       <div class="modalBox">
-        <h3>Editar meeting:</h3>
+        <h3>Cambio de contraseña:</h3>
 
         <p v-show="required" style="color:red">{{errorMsg}}</p>
         <div>
@@ -126,6 +126,7 @@ export default {
       axios
         .get("http://localhost:3001/users/" + self.$route.params.id)
         .then(function(response) {
+          console.log(response);
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;

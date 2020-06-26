@@ -102,6 +102,13 @@ async function payment(req, res, next) {
       req.auth.id
     ]);
 
+    const [
+      id_reserve
+    ] = await connection.query(
+      `Select id from reserves where space_id = ? and user_id = ?`,
+      [id, req.auth.id]
+    );
+
     try {
       await sendEmail({
         email: email,
@@ -114,8 +121,8 @@ async function payment(req, res, next) {
     }
 
     await connection.query(
-      'UPDATE reserves SET paymentCode=? WHERE user_id=? and space_id = ?',
-      [paymentCode, req.auth.id, id]
+      'UPDATE reserves SET paymentCode=? WHERE user_id=? and space_id = ? and id = ?',
+      [paymentCode, req.auth.id, id, id_reserve[0].id]
     );
 
     res.send({

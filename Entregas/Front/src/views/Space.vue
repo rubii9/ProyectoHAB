@@ -207,7 +207,7 @@ export default {
     emptyFields() {
       this.rating = 0;
       this.comentary = "";
-      this.closeModal();
+      this.closeVoteModal();
       Swal.fire({
         icon: "success",
         title: "Voto enviado",

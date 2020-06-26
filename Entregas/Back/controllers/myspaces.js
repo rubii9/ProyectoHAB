@@ -9,7 +9,7 @@ async function listMySpaces(req, res, next) {
     let incidents;
     result = await connection.query(
       `
-      select u.name, s.* ,r.is_clean,r.is_paid from users u 
+      select u.name as owner, s.* ,r.is_clean,r.is_paid from users u 
       left join spaces s
       on u.id=s.owner_id 
       left join reserves r

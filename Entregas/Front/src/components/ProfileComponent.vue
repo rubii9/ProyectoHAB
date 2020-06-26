@@ -4,8 +4,8 @@
       <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
       <p>Nombre: {{ profile.realName }}</p>
       <p v-show="showInfo">Email: {{ profile.email }}</p>
-      <p>Miembro desde: {{ profile.registrationDate}}</p>
-      <p v-show="showInfo">Contact: {{profile.phone}}</p>
+      <p>Miembro desde: {{ profile.registrationDate.substr(0,10)}}</p>
+      <p v-show="showInfo">Teléfono: {{profile.phone}}</p>
       <p>{{ profile.city }}, {{profile.community}}</p>
       <p v-show="showInfo">Rol: {{profile.role}}</p>
     </div>
