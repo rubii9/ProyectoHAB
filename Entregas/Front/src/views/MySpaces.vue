@@ -32,6 +32,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO COWORKING VIEW
@@ -70,7 +71,15 @@ export default {
       axios
         .put(`http://localhost:3001/myspaces/` + data + "/close")
         .then(function(response) {
-          console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "Incidencias cerradas",
+            text: "Se han solucionado los problemas",
+            confirmButtonText: "Ok"
+          });
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
         })
         .catch(function(error) {
           console.log(error);
@@ -81,7 +90,15 @@ export default {
       axios
         .put(`http://localhost:3001/myspaces/` + data + "/clean")
         .then(function(response) {
-          console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "Limpieza realizada",
+            text: "El space ya se ha limpiado.",
+            confirmButtonText: "Ok"
+          });
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
         })
         .catch(function(error) {
           console.log(error);

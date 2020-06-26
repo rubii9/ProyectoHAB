@@ -19,8 +19,8 @@
         <p>{{incident.space_id}}</p>
         <p>Estado: {{incident.state === "open" ? "Abierta" : "Cerrado"}}</p>
       </div>
-      <button @click="cleanEvent(space.id)">Limpieza</button>
-      <button @click="closeEvent(space.id)">Cerrar incidencias</button>
+      <button @click="cleanEvent(space.id)" v-show="space.is_clean != null">Limpieza</button>
+      <button @click="closeEvent(space.id)" v-show="incidents.lenght < 1 ">Cerrar incidencias</button>
     </div>
   </div>
 </template>

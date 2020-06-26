@@ -10,8 +10,7 @@
         <router-link :to="{name:'PostSpace'}" v-show="logged">Nuevo post</router-link>
         <router-link :to="{name:'MyCoworking'}" v-show="logged">Mi coworking</router-link>
         <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
-
-        <router-link :to="{name:'About'}">About</router-link>
+        <router-link :to="{name:'About'}">Contacto</router-link>
       </div>
 
       <div class="user">
