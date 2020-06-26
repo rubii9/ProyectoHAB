@@ -21,7 +21,7 @@
         name="bySearch"
         type="search"
         placeholder="Búsqueda..."
-        v-show="!dateInput"
+        v-show="normalInput"
       />
       <input
         v-model.trim="search"
@@ -31,6 +31,19 @@
         placeholder="Write..."
         v-show="dateInput"
       />
+      <select
+        name="community"
+        required
+        placeholder="Introduce la comunidad"
+        v-model="search"
+        v-show="ubicationInput"
+      >
+        <option
+          v-for="comunidad in comunidades"
+          :key="comunidad.id"
+          v-bind:value="comunidad.nombre"
+        >{{comunidad.nombre}}</option>
+      </select>
       <button @click="clearInput()">Clean</button>
     </div>
 
@@ -71,7 +84,10 @@ export default {
       search: "",
       filter: "",
       dateInput: false,
-      noResults: false
+      normalInput: true,
+      ubicationInput: false,
+      noResults: false,
+      comunidades: []
     };
   },
   methods: {
@@ -95,15 +111,57 @@ export default {
     clearInput() {
       (this.search = ""), (this.filter = "");
       this.getSpaces();
+    },
+    async getCommunity() {
+      try {
+        this.comunidades = await this.getCom();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //GET COMUNINADES
+    getCom() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let res = await axios({
+            url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
+            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+          });
+          resolve(res.data.data);
+        } catch (err) {
+          console.log("Error consiguiendo los idiomas: ", err);
+          reject(err);
+        }
+      });
     }
   },
+
+  mounted() {
+    this.getCommunity();
+  },
+
   watch: {
     // cada vez que la pregunta cambie, esta función será ejecutada
     filter: function() {
       if (this.filter === "date") {
         this.dateInput = true;
-      } else {
+        this.normalInput = false;
+        this.ubicationInput = false;
+        this.search = "";
+      }
+
+      if (this.filter === "location") {
         this.dateInput = false;
+        this.normalInput = false;
+        this.ubicationInput = true;
+        this.search = "";
+      }
+
+      if (this.filter != "date" && this.filter != "location") {
+        this.dateInput = false;
+        this.normalInput = true;
+        this.ubicationInput = false;
+        this.search = "";
       }
     },
     spaces: function() {
