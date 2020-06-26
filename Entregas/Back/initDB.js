@@ -184,7 +184,7 @@ async function main() {
       (6,'Cantabria'),
       (7,'Castilla y León'),
       (8,'Castilla - La Mancha'),
-      (9,'Catalunya'),
+      (9,'Cataluña'),
       (10,'Comunitat Valenciana'),
       (11,'Extremadura'),
       (12,'Galicia'),
