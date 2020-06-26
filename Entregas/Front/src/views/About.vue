@@ -4,11 +4,19 @@
     <menucustom></menucustom>
     <h1>Contacta con nosotros:</h1>
     <form>
+      <p v-show="required" style="color:red">Campos vacios</p>
       <label for="email">Email:</label>
-      <input type="email" required v-model="email" />
+      <input
+        minlength="3"
+        maxlength="60"
+        required
+        type="email"
+        placeholder="Email..."
+        v-model.trim="email"
+      />
 
-      <label for="asunto">Asunto</label>
-      <input type="text" v-model="asunto" required />
+      <label for="asunto">Asunto:</label>
+      <input type="text" v-model="asunto" required placeholder="Asunto..." />
 
       <label for="commentary">Commentary:</label>
       <textarea
@@ -35,33 +43,53 @@ export default {
     return {
       email: "",
       comentary: "",
-      asunto: ""
+      asunto: "",
+      correctData: false,
+      required: false
     };
   },
   methods: {
     sendEmail() {
-      let self = this;
-      axios
-        .post(`http://localhost:3001/contact`, {
-          email: self.email,
-          asunto: self.asunto,
-          comentary: self.comentary
-        })
-        .then(function(response) {
-          (this.email = ""), (this.comentary = ""), (this.asunto = "");
-          Swal.fire({
-            icon: "success",
-            title: "Email enviado",
-            text: "Te responderemos al email cuando sea posible, gracias",
-            confirmButtonText: "Ok"
+      this.validatingData();
+      if (this.correctData) {
+        let self = this;
+        axios
+          .post(`http://localhost:3001/contact`, {
+            email: self.email,
+            asunto: self.asunto,
+            comentary: self.comentary
+          })
+          .then(function(response) {
+            (self.email = ""), (self.comentary = ""), (self.asunto = "");
+            Swal.fire({
+              icon: "success",
+              title: "Email enviado",
+              text: "Te responderemos al email cuando sea posible, gracias",
+              confirmButtonText: "Ok"
+            });
+            setTimeout(function() {
+              location.reload();
+            }, 1500);
+          })
+          .catch(function(error) {
+            if (error.response) {
+              alert(error.response.data.message);
+            }
           });
-          setTimeout(function() {
-            location.reload();
-          }, 1500);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      } else {
+        console.log("Empty fields");
+      }
+    },
+    validatingData() {
+      if (this.email === "" || this.comentary === "" || this.asunto === "") {
+        this.correctData = false; // NON ENVIAR
+        this.required = true; // MOSTRA O MENSAXE
+
+        return;
+      } else {
+        this.correctData = true; // ENVIAR
+        this.required = false; // NON MOSTRA O MENSAXE
+      }
     }
   }
 };

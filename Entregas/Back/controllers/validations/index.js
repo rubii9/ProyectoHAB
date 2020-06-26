@@ -25,6 +25,7 @@ const passwordSchema = Joi.string()
   .required()
   .error(generateError('Password need at least 6 characters and max 100', 400));
 
+//Registro
 const userSchemaRegister = Joi.object().keys({
   email: emailSchema,
   password: passwordSchema,
@@ -39,11 +40,13 @@ const userSchemaRegister = Joi.object().keys({
     .error(generateError('Community is required and max 60 characters', 400))
 });
 
+//Login
 const userSchema = Joi.object().keys({
   email: emailSchema,
   password: passwordSchema
 });
 
+//Editar user
 const editUserSchema = Joi.object().keys({
   email: Joi.string()
     .email()
@@ -67,6 +70,7 @@ const editUserSchema = Joi.object().keys({
     .error(generateError('Phone has max 15 characters', 400))
 });
 
+//Cambiar paswword
 const editPasswordUserSchema = Joi.object().keys({
   oldPassword: passwordSchema,
   newPassword: passwordSchema,
@@ -76,6 +80,8 @@ const editPasswordUserSchema = Joi.object().keys({
 });
 
 // Object Schemas
+
+//Nuevo post
 const entrySchema = Joi.object().keys({
   name: Joi.string()
     .max(100)
@@ -126,6 +132,8 @@ const entrySchema = Joi.object().keys({
     )
 });
 
+//Editar post
+
 const editEntrySchema = Joi.object().keys({
   name: Joi.string()
     .max(100)
@@ -166,6 +174,7 @@ const editEntrySchema = Joi.object().keys({
     )
 });
 
+//enviar voto
 const voteSchema = Joi.object().keys({
   score: Joi.number()
     .min(0)
@@ -184,6 +193,27 @@ const incident = Joi.object().keys({
   comment: Joi.string().max(300).required()
 });
 
+const contactSchema = Joi.object().keys({
+  comentary: Joi.string()
+    .required()
+    .min(0)
+    .max(1000)
+    .error(generateError('Comment should be less than 1000 characters', 400)),
+  email: Joi.string()
+    .required()
+    .email()
+    .error(generateError('Email must be well formed', 400)),
+  asunto: Joi.string()
+    .required()
+    .max(100)
+    .error(
+      generateError(
+        'The space "asunto" is required and max 100 characters',
+        400
+      )
+    )
+});
+
 module.exports = {
   entrySchema,
   voteSchema,
@@ -193,5 +223,6 @@ module.exports = {
   editPasswordUserSchema,
   userSchemaRegister,
   incident,
-  editEntrySchema
+  editEntrySchema,
+  contactSchema
 };
