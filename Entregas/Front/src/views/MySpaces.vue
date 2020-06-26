@@ -26,7 +26,7 @@
     ></myspaces>
 
     <!-- NO RESULTS -->
-    <!-- <p v-show="noResults" style="color:red">No tines ninguna publicación</p> -->
+    <p v-show="noResults" style="color:red">No tines ninguna publicación</p>
   </div>
 </template>
 

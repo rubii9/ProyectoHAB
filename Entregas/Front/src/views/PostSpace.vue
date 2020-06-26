@@ -80,10 +80,22 @@
       <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
 
       <label for="equipment">Equipamiento:</label>
-      <textarea name="equipment" rows="10" cols="50" v-model="equipment"></textarea>
+      <textarea
+        name="equipment"
+        rows="10"
+        cols="50"
+        v-model="equipment"
+        @keypress.enter="uploadEvent()"
+      ></textarea>
 
       <label for="commentary">Añade una descripción</label>
-      <textarea name="commentary" rows="10" cols="50" v-model="description"></textarea>
+      <textarea
+        name="commentary"
+        rows="10"
+        cols="50"
+        v-model="description"
+        @keypress.enter="uploadEvent()"
+      ></textarea>
     </form>
     <button @click="uploadEvent()">Post</button>
   </div>
