@@ -23,7 +23,7 @@
     <!-- MODAL PARA EDITAR -->
     <div class="modal" v-show="modal">
       <div class="modalBox">
-        <h3>Editar meeting:</h3>
+        <h3>Editar meeting:</h3>->
         <div>
           <label for="newName">Nombre:</label>
           <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
@@ -50,7 +50,41 @@
         </div>
       </div>
     </div>
+
+    <!-- MODAL PARA CONTRASEÑA -->
+    <div class="modal" v-show="modalpassword">
+      <div class="modalBox">
+        <h3>Editar meeting:</h3>
+
+        <p v-show="required" style="color:red">{{errorMsg}}</p>
+        <div>
+          <label for="oldpassword">Contraseña actual:</label>
+          <input
+            type="password"
+            v-model="oldPassword"
+            placeholder="Password..."
+            @keypress.enter="edite()"
+          />
+        </div>
+
+        <div>
+          <label for="newCity">Nueva contraseña:</label>
+          <input
+            type="password"
+            v-model="newPassword"
+            placeholder="Nueva password"
+            @keypress.enter="edite()"
+          />
+        </div>
+
+        <div>
+          <button @click="closePassModal()">Cancel</button>
+          <button @click="changePass()">Enviar</button>
+        </div>
+      </div>
+    </div>
     <button v-show="!loading" @click="openModal()">Editar</button>
+    <button v-show="!loading" @click="openPassModal()">Cambiar contraseña</button>
   </div>
 </template>
 
@@ -59,6 +93,7 @@ import menucustom from "@/components/MenuCustom.vue";
 import ProfileComponent from "@/components/ProfileComponent.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { clearLogin } from "../api/utils";
 export default {
   name: "MyProfile",
   components: {
@@ -70,10 +105,16 @@ export default {
       profile: {},
       loading: true,
       modal: false,
+      modalpassword: false,
       newName: "",
       newCity: "",
       newCommunity: "",
-      newPhone: ""
+      newPhone: "",
+      oldPassword: "",
+      newPassword: "",
+      errorMsg: "",
+      required: false,
+      correctData: false
     };
   },
 
@@ -125,6 +166,41 @@ export default {
           }
         });
     },
+    changePass() {
+      this.validatingData();
+      if (this.correctData) {
+        let self = this;
+        axios
+          .post(
+            `http://localhost:3001/users/${self.$route.params.id}/password`,
+            {
+              oldPassword: self.oldPassword,
+              newPassword: self.newPassword
+            }
+          )
+          .then(function(response) {
+            self.closePassModal();
+            self.logoutUser();
+            self.$router.push("/login");
+            Swal.fire({
+              icon: "success",
+              title: "Contraseña modificada",
+              text: "Haz login de nuevo para iniciar sesión",
+              confirmButtonText: "Ok"
+            });
+          })
+          .catch(function(error) {
+            if (error.response) {
+              alert(error.response.data.message);
+              /*   self.$router.push({ path: "/error" }); */
+            }
+          });
+      }
+    },
+    logoutUser() {
+      this.$router.push("/");
+      return clearLogin();
+    },
     showEditText() {
       this.newName = this.profile.realName;
       this.newCity = this.profile.city;
@@ -133,14 +209,39 @@ export default {
     },
     closeModal() {
       this.modal = false;
-      (this.newName = ""),
-        (this.newCity = ""),
-        (this.newCommunity = ""),
-        (this.newPhone = "");
+      this.newName = "";
+      this.newCity = "";
+      this.newCommunity = "";
+      this.newPhone = "";
     },
     openModal() {
       this.modal = true;
       this.showEditText();
+    },
+    closePassModal() {
+      this.modalpassword = false;
+      this.oldPassword = "";
+      this.newPassword = "";
+      this.errorMsg = "";
+    },
+    openPassModal() {
+      this.modalpassword = true;
+    },
+
+    validatingData() {
+      if (this.newPassword === "" || this.oldPassword === "") {
+        this.correctData = false; // NON ENVIAR
+        this.required = true; // MOSTRA O MENSAXE
+        this.errorMsg = "Campos vacíos";
+        return;
+      } else if (this.newPassword === this.oldPassword) {
+        this.correctData = false; // NON ENVIAR
+        this.required = true; // MOSTRA O MENSAXE
+        this.errorMsg = "La nueva contraseña debe ser diferente a la anterior";
+      } else {
+        this.correctData = true; // ENVIAR
+        this.required = false; // NON MOSTRA O MENSAXE
+      }
     }
   },
   created() {
