@@ -17,7 +17,13 @@
       <div></div>
     </div>
 
-    <myspaces v-show="!loading" :spaces="spaces" :incidents="incidents" v-on:clean="setClean"></myspaces>
+    <myspaces
+      v-show="!loading"
+      :spaces="spaces"
+      :incidents="incidents"
+      v-on:clean="setClean"
+      v-on:close="closeIncidents"
+    ></myspaces>
 
     <!-- NO RESULTS -->
     <!-- <p v-show="noResults" style="color:red">No tines ninguna publicación</p> -->
@@ -48,9 +54,7 @@ export default {
       axios
         .get(`http://localhost:3001/myspaces`)
         .then(function(response) {
-          console.log(response);
           //TIEMPO DE CARGA
-
           setTimeout(function() {
             self.loading = false;
             self.spaces = response.data.data;
@@ -61,8 +65,16 @@ export default {
           console.log(error);
         });
     },
-    closeIncidents() {
-      /* /myspaces/:id/close' */
+    closeIncidents(data) {
+      let self = this;
+      axios
+        .put(`http://localhost:3001/myspaces/` + data + "/close")
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     setClean(data) {
       let self = this;

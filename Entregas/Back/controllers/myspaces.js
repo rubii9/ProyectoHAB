@@ -27,7 +27,7 @@ async function listMySpaces(req, res, next) {
     }
     incidents = await connection.query(
       `
-      select i.id,i.comment,r.space_id from incidents i,reserves r,spaces s
+      select i.id,i.comment,r.space_id, i.state from incidents i,reserves r,spaces s
       where r.id = i.reserve_id and s.id=r.space_id
       and i.state="open" and s.owner_id=?
     `,

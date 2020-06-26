@@ -17,10 +17,10 @@
       >
         <p>{{incident.comment}}</p>
         <p>{{incident.space_id}}</p>
-        <p>Estado: {{incident.state === "open" ? "Pendiente" : "Cerrado"}}</p>
-        <button>Cerrar</button>
+        <p>Estado: {{incident.state === "open" ? "Abierta" : "Cerrado"}}</p>
       </div>
       <button @click="cleanEvent(space.id)">Limpieza</button>
+      <button @click="closeEvent(space.id)">Cerrar incidencias</button>
     </div>
   </div>
 </template>
@@ -52,6 +52,9 @@ export default {
     },
     cleanEvent(data) {
       this.$emit("clean", data);
+    },
+    closeEvent(data) {
+      this.$emit("close", data);
     }
   },
   created() {
