@@ -157,7 +157,7 @@ div .login {
   height: 100vh;
   padding: 5rem;
   background: url("https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80")
-    no-repeat center top;
+    no-repeat fixed;
   background-size: cover;
   font-weight: 200;
   display: flex;
@@ -177,14 +177,14 @@ input {
   width: 100%;
   padding: 10px 5px 10px 40px;
   display: block;
-  border: 1px solid #aca7a7;
+  border: 2px solid #aca7a7;
   border-radius: 4px;
   transition: 0.2s ease-out;
   color: darken(#ededed, 30%);
 }
 input:focus {
   outline: 0;
-  border-color: #ff7052;
+  border-color: #f3bc46;
 }
 fieldset h1 {
   margin-bottom: 2rem;
@@ -199,6 +199,7 @@ button {
   border-radius: 10px;
   padding: 0.35rem;
   margin: 0.5rem;
+  margin-bottom: 1.5rem;
   font-weight: bold;
   align-self: center;
   justify-self: center;
