@@ -509,6 +509,7 @@ async function getSomeUsers(req, res, next) {
       SELECT id,  name, avatar
       FROM users 
       ORDER BY create_user
+      LIMIT 6
     `
     );
 

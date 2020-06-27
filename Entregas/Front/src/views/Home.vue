@@ -61,7 +61,11 @@
     </div>
 
     <!-- COMPONENTE SPACES -->
-    <spaceslist :spaces="spaces"></spaceslist>
+    <spaceslist v-show="!loading" :spaces="spaces"></spaceslist>
+
+    <!-- COMPONENTE SOME USERS -->
+    <h2 v-show="!loading">Usuarios recientes:</h2>
+    <someusers v-show="!loading" class="some" :users="users"></someusers>
 
     <!-- NO RESULTS -->
     <p v-show="noResults" style="color:red">No results</p>
@@ -74,13 +78,16 @@ import axios from "axios";
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO SPACES
 import spaceslist from "@/components/ListaSpaces.vue";
+//IMPORTANDO SOMEUSERS
+import someusers from "@/components/SomeUsers.vue";
 
 export default {
   name: "Home",
-  components: { menucustom, spaceslist },
+  components: { menucustom, spaceslist, someusers },
   data() {
     return {
       spaces: [],
+      users: [],
       loading: true,
       search: "",
       filter: "",
@@ -103,6 +110,22 @@ export default {
           setTimeout(function() {
             self.loading = false;
             self.spaces = response.data.data;
+          }, 1000);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getUsers() {
+      let self = this;
+      axios
+        .get(`http://localhost:3001/someusers`)
+        .then(function(response) {
+          console.log(response);
+          //TIEMPO DE CARGA
+          setTimeout(function() {
+            self.loading = false;
+            self.users = response.data.data;
           }, 1000);
         })
         .catch(function(error) {
@@ -178,11 +201,20 @@ export default {
   },
   created() {
     this.getSpaces();
+    this.getUsers();
   }
 };
 </script>
 
 <style scoped>
+.some {
+  height: 230px;
+  width: 200px;
+  border: 1px solid #ddd;
+  background: #fff;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
 .lds-roller {
   display: inline-block;
   position: relative;

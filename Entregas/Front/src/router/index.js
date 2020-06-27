@@ -30,7 +30,7 @@ const routes = [
           text: "Pero si ya estas logeado!",
         });
         next({
-          path: "/home",
+          path: "/",
           query: { redirect: to.fullPath },
         });
       } else {
@@ -54,7 +54,7 @@ const routes = [
           text: "Pero si ya estas logeado!",
         });
         next({
-          path: "/home",
+          path: "/",
           query: { redirect: to.fullPath },
         });
       } else {
@@ -86,8 +86,8 @@ const routes = [
       if (!to.meta.allowAnonymous && !isLoggedIn()) {
         Swal.fire({
           icon: "warning",
-          title: "Oops...",
-          text: "Tienes que logearte!",
+          title: "Vaya...",
+          text: "Tienes que hacer login!",
         });
       } else {
         next();
@@ -107,8 +107,8 @@ const routes = [
       if (!to.meta.allowAnonymous && !isLoggedIn()) {
         Swal.fire({
           icon: "warning",
-          title: "Oops...",
-          text: "Tienes que logearte!",
+          title: "Vaya...",
+          text: "Tienes que hacer login!",
         });
       } else {
         next();
@@ -129,8 +129,8 @@ const routes = [
       if (!to.meta.allowAnonymous && !isLoggedIn()) {
         Swal.fire({
           icon: "warning",
-          title: "Oops...",
-          text: "Tienes que logearte!",
+          title: "Vaya...",
+          text: "Tienes que hacer login!",
         });
       } else {
         next();
@@ -150,8 +150,8 @@ const routes = [
       if (!to.meta.allowAnonymous && !isLoggedIn()) {
         Swal.fire({
           icon: "warning",
-          title: "Oops...",
-          text: "Tienes que logearte!",
+          title: "Vaya...",
+          text: "Tienes que hacer login!",
         });
       } else {
         next();
@@ -171,8 +171,8 @@ const routes = [
       if (!to.meta.allowAnonymous && !isLoggedIn()) {
         Swal.fire({
           icon: "warning",
-          title: "Oops...",
-          text: "Tienes que logearte!",
+          title: "Vaya...",
+          text: "Tienes que hacer login!",
         });
       } else {
         next();
