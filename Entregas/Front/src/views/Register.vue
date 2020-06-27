@@ -24,6 +24,9 @@
           v-model.trim="email"
           @keypress.enter="addUser()"
         />
+        <span>
+          <i class="fa fa-envelope-o"></i>
+        </span>
         <br />
         <label for="password">Contraseña:</label>
         <input
@@ -36,6 +39,9 @@
           v-model.trim="password"
           @keypress.enter="addUser()"
         />
+        <span>
+          <i class="fa fa-lock"></i>
+        </span>
         <br />
         <label for="name">Nombre:</label>
         <input
@@ -46,6 +52,9 @@
           v-model.trim="name"
           @keypress.enter="addUser()"
         />
+        <span>
+          <i class="fa fa-user"></i>
+        </span>
         <br />
         <label for="city">Ciudad:</label>
         <input
@@ -56,6 +65,9 @@
           v-model.trim="city"
           @keypress.enter="addUser()"
         />
+        <span>
+          <i class="fa fa-home"></i>
+        </span>
         <br />
         <select name="community" required placeholder="Introduce la comunidad" v-model="community">
           <option disabled value>Comunidad Autónoma...</option>
@@ -104,7 +116,7 @@ export default {
       ) {
         this.correctData = false; // NON ENVIAR
         this.required = true; // MOSTRA O MENSAXE
-        this.message = "Empty fields";
+        this.message = "Campos vacios";
       } else {
         this.correctData = true; // ENVIAR
         this.required = false; // NON MOSTRA O MENSAXE
