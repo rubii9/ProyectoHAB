@@ -4,7 +4,14 @@
     <!-- FORMULARIO -->
     <div class="registerform">
       <h1>Bienvenido!</h1>
-
+      <!--   <lottie-player
+        src="https://assets3.lottiefiles.com/packages/lf20_u8o7BL.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px;"
+        loop
+        autoplay
+      ></lottie-player>-->
       <form>
         <p v-show="required" style="color:red">{{ message }}</p>
         <label for="email">Email:</label>
@@ -18,7 +25,7 @@
           @keypress.enter="addUser()"
         />
         <br />
-        <label for="password">Password:</label>
+        <label for="password">Contraseña:</label>
         <input
           type="password"
           minlength="6"
@@ -30,21 +37,21 @@
           @keypress.enter="addUser()"
         />
         <br />
-        <label for="name">Name:</label>
+        <label for="name">Nombre:</label>
         <input
           type="text"
           name="name"
-          placeholder="Name..."
+          placeholder="Nombre..."
           required
           v-model.trim="name"
           @keypress.enter="addUser()"
         />
         <br />
-        <label for="city">City:</label>
+        <label for="city">Ciudad:</label>
         <input
           type="text"
           name="city"
-          placeholder="City..."
+          placeholder="Ciudad..."
           required
           v-model.trim="city"
           @keypress.enter="addUser()"
