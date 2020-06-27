@@ -5,16 +5,6 @@
     <h1>Contacta con nosotros:</h1>
     <form>
       <p v-show="required" style="color:red">Campos vacios</p>
-      <label for="email">Email:</label>
-      <input
-        minlength="3"
-        maxlength="60"
-        required
-        type="email"
-        placeholder="Email..."
-        v-model.trim="email"
-        @keypress.enter="sendEmail()"
-      />
 
       <label for="asunto">Asunto:</label>
       <input
@@ -49,7 +39,7 @@ export default {
   components: { menucustom },
   data() {
     return {
-      email: "",
+      email: "rubenpo167@gmail.com",
       comentary: "",
       asunto: "",
       correctData: false,
@@ -89,7 +79,7 @@ export default {
       }
     },
     validatingData() {
-      if (this.email === "" || this.comentary === "" || this.asunto === "") {
+      if (this.comentary === "" || this.asunto === "") {
         this.correctData = false; // NON ENVIAR
         this.required = true; // MOSTRA O MENSAXE
 

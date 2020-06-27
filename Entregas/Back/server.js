@@ -52,7 +52,7 @@ const {
 } = require('./controllers/myspaces');
 
 //Email
-const { contactEmail } = require('./controllers/email');
+const { contact } = require('./controllers/email');
 
 // Auth middlewares
 const { userIsAuthenticated, userIsAdmin } = require('./middlewares/auth');
@@ -104,7 +104,7 @@ app.put('/myspaces/:id/clean', userIsAuthenticated, cleanSpace);
 app.put('/myspaces/:id/close', userIsAuthenticated, closeIncident);
 
 //Contacto
-app.post('/contact', contactEmail);
+app.post('/contact', contact);
 
 //Comunidades
 app.get('/comunidades', getComunidades);

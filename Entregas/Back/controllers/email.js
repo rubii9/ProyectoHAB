@@ -1,7 +1,7 @@
 const { sendEmail } = require('../helpers');
 const { contactSchema } = require('./validations');
 
-async function contactEmail(req, res, next) {
+async function contact(req, res, next) {
   try {
     await contactSchema.validateAsync(req.body);
     const { email, comentary, asunto } = req.body;
@@ -24,5 +24,5 @@ async function contactEmail(req, res, next) {
   }
 }
 module.exports = {
-  contactEmail
+  contact
 };

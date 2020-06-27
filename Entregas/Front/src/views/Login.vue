@@ -5,12 +5,12 @@
     <form>
       <div>
         <h1 class="legend">Hola! 👋</h1>
+
         <lottie-player
-          class="logImg"
-          src="https://assets4.lottiefiles.com/private_files/lf30_JhSJFE.json"
+          src="https://assets3.lottiefiles.com/packages/lf20_u8o7BL.json"
           background="transparent"
           speed="1"
-          style="width: 300px; height: 200px;"
+          style="width: 300px; height: 250px;"
           loop
           autoplay
         ></lottie-player>
@@ -149,7 +149,7 @@ p.error {
   margin-bottom: 0.5rem;
 }
 a {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: bold;
   text-decoration: none;
   min-width: 90px;
