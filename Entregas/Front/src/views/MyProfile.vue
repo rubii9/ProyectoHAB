@@ -45,6 +45,11 @@
         </div>
 
         <div>
+          <label class="imagen" for="imgmeeting">Imagen:</label>
+          <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
+        </div>
+
+        <div>
           <button @click="closeModal()">Cancel</button>
           <button @click="edite()">Enviar</button>
         </div>
@@ -107,6 +112,7 @@ export default {
       loading: true,
       modal: false,
       modalpassword: false,
+      file: null,
       newName: "",
       newCity: "",
       newCommunity: "",
@@ -143,13 +149,22 @@ export default {
     edite() {
       let self = this;
 
+      let photoFormData = new FormData();
+      // dict of all elements
+      photoFormData.append("name", this.newName);
+      photoFormData.append("city", this.newCity);
+      photoFormData.append("community", this.newCommunity);
+      photoFormData.append("phone", this.newPhone);
+
+      if (this.file != null) {
+        photoFormData.append("avatar", this.file);
+      }
+
       axios
-        .put(`http://localhost:3001/users/${self.$route.params.id}`, {
-          name: this.newName,
-          city: this.newCity,
-          community: this.newCommunity,
-          phone: this.newPhone
-        })
+        .put(
+          `http://localhost:3001/users/${self.$route.params.id}`,
+          photoFormData
+        )
         .then(function(response) {
           self.closeModal();
           Swal.fire({
@@ -198,6 +213,9 @@ export default {
             }
           });
       }
+    },
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
     },
     deleteUser() {
       let self = this;

@@ -184,7 +184,6 @@ export default {
         axios
           .post("http://localhost:3001/spaces", photoFormData)
           .then(function(response) {
-            console.log(response);
             self.emptyFields();
           })
           .catch(function(error) {
