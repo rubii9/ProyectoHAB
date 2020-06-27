@@ -496,6 +496,33 @@ async function getComunidades(req, res, next) {
   }
 }
 
+//GET USERS POR FECHA DE CREACION
+
+async function getSomeUsers(req, res, next) {
+  let connection;
+
+  try {
+    connection = await getConnection();
+
+    const [result] = await connection.query(
+      `
+      SELECT id,  name, avatar
+      FROM users 
+      ORDER BY create_user
+    `
+    );
+
+    res.send({
+      status: 'ok',
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  } finally {
+    if (connection) connection.release();
+  }
+}
+
 module.exports = {
   newUser,
   loginUser,
@@ -504,5 +531,6 @@ module.exports = {
   updatePasswordUser,
   validateUser,
   deleteUser,
-  getComunidades
+  getComunidades,
+  getSomeUsers
 };

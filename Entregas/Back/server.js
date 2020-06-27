@@ -20,7 +20,8 @@ const {
   updatePasswordUser,
   validateUser,
   deleteUser,
-  getComunidades
+  getComunidades,
+  getSomeUsers
 } = require('./controllers/users');
 
 //Spaces Controllers
@@ -80,6 +81,7 @@ app.post('/users/:id/password', userIsAuthenticated, updatePasswordUser);
 app.get('/users/:id', userIsAuthenticated, getUser);
 app.put('/users/:id', userIsAuthenticated, editUser);
 app.delete('/users', userIsAuthenticated, deleteUser);
+app.get('/someusers', getSomeUsers);
 
 //Spaces Routes
 app.get('/spaces/validate', validateReserve);
