@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <vue-headful title="Home" description="Home page" />
+    <vue-headful title="Home | Coworkings.com" description="Home page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

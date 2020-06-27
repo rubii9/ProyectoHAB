@@ -1,6 +1,6 @@
 <template>
   <div class="myspaces">
-    <vue-headful title="My Spaces" description="Spaces posted page" />
+    <vue-headful title="My Spaces | Coworkings.com" description="Spaces posted page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

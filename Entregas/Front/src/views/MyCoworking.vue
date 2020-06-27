@@ -1,6 +1,6 @@
 <template>
   <div class="coworking">
-    <vue-headful title="My Coworking" description="Coworking page" />
+    <vue-headful title="My Coworking | Coworkings.com" description="Coworking page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

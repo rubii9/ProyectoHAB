@@ -1,6 +1,6 @@
 <template>
   <div class="error">
-    <vue-headful title="Error" description="Error page of web" />
+    <vue-headful title="Error | Coworkings.com" description="Error page of web" />
     <h1>ERROR</h1>
     <p>😱 ¿Dónde vas?, esa página no existe</p>
     <p>

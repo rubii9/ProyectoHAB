@@ -1,6 +1,6 @@
 <template>
   <div class="Perfil usuarios">
-    <vue-headful title="Profile" description="Profile page" />
+    <vue-headful title="Perfil usuarios | Coworkings.com" description="Profile page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

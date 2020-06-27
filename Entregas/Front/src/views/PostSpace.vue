@@ -1,11 +1,11 @@
 
 <template>
   <div class="PostSpace">
+    <!--APLICAMOS EL CAMBIO DE NOMBRE DINAMICO-->
+    <vue-headful title="Nueva entrada | Coworkings.com" description="Posting page" />
+
     <!-- MENU -->
     <MenuCustom></MenuCustom>
-
-    <!--APLICAMOS EL CAMBIO DE NOMBRE DINAMICO-->
-    <vue-headful title="Post Space" description="Posting page" />
 
     <h2 id="titulo">Añade una nueva entrada! 👇</h2>
 

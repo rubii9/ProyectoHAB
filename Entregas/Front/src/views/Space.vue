@@ -1,6 +1,6 @@
 <template>
   <div class="SpaceID">
-    <vue-headful title="Space View" description="Space page" />
+    <vue-headful title="Spaces | Coworkings.com" description="Space page" />
 
     <!-- MENU -->
     <menucustom></menucustom>

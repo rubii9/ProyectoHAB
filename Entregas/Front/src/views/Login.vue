@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <vue-headful title="Login" description="Login page" />
+    <vue-headful title="Login | Coworkings.com" description="Login page" />
 
     <form>
       <div>
@@ -47,7 +47,7 @@
             <i class="fa fa-lock"></i>
           </span>
         </div>
-        <p v-show="required">{{ message }}</p>
+        <p class="error" v-show="required">{{ message }}</p>
         <div class="botones">
           <button class="submit" type="button" @click="login()">Login</button>
 
@@ -142,8 +142,11 @@ form {
   justify-content: space-evenly;
 }
 
-p {
+p.error {
   color: red;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 a {
   font-size: 0.85rem;
@@ -199,7 +202,7 @@ button {
   border-radius: 10px;
   padding: 0.35rem;
   margin: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: bold;
   align-self: center;
   justify-self: center;

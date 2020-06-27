@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <vue-headful title="Contacto" description="About page" />
+    <vue-headful title="Contacto | Coworkings.com" description="About page" />
     <menucustom></menucustom>
     <h1>Contacta con nosotros:</h1>
     <form>

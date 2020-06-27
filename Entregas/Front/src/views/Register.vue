@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <vue-headful title="Register" description="Register page" />
+    <vue-headful title="Registro | Coworkings.com" description="Register page" />
     <!-- FORMULARIO -->
     <div class="registerform">
       <h1>Bienvenido!</h1>
