@@ -3,10 +3,10 @@
     <vue-headful title="Home | Coworkings.com" description="Home page" />
 
     <!-- MENU -->
-    <menucustom></menucustom>
+    <menucustom class="menu"></menucustom>
 
     <!-- BUSQUEDA -->
-    <div class="searchProduct">
+    <div class="searchProduct" v-show="!loading">
       <select v-model="filter">
         <option disabled value>Filtrado por...</option>
         <option value="name">Nombre</option>
@@ -15,14 +15,20 @@
         <option value="equipment">Equipmiento</option>
         <option value="date">Fecha incio libre</option>
       </select>
-      <input
-        v-model.trim="search"
-        id="search"
-        name="bySearch"
-        type="search"
-        placeholder="Búsqueda..."
-        v-show="normalInput"
-      />
+      <div class="buscador">
+        <input
+          v-model.trim="search"
+          id="search"
+          name="bySearch"
+          type="search"
+          placeholder="Búsqueda..."
+          v-show="normalInput"
+          class="buscar"
+        />
+
+        <img v-show="normalInput" src="../assets/buscar.svg" alt class="icono" />
+      </div>
+
       <input
         v-model.trim="search"
         id="search"
@@ -207,6 +213,37 @@ export default {
 </script>
 
 <style scoped>
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.searchProduct {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.buscador {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.buscar {
+  position: absolute;
+}
+
+.icono {
+  height: 18px;
+  display: block;
+  margin: 0 0.5rem;
+  position: relative;
+  left: 80px;
+  top: 2px;
+}
+
 .some {
   height: 230px;
   width: 200px;
@@ -214,6 +251,10 @@ export default {
   background: #fff;
   margin: 0 auto;
   padding: 0.5rem;
+}
+
+select {
+  margin-right: 4.7rem;
 }
 .lds-roller {
   display: inline-block;
