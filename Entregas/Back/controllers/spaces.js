@@ -33,7 +33,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.name like ?  
+        where s.name like ?  and r.end_date  BETWEEN  r.end_date  AND utc_date() or r.end_date is null
         group by s.id
         order by s.create_space desc
         `,
@@ -47,7 +47,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where (s.city like ? or s.community like ?) 
+        where (s.city like ? or s.community like ?) and r.end_date  BETWEEN  r.end_date  AND utc_date() or r.end_date is null
         group by s.id
         order by s.create_space desc
         `,
@@ -61,7 +61,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.type like ? 
+        where s.type like ? and r.end_date  BETWEEN  r.end_date  AND utc_date() or r.end_date is null
         order by s.create_space desc
         `,
         [`%${search}%`]
@@ -74,7 +74,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.equipment like ?  
+        where s.equipment like ?  and r.end_date  BETWEEN  r.end_date  AND utc_date() or r.end_date is null
         group by s.id
         order by s.create_space desc
         `,
@@ -99,6 +99,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
+        where r.end_date  BETWEEN  r.end_date  AND utc_date() or r.end_date is null
         group by s.id
         order by s.create_space desc
         `
