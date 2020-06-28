@@ -3,7 +3,7 @@
     <vue-headful title="My Spaces | Coworkings.com" description="Spaces posted page" />
 
     <!-- MENU -->
-    <menucustom></menucustom>
+    <menucustom class="menu"></menucustom>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -122,6 +122,12 @@ export default {
 </script>
 
 <style scoped>
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 .lds-roller {
   display: inline-block;
   position: relative;

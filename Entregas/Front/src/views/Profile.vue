@@ -1,9 +1,9 @@
 <template>
-  <div class="Perfil usuarios">
+  <div class="usuariosPerfil">
     <vue-headful title="Perfil usuarios | Coworkings.com" description="Profile page" />
 
     <!-- MENU -->
-    <menucustom></menucustom>
+    <menucustom class="menu"></menucustom>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -18,7 +18,7 @@
     </div>
 
     <!-- PROFILE COMPONENT -->
-    <ProfileComponent :profile="profile" v-show="!loading"></ProfileComponent>
+    <ProfileComponent :profile="profile" v-show="!loading" class="Profile"></ProfileComponent>
   </div>
 </template>
 
@@ -84,27 +84,43 @@ export default {
 };
 </script>
 <style scoped>
-.modal {
-  position: fixed;
+* {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
+  z-index: 1;
+}
+.usuariosPerfil {
+  height: 100vh;
+  color: #436f8a;
+  background: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80")
+    no-repeat fixed;
+  background-size: cover;
 }
 
-.modalBox {
-  background: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  color: black;
+.Profile {
+  width: 20%;
+  margin: 2rem auto;
+  padding: 5rem;
+  background: #f7fbe1;
   display: flex;
   flex-direction: column;
-  align-content: center;
   justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px #6f94ac;
+  border: 2px solid #f7fbe1;
+  border-radius: 30px;
 }
+
 .lds-roller {
   display: inline-block;
   position: relative;

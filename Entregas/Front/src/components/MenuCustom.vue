@@ -1,6 +1,11 @@
 <template>
   <div class="menu">
     <div id="nav">
+      <div class="logo">
+        <router-link :to="{name:'Home'}">
+          <img src="../assets/logo.png" alt />
+        </router-link>
+      </div>
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
         <router-link
@@ -12,14 +17,14 @@
         <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
         <router-link :to="{name:'About'}">Contacto</router-link>
       </div>
-
       <div class="user">
         <p>{{nombreUsuario}}</p>
         <button v-show="!logged" @click="goLogin()">Login</button>
-
+        <button v-show="!logged" @click="goRegister()">Register</button>
         <button v-show="logged" @click="logoutUser()">Logout</button>
       </div>
     </div>
+    <hr />
   </div>
 </template>
 
@@ -52,6 +57,9 @@ export default {
     },
     goLogin() {
       this.$router.push("/login");
+    },
+    goRegister() {
+      this.$router.push("/register");
     }
   },
   created() {
@@ -65,18 +73,36 @@ export default {
 };
 </script>
 <style scoped>
+hr {
+  height: 1px;
+  background: black;
+}
+.menu {
+  background: #436f8a;
+}
+.logo {
+  width: 340px;
+}
+.logo img {
+  max-height: 70px;
+  max-width: 100px;
+  display: block;
+}
 .user {
   display: flex;
   justify-content: center;
   align-content: center;
+  width: 340px;
 }
 .user p {
-  margin: 0 1rem;
-  padding: 1rem;
+  color: #bac964;
+  display: block;
+  align-self: center;
+  justify-self: center;
 }
 
 #nav {
-  padding: 20px;
+  padding: 0 1rem;
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -86,10 +112,14 @@ export default {
 #nav a {
   font-weight: bold;
   margin: auto 0.25rem;
+  color: #f7fbe1;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #bac964;
+  text-decoration: underline;
+  font-size: 1.15rem;
 }
 div .user {
   display: flex;
@@ -102,30 +132,30 @@ div .enlaces {
   flex-direction: row;
   align-content: center;
   justify-content: center;
+  align-self: center;
 }
 button {
-  width: 80px;
+  width: 120px;
   cursor: pointer;
   text-align: center;
-  color: white;
-  background: #42b983;
-  border: 2px solid #d6cdb6;
-  border-radius: 20px;
-  padding: 0.5rem;
-  margin: 0.667rem;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 1rem;
   font-weight: bold;
   align-self: center;
   justify-self: center;
 }
 button:hover {
-  background-color: #008cba;
+  background-color: #693662;
   color: white;
   border: 2px solid gray;
 }
 button:focus {
   outline: none;
 }
-
 @media (max-width: 700px) {
   #nav {
     font-size: 0.75rem;

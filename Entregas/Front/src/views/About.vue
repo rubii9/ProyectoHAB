@@ -1,32 +1,52 @@
 <template>
   <div class="about">
     <vue-headful title="Contacto | Coworkings.com" description="About page" />
-    <menucustom></menucustom>
-    <h1>Contacta con nosotros:</h1>
+    <menucustom class="menu"></menucustom>
+    <h1>Contacta con nosotros</h1>
+    <h5>Envianos tus sugerencias para mejorar nuestro servicio.</h5>
     <form>
-      <p v-show="required" style="color:red">Campos vacios</p>
+      <lottie-player
+        src="https://assets7.lottiefiles.com/packages/lf20_OZnTKS.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px;"
+        loop
+        autoplay
+      ></lottie-player>
+      <fieldset>
+        <p v-show="required" style="color:red">Campos vacios</p>
 
-      <label for="asunto">Asunto:</label>
-      <input
-        type="text"
-        v-model="asunto"
-        required
-        placeholder="Asunto..."
-        @keypress.enter="sendEmail()"
-      />
+        <label for="asunto">Concepto</label>
+        <input
+          type="text"
+          v-model="asunto"
+          required
+          placeholder="Concepto..."
+          @keypress.enter="sendEmail()"
+        />
 
-      <label for="commentary">Commentary:</label>
-      <textarea
-        name="comentary"
-        placeholder="Commentary..."
-        v-model.trim="comentary"
-        rows="10"
-        cols="50"
-        required
-        @keypress.enter="sendEmail()"
-      />
+        <label for="commentary">Comentario</label>
+        <textarea
+          name="comentary"
+          placeholder="Escribe tu sugerencia..."
+          v-model.trim="comentary"
+          rows="10"
+          cols="50"
+          required
+          @keypress.enter="sendEmail()"
+        />
+
+        <button @click="sendEmail()">Enviar</button>
+      </fieldset>
+      <lottie-player
+        src="https://assets7.lottiefiles.com/datafiles/6WfDdm3ooQTEs1L/data.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px;"
+        loop
+        autoplay
+      ></lottie-player>
     </form>
-    <button @click="sendEmail()">Enviar</button>
   </div>
 </template>
 <script>
@@ -92,3 +112,95 @@ export default {
   }
 };
 </script>
+<style scoped>
+* {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+.about {
+  background: #f7fbe1;
+  height: 100vh;
+  color: #436f8a;
+}
+
+h1,
+h5 {
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 50%;
+}
+
+textarea,
+label,
+input,
+p,
+button {
+  margin: 0.5rem auto;
+}
+
+textarea,
+input {
+  width: 50%;
+  border: 2px solid #aca7a7;
+  border-radius: 4px;
+  transition: 0.2s ease-out;
+  color: darken(#ededed, 30%);
+  padding: 0.5rem;
+}
+
+input {
+  width: 20%;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+  border-color: #f3bc46;
+}
+button {
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 0.5rem auto;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #436f8a;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus {
+  outline: none;
+}
+</style>

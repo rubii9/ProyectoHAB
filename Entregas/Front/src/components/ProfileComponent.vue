@@ -2,12 +2,12 @@
   <div>
     <div class="profile">
       <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
-      <p>Nombre: {{ profile.realName }}</p>
-      <p v-show="showInfo">Email: {{ profile.email }}</p>
-      <p>Miembro desde: {{ profile.registrationDate.substr(0,10)}}</p>
-      <p v-show="showInfo">Teléfono: {{profile.phone}}</p>
+      <h2>{{ profile.realName }}</h2>
       <p>{{ profile.city }}, {{profile.community}}</p>
-      <p v-show="showInfo">Rol: {{profile.role}}</p>
+      <p v-show="showInfo">{{ profile.email }}</p>
+      <p v-show="showInfo">Teléfono: {{profile.phone}}</p>
+      <p>{{profile.role === "admin" ? "Administrador" : "Usuario"}}</p>
+      <p>Registrado desde {{ profile.registrationDate.substr(0,10)}}</p>
     </div>
   </div>
 </template>
@@ -46,8 +46,26 @@ export default {
 </script>
 
 <style scoped>
+* {
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 img {
-  height: 400px;
-  width: 400px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid #436f8a;
+  border-radius: 50%;
+}
+
+p,
+h2,
+img {
+  margin: 0.5rem auto;
 }
 </style>

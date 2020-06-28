@@ -1,9 +1,9 @@
 <template>
-  <div class="Profile">
+  <div class="myprofile">
     <vue-headful title="Mi perfil | Coworkings.com" description="Profile page" />
 
     <!-- MENU -->
-    <menucustom></menucustom>
+    <menucustom class="menu"></menucustom>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -18,40 +18,45 @@
     </div>
 
     <!-- PROFILE COMPONENT -->
-    <ProfileComponent :profile="profile" v-show="!loading"></ProfileComponent>
+    <div class="Profile" v-show="!loading">
+      <ProfileComponent :profile="profile"></ProfileComponent>
+      <div>
+        <button @click="openModal()">Editar</button>
+        <button class="eliminar" @click="message()">Eliminar</button>
+      </div>
+    </div>
 
     <!-- MODAL PARA EDITAR -->
     <div class="modal" v-show="modal">
       <div class="modalBox">
-        <h3>Editar Perfil:</h3>
-        <div>
-          <label for="newName">Nombre:</label>
-          <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
-        </div>
+        <h2>Editar tu perfil</h2>
+
+        <label for="newName">Nombre:</label>
+        <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
+
+        <label for="newCity">Ciudad:</label>
+        <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
+
+        <label for="newCommunity">Comunidad:</label>
+        <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" />
+
+        <label for="newPhone">Telefono:</label>
+        <input
+          type="number"
+          v-model="newPhone"
+          placeholder="Text appears here"
+          @keypress.enter="edite()"
+        />
+
+        <label class="imagen" for="imgmeeting">Imagen:</label>
+        <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
 
         <div>
-          <label for="newCity">Ciudad:</label>
-          <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
-        </div>
-
-        <div>
-          <label for="newCommunity">Comunidad:</label>
-          <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" />
-        </div>
-
-        <div>
-          <label for="newPhone">Telefono:</label>
-          <input v-model="newPhone" placeholder="Text appears here" @keypress.enter="edite()" />
-        </div>
-
-        <div>
-          <label class="imagen" for="imgmeeting">Imagen:</label>
-          <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
-        </div>
-
-        <div>
-          <button @click="closeModal()">Cancel</button>
-          <button @click="edite()">Enviar</button>
+          <button @click="closeModal()">Cancelar</button>
+          <button @click="edite()">Aceptar</button>
+          <br />
+          <p>¿Cambiar la contraseña?</p>
+          <button @click="openPassModal()">Contraseña</button>
         </div>
       </div>
     </div>
@@ -62,35 +67,29 @@
         <h3>Cambio de contraseña:</h3>
 
         <p v-show="required" style="color:red">{{errorMsg}}</p>
-        <div>
-          <label for="oldpassword">Contraseña actual:</label>
-          <input
-            type="password"
-            v-model="oldPassword"
-            placeholder="Password..."
-            @keypress.enter="edite()"
-          />
-        </div>
+
+        <label for="oldpassword">Contraseña actual:</label>
+        <input
+          type="password"
+          v-model="oldPassword"
+          placeholder="Password..."
+          @keypress.enter="edite()"
+        />
+
+        <label for="newCity">Nueva contraseña:</label>
+        <input
+          type="password"
+          v-model="newPassword"
+          placeholder="Nueva password"
+          @keypress.enter="edite()"
+        />
 
         <div>
-          <label for="newCity">Nueva contraseña:</label>
-          <input
-            type="password"
-            v-model="newPassword"
-            placeholder="Nueva password"
-            @keypress.enter="edite()"
-          />
-        </div>
-
-        <div>
-          <button @click="closePassModal()">Cancel</button>
-          <button @click="changePass()">Enviar</button>
+          <button @click="closePassModal()">Cancelar</button>
+          <button @click="changePass()">Cambiar</button>
         </div>
       </div>
     </div>
-    <button v-show="!loading" @click="message()">Eliminar</button>
-    <button v-show="!loading" @click="openModal()">Editar</button>
-    <button v-show="!loading" @click="openPassModal()">Cambiar contraseña</button>
   </div>
 </template>
 
@@ -275,6 +274,7 @@ export default {
     },
     openPassModal() {
       this.modalpassword = true;
+      this.modal = false;
     },
 
     validatingData() {
@@ -299,6 +299,19 @@ export default {
 };
 </script>
 <style scoped>
+.myprofile {
+  height: 100vh;
+  color: #436f8a;
+  background: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80")
+    no-repeat fixed;
+  background-size: cover;
+}
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 .modal {
   position: fixed;
   top: 0;
@@ -309,16 +322,65 @@ export default {
 }
 
 .modalBox {
-  background: #fefefe;
-  margin: 15% auto;
+  background: #f7fbe1;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  color: black;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
+}
+.Profile {
+  width: 20%;
+  margin: 2rem auto;
+  padding: 5rem;
+  background: #f7fbe1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px #6f94ac;
+  border: 2px solid #f7fbe1;
+  border-radius: 30px;
+}
+
+button {
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #6077ca;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus {
+  outline: none;
+}
+
+input {
+  width: 30%;
+  margin: 0.5rem auto;
+  border: 2px solid #aca7a7;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #f3bc46;
 }
 .lds-roller {
   display: inline-block;
