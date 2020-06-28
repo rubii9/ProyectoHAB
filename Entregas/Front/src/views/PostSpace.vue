@@ -117,16 +117,20 @@
         <button @click="uploadEvent()">Post</button>
       </fieldset>
     </form>
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 <script>
 import menucustom from "@/components/MenuCustom";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 import Swal from "sweetalert2";
 import axios from "axios";
 export default {
   name: "PostSpace",
   components: {
-    menucustom
+    menucustom,
+    footercustom
   },
   data() {
     return {

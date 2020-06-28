@@ -68,13 +68,14 @@
 
     <!-- COMPONENTE SPACES -->
     <spaceslist v-show="!loading" :spaces="spaces"></spaceslist>
+    <!-- NO RESULTS -->
+    <p v-show="noResults" style="color:red">No results</p>
 
     <!-- COMPONENTE SOME USERS -->
     <h2 v-show="!loading">Usuarios recientes:</h2>
     <someusers v-show="!loading" class="some" :users="users"></someusers>
 
-    <!-- NO RESULTS -->
-    <p v-show="noResults" style="color:red">No results</p>
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 
@@ -86,10 +87,12 @@ import menucustom from "@/components/MenuCustom.vue";
 import spaceslist from "@/components/ListaSpaces.vue";
 //IMPORTANDO SOMEUSERS
 import someusers from "@/components/SomeUsers.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 
 export default {
   name: "Home",
-  components: { menucustom, spaceslist, someusers },
+  components: { menucustom, spaceslist, someusers, footercustom },
   data() {
     return {
       spaces: [],
@@ -212,11 +215,19 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  background: #f7fbe1;
+  color: #436f8a;
+}
 .menu {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: 2rem;
+}
+.footer {
+  margin-top: 1rem;
 }
 .searchProduct {
   display: flex;
@@ -260,6 +271,8 @@ select {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

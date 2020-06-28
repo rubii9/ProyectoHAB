@@ -47,16 +47,19 @@
         autoplay
       ></lottie-player>
     </form>
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 <script>
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 export default {
   name: "About",
-  components: { menucustom },
+  components: { menucustom, footercustom },
   data() {
     return {
       email: "rubenpo167@gmail.com",
@@ -129,9 +132,9 @@ export default {
   z-index: 1;
   margin-bottom: 2rem;
 }
+
 .about {
   background: #f7fbe1;
-  height: 100vh;
   color: #436f8a;
 }
 
@@ -144,6 +147,7 @@ form {
   display: flex;
   justify-content: center;
   align-content: center;
+  margin-bottom: 15rem;
 }
 fieldset {
   display: flex;

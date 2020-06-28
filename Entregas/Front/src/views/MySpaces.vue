@@ -26,7 +26,9 @@
     ></myspaces>
 
     <!-- NO RESULTS -->
-    <p v-show="noResults" style="color:red">No tines ninguna publicación</p>
+    <p class="results" v-show="noResults" style="color:red">No tines ninguna publicación</p>
+
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 
@@ -37,9 +39,11 @@ import Swal from "sweetalert2";
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO COWORKING VIEW
 import myspaces from "@/components/MySpacesView.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 export default {
   name: "MySpaces",
-  components: { menucustom, myspaces },
+  components: { menucustom, myspaces, footercustom },
   data() {
     return {
       spaces: [],
@@ -128,11 +132,19 @@ export default {
   top: 0;
   z-index: 1;
 }
+.results {
+  height: 100vh;
+}
+.footer {
+  margin-top: 2rem;
+}
 .lds-roller {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

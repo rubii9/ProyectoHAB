@@ -19,19 +19,24 @@
 
     <!-- PROFILE COMPONENT -->
     <ProfileComponent :profile="profile" v-show="!loading" class="Profile"></ProfileComponent>
+
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
 import menucustom from "@/components/MenuCustom.vue";
 import ProfileComponent from "@/components/ProfileComponent.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 export default {
   name: "Profile",
   components: {
     menucustom,
-    ProfileComponent
+    ProfileComponent,
+    footercustom
   },
   data() {
     return {
@@ -100,6 +105,9 @@ export default {
   z-index: 1;
   margin-bottom: 2rem;
 }
+.footer {
+  margin-top: 10rem;
+}
 .usuariosPerfil {
   height: 100vh;
   color: #436f8a;
@@ -127,6 +135,8 @@ export default {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

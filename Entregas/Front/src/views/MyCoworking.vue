@@ -20,7 +20,9 @@
     <coworking v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
 
     <!-- NO RESULTS -->
-    <p v-show="noResults" style="color:red">No tines ninguna reserva</p>
+    <p class="results" v-show="noResults" style="color:red">No tines ninguna reserva</p>
+
+    <footercustom></footercustom>
   </div>
 </template>
 
@@ -30,9 +32,11 @@ import axios from "axios";
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO COWORKING VIEW
 import coworking from "@/components/CoworkingView.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 export default {
   name: "MyCoworking",
-  components: { menucustom, coworking },
+  components: { menucustom, coworking, footercustom },
   data() {
     return {
       spaces: [],
@@ -82,11 +86,19 @@ export default {
   top: 0;
   z-index: 1;
 }
+.results {
+  height: 100vh;
+}
+.footer {
+  margin-top: 2rem;
+}
 .lds-roller {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

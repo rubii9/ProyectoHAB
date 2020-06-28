@@ -69,6 +69,7 @@
         </div>
       </div>
     </div>
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 
@@ -80,12 +81,14 @@ import Swal from "sweetalert2";
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO SPACES
 import spaceview from "@/components/SpaceView.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 
 import { isLoggedIn } from "../api/utils";
 
 export default {
   name: "Space",
-  components: { menucustom, spaceview, StarRating },
+  components: { menucustom, spaceview, StarRating, footercustom },
   props: ["id"],
   data() {
     return {
@@ -242,6 +245,10 @@ export default {
   top: 0;
   z-index: 1;
 }
+
+.footer {
+  margin-top: 2rem;
+}
 .modal {
   position: fixed;
   top: 0;
@@ -276,6 +283,8 @@ export default {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

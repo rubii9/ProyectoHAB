@@ -90,12 +90,15 @@
         </div>
       </div>
     </div>
+    <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
 import menucustom from "@/components/MenuCustom.vue";
 import ProfileComponent from "@/components/ProfileComponent.vue";
+//IMPORTANDO FOOTER
+import footercustom from "@/components/FooterCustom.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { clearLogin } from "../api/utils";
@@ -103,7 +106,8 @@ export default {
   name: "MyProfile",
   components: {
     menucustom,
-    ProfileComponent
+    ProfileComponent,
+    footercustom
   },
   data() {
     return {
@@ -312,6 +316,9 @@ export default {
   top: 0;
   z-index: 1;
 }
+.footer {
+  margin-top: 10rem;
+}
 .modal {
   position: fixed;
   top: 0;
@@ -387,6 +394,8 @@ input:focus {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 10rem;
+  margin-bottom: 100vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
