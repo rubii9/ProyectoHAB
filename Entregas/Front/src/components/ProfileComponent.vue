@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="profile">
-      <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
+      <header>
+        <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
+      </header>
+
       <h2>{{ profile.realName }}</h2>
       <p>{{ profile.city }}, {{profile.community}}</p>
       <p v-show="showInfo">{{ profile.email }}</p>

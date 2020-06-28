@@ -20,7 +20,6 @@
           v-model.trim="search"
           id="search"
           name="bySearch"
-          type="search"
           placeholder="Búsqueda..."
           v-show="normalInput"
           class="buscar"
@@ -37,6 +36,7 @@
         placeholder="Write..."
         v-show="dateInput"
       />
+
       <select
         name="community"
         required
@@ -127,7 +127,6 @@ export default {
       axios
         .get(`http://localhost:3001/someusers`)
         .then(function(response) {
-          console.log(response);
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;

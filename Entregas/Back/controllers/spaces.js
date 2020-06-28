@@ -33,7 +33,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.name like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        where s.name like ?  
         group by s.id
         order by s.create_space desc
         `,
@@ -47,7 +47,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where (s.city like ? or s.community like ?)  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        where (s.city like ? or s.community like ?) 
         group by s.id
         order by s.create_space desc
         `,
@@ -61,8 +61,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.type like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
-        group by s.id
+        where s.type like ? 
         order by s.create_space desc
         `,
         [`%${search}%`]
@@ -75,7 +74,7 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where s.equipment like ?  and ((r.end_date is null and r.start_date is null) or r.end_date < UTC_TIMESTAMP)
+        where s.equipment like ?  
         group by s.id
         order by s.create_space desc
         `,
@@ -85,15 +84,13 @@ async function listSpaces(req, res, next) {
       await searchSchema.validateAsync(search);
       result = await connection.query(
         `
-        select s.* , avg(rt.score) as score from spaces s
+        select s.*  from spaces s
         left join reserves r
         on  s.id=r.space_id
-        left join ratings rt
-        on rt.space_id=s.id
-        where (r.end_date is null and r.start_date is null) or r.end_date < ?
+        where r.end_date not BETWEEN  "2020-01-01"  AND ?  or r.end_date is null
         group by s.id
-        order by s.create_space desc`,
-        [formatDateToDB(new Date(search))]
+        order by s.create_space desc;`,
+        [`${search}`]
       );
     } else {
       result = await connection.query(
@@ -102,7 +99,6 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where r.end_date is null and r.start_date is null or r.end_date < UTC_TIMESTAMP
         group by s.id
         order by s.create_space desc
         `

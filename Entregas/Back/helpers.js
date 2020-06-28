@@ -12,7 +12,7 @@ const imageUploadPath = path.join(__dirname, process.env.UPLOADS_DIR);
 
 // Format a date to DB
 function formatDateToDB(date) {
-  return format(date, 'yyyy-MM-dd HH:mm:ss');
+  return format(date, 'yyyy-MM-dd');
 }
 
 // Save a photo and get filename
