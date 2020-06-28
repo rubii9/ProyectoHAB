@@ -5,9 +5,8 @@
         <img :src="space.photo1 ? path + space.photo1 : ''" alt />
       </router-link>
       <p>Nombre: {{ space.name }}</p>
-      <!--      <p>Tipo: {{ space.type }}</p>
-      <p>Ciudad: {{ space.city }}</p>
-      <p>Comunidad: {{ space.community }}</p>-->
+      <p>Tipo: {{ space.type }}</p>
+      <p>Ubicación: {{ space.city }}, {{ space.community }}</p>
     </div>
   </div>
 </template>

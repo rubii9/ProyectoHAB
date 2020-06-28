@@ -3,12 +3,10 @@
     <div class="space" v-for=" space in spaces" :key="space.id">
       <img :src="space.photo1 ?  path + space.photo1 : ''" alt />
       <p>Nombre: {{ space.name }}</p>
-      <p>ID espacio: {{space.id}}</p>
-      <p>Tipo: {{ space.type }}</p>
       <p>Ciudad: {{ space.city }}, {{ space.community }}</p>
-      <p>Precio: {{space.price}}€</p>
+
       <p v-show="space.is_clean != null ">Limpio: {{space.is_clean ? "Limpio" : "Pendiente"}}</p>
-      <p v-show="space.is_clean != null ">Pago: {{space.is_paid ? "Realizado" : "Pendiente"}}</p>
+      <p v-show="space.is_paid != null ">Pago: {{space.is_paid ? "Realizado" : "Pendiente"}}</p>
       <h3>Incidencias:</h3>
       <p v-show="incidents.length < 1 ? true : false">No hay incidencias</p>
       <div
@@ -17,8 +15,6 @@
         v-show="incident.space_id == space.id ? true: false"
       >
         <p>{{incident.comment}}</p>
-        <p>{{incident.space_id}}</p>
-        <p>Estado: {{incident.state === "open" ? "Abierta" : "Cerrado"}}</p>
       </div>
       <button @click="cleanEvent(space.id)">Limpieza</button>
       <button
