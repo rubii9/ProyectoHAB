@@ -87,7 +87,7 @@ async function listSpaces(req, res, next) {
         select s.*  from spaces s
         left join reserves r
         on  s.id=r.space_id
-        where r.end_date not BETWEEN  "2020-01-01"  AND ?  or r.end_date is null
+        where r.end_date  BETWEEN  r.end_date  AND ?  or r.end_date is null
         group by s.id
         order by s.create_space desc;`,
         [`${search}`]
