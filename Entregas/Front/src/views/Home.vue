@@ -69,7 +69,7 @@
         <p v-show="noResults" style="color:red">No results</p>
       </section>
 
-      <section>
+      <section class="sidebar">
         <!-- COMPONENTE SOME USERS -->
         <h2>Usuarios recientes</h2>
         <someusers v class="some" :users="users"></someusers>
@@ -312,6 +312,11 @@ main {
   display: flex;
   justify-content: center;
   align-content: space-between;
+}
+
+section.sidebar {
+  background: rgba(196, 196, 196, 0.445);
+  height: 20%;
 }
 
 .lds-roller {

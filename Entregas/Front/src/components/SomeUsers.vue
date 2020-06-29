@@ -40,7 +40,7 @@ export default {
 img {
   height: 30px;
   width: 30px;
-  border: 1px solid black;
+  border: 1px solid #436f8a;
   border-radius: 20px;
   display: block;
   margin: 0 0.5rem;
@@ -49,8 +49,9 @@ a {
   padding: 0.25rem;
   margin: 0;
   font-size: 0.9rem;
+  font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: #436f8a;
 }
 
 a:hover {
