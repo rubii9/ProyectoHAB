@@ -2,27 +2,45 @@
   <div>
     <div class="space" v-for="space in spaces" :key="space.id">
       <router-link :to=" {name:'Space', params:{id:space.id}} ">
-        <img :src="space.photo1 ? path + space.photo1 : ''" alt />
+        <img class="foto" :src="space.photo1 ? path + space.photo1 : ''" alt />
       </router-link>
-      <p>ID: {{ space.space_id }}</p>
-      <p>Nombre: {{ space.name }}</p>
-      <p>Precio: {{space.price}}€</p>
-      <p>Inicio de reserva: {{space.start_date.substr(0,10)}}</p>
-      <p>Fin de reserva: {{space.end_date.substr(0,10)}}</p>
-      <p>Pagado: {{space.is_paid ? "Realizado" : "Pendiente"}}</p>
-      <p>Limpio: {{space.is_clean ? "Limpio" : "Pendiente"}}</p>
-      <h3>Incidencias:</h3>
-      <div
-        v-for="comment in incidents"
-        :key="comment.id"
-        v-show="comment.space_id == space.space_id ? true: false"
-      >
-        <p>{{comment.comment}}</p>
-        <p>{{comment.space_id}}</p>
-        <p>Estado: {{comment.state === "open" ? "Pendiente" : "Cerrado"}}</p>
+      <div class="info">
+        <h1>{{ space.name }}</h1>
+        <p>{{space.type}}</p>
+        <p>{{ space.city }}, {{ space.community }}</p>
+        <p>
+          <strong>Precio:</strong>
+          {{space.price}}€
+        </p>
+        <p>
+          <strong>Fecha inicio:</strong>
+          {{space.start_date.substr(0,10)}}
+        </p>
+        <p>
+          <strong>Fecha fin:</strong>
+          {{space.end_date.substr(0,10)}}
+        </p>
+        <p>
+          <strong>Pago:</strong>
+          {{space.is_paid ? "Realizado" : "Pendiente"}}
+        </p>
+        <p>
+          <strong>Limpieza:</strong>
+          {{space.is_clean ? "Limpio" : "Pendiente"}}
+        </p>
+        <button @click="payReserve(space.space_id)">Pagar</button>
       </div>
-      <button @click="openModal(space.space_id)">Incidencia</button>
-      <button @click="payReserve(space.space_id)">Pagar</button>
+      <div class="incidencias">
+        <h3>Incidencias:</h3>
+        <div
+          v-for="comment in incidents"
+          :key="comment.id"
+          v-show="comment.space_id == space.space_id ? true: false"
+        >
+          <p>{{comment.comment}} ({{comment.state === "open" ? "Pendiente" : "Cerrado"}})</p>
+        </div>
+        <button @click="openModal(space.space_id)">Incidencia</button>
+      </div>
     </div>
 
     <!-- MODAL PARA INCIDENCIAS -->
@@ -151,14 +169,78 @@ img {
 
 .modalBox {
   background: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   color: black;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
+}
+
+.space {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1px 1px;
+  grid-template-areas: "foto info incidencias";
+  margin: 5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(67, 111, 138, 0.7);
+  box-shadow: 5px 5px 5px rgba(67, 111, 138, 0.7);
+  color: #436f8a;
+  background: #f7fbe1;
+}
+
+.foto {
+  grid-area: foto;
+}
+
+.info {
+  grid-area: info;
+}
+
+.incidencias {
+  grid-area: incidencias;
+}
+div.info {
+  margin: auto 0;
+}
+div.incidencias {
+  margin: auto 0;
+}
+img {
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid rgba(67, 111, 138, 0.7);
+}
+
+button {
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #6077ca;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus {
+  outline: none;
 }
 </style>

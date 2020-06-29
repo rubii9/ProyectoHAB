@@ -304,8 +304,7 @@ div .register {
   width: 100%;
   height: 100vh;
   padding: 5rem;
-  background: url("https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80")
-    no-repeat fixed;
+  background: url("../assets/fondologinregister.jpeg") no-repeat fixed;
   background-size: cover;
   font-weight: 200;
   display: flex;

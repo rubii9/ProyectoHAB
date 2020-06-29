@@ -5,6 +5,15 @@
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
+    <header>
+      <img src="../assets/mycoworking1.svg" alt style="width: 300px; height: 150px;" />
+      <article>
+        <h1>My Coworking</h1>Aquí podrás ver el estado de tus reservas,
+        realizar el pago o crear una incidencia para notificar al propietario.
+      </article>
+      <img src="../assets/mycoworking2.svg" alt style="width: 300px; height: 150px;" />
+    </header>
+
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
       <div></div>
@@ -17,7 +26,7 @@
       <div></div>
     </div>
 
-    <coworking v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
+    <coworking class="spaces" v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
 
     <!-- NO RESULTS -->
     <p class="results" v-show="noResults" style="color:red">No tines ninguna reserva</p>
@@ -93,12 +102,38 @@ export default {
   top: 0;
   z-index: 1;
 }
+.spaces {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .results {
   min-height: 100vh;
 }
 .footer {
   margin-top: 2rem;
 }
+
+header {
+  background: #f7fbe1;
+  margin: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+header article {
+  margin: auto 0;
+  width: 30%;
+}
+header h1 {
+  font-size: 2.5rem;
+}
+
+img {
+  margin: 1rem 0;
+}
+
 .lds-roller {
   display: inline-block;
   position: relative;

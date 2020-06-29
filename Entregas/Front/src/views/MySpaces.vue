@@ -174,6 +174,10 @@ header article {
   width: 30%;
 }
 
+header h1 {
+  font-size: 2.5rem;
+}
+
 img {
   margin: 1rem 0;
 }
