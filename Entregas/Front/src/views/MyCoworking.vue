@@ -87,7 +87,7 @@ export default {
   z-index: 1;
 }
 .results {
-  height: 100vh;
+  min-height: 100vh;
 }
 .footer {
   margin-top: 2rem;

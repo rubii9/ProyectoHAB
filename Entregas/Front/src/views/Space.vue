@@ -1,5 +1,5 @@
 <template>
-  <div class="SpaceID">
+  <div class="spaceID">
     <vue-headful title="Spaces | Coworkings.com" description="Space page" />
 
     <!-- MENU -->
@@ -19,6 +19,7 @@
 
     <!-- SPACE VIEW -->
     <spaceview :space="space" :comments="comments" :totalvotes="totalvotes" v-show="!loading"></spaceview>
+    <hr />
     <div v-show="!loading">
       <button v-show="logged" @click="openVoteModal()">Votar</button>
       <button v-show="logged" @click="openReserveModal()">Reservar</button>
@@ -27,8 +28,7 @@
     <!-- MODAL PARA VOTAR -->
     <div class="modal" v-show="modalVote">
       <div class="modalBox">
-        <h3>Votar espacio</h3>
-        <label for="commentary">Commentary:</label>
+        <h2>Votar espacio</h2>
         <textarea
           name="comentary"
           placeholder="Commentary..."
@@ -37,7 +37,6 @@
           cols="50"
           @keypress.enter="vote()"
         />
-        <label for="rating">Score:</label>
         <star-rating v-model="rating" class="vote"></star-rating>
         <div>
           <button @click="closeVoteModal()">Cancel</button>
@@ -49,8 +48,8 @@
     <!-- MODAL PARA RESEVAR -->
     <div class="modal" v-show="modalReserve">
       <div class="modalBox">
-        <h3>Reservar espacio</h3>
-        <form>
+        <h2>Reservar espacio</h2>
+        <form class="reserva">
           <label for="start_date">Fecha inicio:</label>
           <input
             v-model="fecha_inicio"
@@ -123,6 +122,8 @@ export default {
     //FUNCION QUE CIERRA EL POP UP PARA RESERVA
     closeReserveModal() {
       this.modalReserve = false;
+      this.fecha_inicio = "";
+      this.fecha_fin = "";
     },
     getSpaces() {
       let self = this;
@@ -239,6 +240,12 @@ export default {
 </script>
 
 <style scoped>
+.spaceID {
+  min-height: 100vh;
+  color: #436f8a;
+  background: #f7fbe1;
+}
+
 .menu {
   position: -webkit-sticky;
   position: sticky;
@@ -260,11 +267,10 @@ export default {
 
 .modalBox {
   background: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  color: black;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -276,6 +282,62 @@ export default {
   flex-direction: column;
   align-content: center;
   justify-content: center;
+}
+hr {
+  width: 80%;
+  margin-bottom: 1.5rem;
+}
+
+button {
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #6077ca;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus,
+input:focus {
+  outline: none;
+}
+input {
+  border: 2px solid #aca7a7;
+  width: 20rem;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  border-radius: 20px;
+  color: darken(#ededed, 30%);
+}
+input[type="date"] {
+  text-align: center;
+  padding: 0.25rem;
+  margin: 0.5rem auto;
+}
+textarea {
+  margin: 1rem auto;
+  width: 50%;
+  border: 2px solid #aca7a7;
+  border-radius: 4px;
+  transition: 0.2s ease-out;
+  color: darken(#ededed, 30%);
+  padding: 0.5rem;
+}
+
+form.reserva {
+  display: flex;
+  flex-direction: column;
 }
 
 .lds-roller {

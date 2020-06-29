@@ -71,7 +71,7 @@
 
       <section>
         <!-- COMPONENTE SOME USERS -->
-        <h2>Usuarios recientes:</h2>
+        <h2>Usuarios recientes</h2>
         <someusers v class="some" :users="users"></someusers>
       </section>
     </main>
@@ -217,6 +217,7 @@ export default {
 
 <style scoped>
 .home {
+  min-height: 100vh;
   background: url("../assets/fondolanding.jpeg") no-repeat fixed;
   background-size: cover;
   color: #436f8a;
@@ -234,9 +235,8 @@ export default {
 .some {
   height: 230px;
   width: 200px;
-  border: 1px solid #ddd;
-  background: #fff;
-  margin: 0 auto;
+  margin: 1rem;
+  background: ;
   padding: 0.5rem;
 }
 .productos {
@@ -307,6 +307,11 @@ button:hover {
 }
 button:focus {
   outline: none;
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
 }
 
 .lds-roller {

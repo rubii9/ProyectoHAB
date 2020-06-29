@@ -100,7 +100,7 @@ export default {
   margin-top: 10rem;
 }
 .usuariosPerfil {
-  height: 100vh;
+  min-height: 100vh;
   color: #436f8a;
   background: url("../assets/backgroundProfile.jpeg") no-repeat fixed;
   background-size: cover;
@@ -126,7 +126,7 @@ export default {
   width: 80px;
   height: 80px;
   margin-top: 10rem;
-  margin-bottom: 80vh;
+  margin-bottom: 20rem;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
