@@ -19,8 +19,9 @@
 
     <!-- SPACE VIEW -->
     <spaceview :space="space" :comments="comments" :totalvotes="totalvotes" v-show="!loading"></spaceview>
-    <hr />
+
     <div v-show="!loading">
+      <hr />
       <button v-show="logged" @click="openVoteModal()">Votar</button>
       <button v-show="logged" @click="openReserveModal()">Reservar</button>
     </div>

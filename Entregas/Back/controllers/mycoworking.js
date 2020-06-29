@@ -15,6 +15,7 @@ async function listMyCoworking(req, res, next) {
     select s.* ,r.*from reserves r, spaces s
     where r.space_id = s.id
     and r.user_id = ?  
+    and r.is_confirmed = 1
     order by r.end_date 
     `,
       [req.auth.id]

@@ -5,6 +5,15 @@
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
+    <header>
+      <img src="../assets/imagenMySpaces.svg" alt style="width: 300px; height: 150px;" />
+      <article>
+        <h1>My Spaces</h1>Aquí podrás ver el estado de tus espacios, controlar las incidencias
+        y establecer el local como limpio para notificar al coworker
+      </article>
+      <img src="../assets/imagenMySpaces2.svg" alt style="width: 300px; height: 150px;" />
+    </header>
+
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
       <div></div>
@@ -18,6 +27,7 @@
     </div>
 
     <myspaces
+      class="spaces"
       v-show="!loading"
       :spaces="spaces"
       :incidents="incidents"
@@ -126,6 +136,18 @@ export default {
 </script>
 
 <style scoped>
+.myspaces {
+  min-height: 100vh;
+  color: #436f8a;
+  background: url("../assets/fondolanding.jpeg") no-repeat fixed;
+  background-size: cover;
+}
+
+.spaces {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .menu {
   position: -webkit-sticky;
   position: sticky;
@@ -137,6 +159,23 @@ export default {
 }
 .footer {
   margin-top: 2rem;
+}
+
+header {
+  background: #f7fbe1;
+  margin: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+header article {
+  margin: auto 0;
+  width: 30%;
+}
+
+img {
+  margin: 1rem 0;
 }
 .lds-roller {
   display: inline-block;

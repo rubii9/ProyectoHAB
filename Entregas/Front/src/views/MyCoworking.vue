@@ -80,6 +80,13 @@ export default {
 </script>
 
 <style scoped>
+.coworking {
+  min-height: 100vh;
+  color: #436f8a;
+  background: url("../assets/fondolanding.jpeg") no-repeat fixed;
+  background-size: cover;
+}
+
 .menu {
   position: -webkit-sticky;
   position: sticky;
