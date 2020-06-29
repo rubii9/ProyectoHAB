@@ -146,14 +146,14 @@ div.textinfo {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0.5rem;
   margin-top: 1.5rem;
 }
 
 img {
-  height: 600px;
-  width: 800px;
+  height: 300px;
+  width: 500px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px rgba(67, 111, 138, 0.7);
 }
