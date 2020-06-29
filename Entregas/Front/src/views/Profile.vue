@@ -89,15 +89,6 @@ export default {
 };
 </script>
 <style scoped>
-* {
-  -ms-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
 .menu {
   position: -webkit-sticky;
   position: sticky;
@@ -111,8 +102,7 @@ export default {
 .usuariosPerfil {
   height: 100vh;
   color: #436f8a;
-  background: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80")
-    no-repeat fixed;
+  background: url("../assets/backgroundProfile.jpeg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -136,7 +126,7 @@ export default {
   width: 80px;
   height: 80px;
   margin-top: 10rem;
-  margin-bottom: 100vh;
+  margin-bottom: 80vh;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

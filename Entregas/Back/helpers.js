@@ -26,14 +26,6 @@ async function processAndSavePhoto(uploadedImage) {
   // Process image
   const finalImage = sharp(uploadedImage.data);
 
-  // Check image size
-  const imageInfo = await finalImage.metadata();
-
-  // If image is wider than 500px resize it
-  if (imageInfo.width > 500) {
-    finalImage.resize(500);
-  }
-
   // Save image
   await finalImage.toFile(path.join(imageUploadPath, savedFileName));
 

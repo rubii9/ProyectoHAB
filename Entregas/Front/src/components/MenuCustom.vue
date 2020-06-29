@@ -8,13 +8,18 @@
       </div>
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
+        <span>|</span>
         <router-link
           :to="{ name: 'MyProfile', params:{ id: this.userID }}"
           v-show="logged"
         >Mi perfil</router-link>
+        <span v-show="logged">|</span>
         <router-link :to="{name:'PostSpace'}" v-show="logged">Nuevo post</router-link>
+        <span v-show="logged">|</span>
         <router-link :to="{name:'MyCoworking'}" v-show="logged">Mi coworking</router-link>
+        <span v-show="logged">|</span>
         <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
+        <span v-show="logged">|</span>
         <router-link :to="{name:'About'}">Contacto</router-link>
       </div>
       <div class="user">
@@ -76,6 +81,7 @@ export default {
 hr {
   height: 1px;
   background: black;
+  margin: 0;
 }
 .menu {
   background: #436f8a;
@@ -111,9 +117,13 @@ hr {
 
 #nav a {
   font-weight: bold;
-  margin: auto 0.25rem;
+  margin: auto 0.5rem;
   color: #f7fbe1;
   text-decoration: none;
+}
+
+#nav a:hover {
+  color: #f3bc46;
 }
 
 #nav a.router-link-exact-active {
@@ -128,6 +138,7 @@ div .user {
   justify-content: center;
 }
 div .enlaces {
+  color: #f7fbe1;
   display: flex;
   flex-direction: row;
   align-content: center;

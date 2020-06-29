@@ -5,37 +5,30 @@
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
+    <header>
+      <img src="../assets/landing2.svg" alt style="width: 300px; height: 300px;" />
+      <article>
+        <h1>Bienvenido a Coworks!</h1>Aquí podrás encontrar tu lugar de trabajo ideal que estás buscando.
+        Puedes buscar por nombre, tipo, ubicacion, o fecha para reservar, y no te olvides de dejar tu votación o comentario.
+        Tambien puedes publicar tus propios espacios y controlar las incidencias que los usuarios tengan.
+      </article>
+      <img src="../assets/landing.svg" alt style="width: 300px; height: 300px;" />
+    </header>
+
     <!-- BUSQUEDA -->
     <div class="searchProduct" v-show="!loading">
       <select v-model="filter">
         <option disabled value>Filtrado por...</option>
         <option value="name">Nombre</option>
         <option value="location">Ubicación</option>
-        <option value="type">Tipo</option>
+        <option value="type">Tipo espacio</option>
         <option value="equipment">Equipmiento</option>
-        <option value="date">Fecha incio libre</option>
+        <option value="date">Fecha incio reserva</option>
       </select>
-      <div class="buscador">
-        <input
-          v-model.trim="search"
-          id="search"
-          name="bySearch"
-          placeholder="Búsqueda..."
-          v-show="normalInput"
-          class="buscar"
-        />
 
-        <img v-show="normalInput" src="../assets/buscar.svg" alt class="icono" />
-      </div>
+      <input v-model.trim="search" placeholder="Búsqueda..." v-show="normalInput" class="buscar" />
 
-      <input
-        v-model.trim="search"
-        id="search"
-        name="bySearch"
-        type="date"
-        placeholder="Write..."
-        v-show="dateInput"
-      />
+      <input v-model.trim="search" type="date" placeholder="Write..." v-show="dateInput" />
 
       <select
         name="community"
@@ -51,7 +44,8 @@
           v-bind:value="comunidad.nombre"
         >{{comunidad.nombre}}</option>
       </select>
-      <button @click="clearInput()">Clean</button>
+
+      <button @click="clearInput()">Borrar</button>
     </div>
 
     <!--  SIMBOLO DE CARGA  -->
@@ -66,14 +60,21 @@
       <div></div>
     </div>
 
-    <!-- COMPONENTE SPACES -->
-    <spaceslist v-show="!loading" :spaces="spaces"></spaceslist>
-    <!-- NO RESULTS -->
-    <p v-show="noResults" style="color:red">No results</p>
+    <!-- CUERPO LANDING -->
+    <main v-show="!loading">
+      <section class="productos">
+        <!-- COMPONENTE SPACES -->
+        <spaceslist :spaces="spaces"></spaceslist>
+        <!-- NO RESULTS -->
+        <p v-show="noResults" style="color:red">No results</p>
+      </section>
 
-    <!-- COMPONENTE SOME USERS -->
-    <h2 v-show="!loading">Usuarios recientes:</h2>
-    <someusers v-show="!loading" class="some" :users="users"></someusers>
+      <section>
+        <!-- COMPONENTE SOME USERS -->
+        <h2>Usuarios recientes:</h2>
+        <someusers v class="some" :users="users"></someusers>
+      </section>
+    </main>
 
     <footercustom class="footer"></footercustom>
   </div>
@@ -216,7 +217,8 @@ export default {
 
 <style scoped>
 .home {
-  background: #f7fbe1;
+  background: url("../assets/fondolanding.jpeg") no-repeat fixed;
+  background-size: cover;
   color: #436f8a;
 }
 .menu {
@@ -224,34 +226,9 @@ export default {
   position: sticky;
   top: 0;
   z-index: 1;
-  margin-bottom: 2rem;
 }
 .footer {
   margin-top: 1rem;
-}
-.searchProduct {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-}
-
-.buscador {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-.buscar {
-  position: absolute;
-}
-
-.icono {
-  height: 18px;
-  display: block;
-  margin: 0 0.5rem;
-  position: relative;
-  left: 80px;
-  top: 2px;
 }
 
 .some {
@@ -262,10 +239,76 @@ export default {
   margin: 0 auto;
   padding: 0.5rem;
 }
-
-select {
-  margin-right: 4.7rem;
+.productos {
+  padding: 1rem;
 }
+header {
+  background: #f7fbe1;
+  margin: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+header article {
+  width: 30%;
+  margin: auto 4rem;
+}
+
+input {
+  border: 2px solid #aca7a7;
+  width: 20rem;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  border-radius: 20px;
+  color: darken(#ededed, 30%);
+}
+input[type="date"] {
+  text-align: center;
+  padding: 0.25rem;
+}
+select {
+  color: grey;
+  margin: 0.5rem;
+  background: white;
+  border: 2px solid #aca7a7;
+  border-radius: 20px;
+  padding: 0.35rem;
+}
+option {
+  color: black;
+}
+option:disabled {
+  color: gray;
+}
+input:focus,
+select:focus {
+  outline: 0;
+  border-color: #f3bc46;
+}
+button {
+  width: 60px;
+  cursor: pointer;
+  text-align: center;
+  background: #f3bc46;
+  color: #474e51;
+  border: 2px solid #a7a398;
+  border-radius: 5px;
+  padding: 0.35rem;
+  margin: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #693662;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus {
+  outline: none;
+}
+
 .lds-roller {
   display: inline-block;
   position: relative;
