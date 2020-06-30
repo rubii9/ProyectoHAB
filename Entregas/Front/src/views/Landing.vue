@@ -54,6 +54,7 @@ export default {
   border-radius: 30px;
   margin: 5rem;
   padding: 2rem;
+  color: #436f8a;
 }
 #menuLanding {
   min-width: 100vw;

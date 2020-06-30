@@ -27,7 +27,7 @@
           </p>
           <p>
             <strong>Precio:</strong>
-            : {{space.price}}€
+            {{space.price}}€/mes
           </p>
         </div>
       </div>

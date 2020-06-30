@@ -50,7 +50,7 @@
         <label for="commentary">Comentario:</label>
         <textarea
           name="comentary"
-          placeholder="Commentary..."
+          placeholder="Comentario..."
           v-model.trim="comentary"
           rows="10"
           cols="50"
@@ -168,12 +168,11 @@ img {
 }
 
 .modalBox {
-  background: #fefefe;
+  background: #f7fbe1;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
-  color: black;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -218,6 +217,16 @@ img {
   margin: 0 auto;
   border-radius: 10px;
   border: 1px solid rgba(67, 111, 138, 0.7);
+}
+
+textarea {
+  margin: 1rem auto;
+  width: 50%;
+  border: 2px solid #aca7a7;
+  border-radius: 4px;
+  transition: 0.2s ease-out;
+  color: darken(#ededed, 30%);
+  padding: 0.5rem;
 }
 
 button {

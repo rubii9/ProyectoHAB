@@ -32,7 +32,7 @@
         <h2>Votar espacio</h2>
         <textarea
           name="comentary"
-          placeholder="Commentary..."
+          placeholder="Comentario..."
           v-model.trim="comentary"
           rows="10"
           cols="50"
@@ -267,7 +267,7 @@ export default {
 }
 
 .modalBox {
-  background: #fefefe;
+  background: #f7fbe1;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;

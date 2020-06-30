@@ -38,7 +38,21 @@
         <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
 
         <label for="newCommunity">Comunidad:</label>
-        <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" />
+        <!--  <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" /> -->
+
+        <select
+          name="community"
+          required
+          placeholder="Introduce la comunidad"
+          v-model="newCommunity"
+        >
+          <option disabled value>Comunidad...</option>
+          <option
+            v-for="comunidad in comunidades"
+            :key="comunidad.id"
+            v-bind:value="comunidad.nombre"
+          >{{comunidad.nombre}}</option>
+        </select>
 
         <label for="newPhone">Telefono:</label>
         <input
@@ -112,6 +126,7 @@ export default {
   data() {
     return {
       profile: {},
+      comunidades: [],
       loading: true,
       modal: false,
       modalpassword: false,
@@ -185,6 +200,28 @@ export default {
             /*   self.$router.push({ path: "/error" }); */
           }
         });
+    },
+    //GET COMUNINADES
+    async getCommunity() {
+      try {
+        this.comunidades = await this.getCom();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getCom() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let res = await axios({
+            url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
+            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+          });
+          resolve(res.data.data);
+        } catch (err) {
+          console.log("Error consiguiendo los idiomas: ", err);
+          reject(err);
+        }
+      });
     },
     changePass() {
       this.validatingData();
@@ -297,6 +334,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.getCommunity();
+  },
   created() {
     this.getProfile();
   }
@@ -384,7 +424,17 @@ input {
   padding: 0.5rem;
 }
 
-input:focus {
+select {
+  width: 33%;
+  margin: 0.5rem auto;
+  border: 2px solid #aca7a7;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+input:focus,
+select:focus {
   outline: none;
   border: 2px solid #f3bc46;
 }
