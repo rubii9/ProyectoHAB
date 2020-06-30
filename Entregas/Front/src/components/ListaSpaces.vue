@@ -45,22 +45,25 @@ export default {
   flex-wrap: wrap;
   margin: 2rem;
   padding: 2rem;
-  width: 50%;
   margin: 0 auto;
 }
 .space {
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 2rem;
+  margin: 1rem auto;
   padding: 2rem;
   box-shadow: 5px 5px 5px rgba(228, 174, 25, 0.5);
   border: 2px solid white;
   border-radius: 30px;
   background: white;
+  min-width: 650px;
+  max-width: 650px;
 }
 .info {
   margin: auto 1rem;
+  min-width: 220px;
+  max-width: 220px;
 }
 img {
   height: 400px;

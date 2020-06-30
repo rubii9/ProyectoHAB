@@ -9,72 +9,21 @@
       <div class="enlaces">
         <router-link :to="{name:'Home'}">Home</router-link>
         <span>|</span>
-        <router-link
-          :to="{ name: 'MyProfile', params:{ id: this.userID }}"
-          v-show="logged"
-        >Mi perfil</router-link>
-        <span v-show="logged">|</span>
-        <router-link :to="{name:'PostSpace'}" v-show="logged">Nuevo post</router-link>
-        <span v-show="logged">|</span>
-        <router-link :to="{name:'MyCoworking'}" v-show="logged">Mi coworking</router-link>
-        <span v-show="logged">|</span>
-        <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
-        <span v-show="logged">|</span>
         <router-link :to="{name:'About'}">Contacto</router-link>
       </div>
-      <div class="user">
-        <p>{{nombreUsuario}}</p>
-        <button v-show="!logged" @click="goLogin()">Login</button>
-        <button v-show="!logged" @click="goRegister()">Register</button>
-        <button v-show="logged" @click="logoutUser()">Logout</button>
-      </div>
+      <div class="user"></div>
     </div>
     <hr />
   </div>
 </template>
 
 <script>
-import { clearLogin, isLoggedIn } from "../api/utils";
 export default {
-  name: "MenuCustom",
+  name: "MenuLanding",
   data() {
-    return {
-      nombreUsuario: "",
-      userID: 0,
-      logged: false
-    };
+    return {};
   },
-  methods: {
-    logoutUser() {
-      this.nombreUsuario = "";
-      this.userID = 0;
-      this.logged = false;
-      this.$router.push("/home");
-      return clearLogin();
-    },
-    getUserName() {
-      this.nombreUsuario = localStorage.getItem("Usuario");
-      if (localStorage.getItem("userID")) {
-        this.userID = localStorage.getItem("userID");
-      } else {
-        this.userID = 0;
-      }
-    },
-    goLogin() {
-      this.$router.push("/login");
-    },
-    goRegister() {
-      this.$router.push("/register");
-    }
-  },
-  created() {
-    this.getUserName();
-    if (isLoggedIn()) {
-      this.logged = true;
-    } else {
-      this.logged = false;
-    }
-  }
+  methods: {}
 };
 </script>
 <style scoped>
@@ -120,7 +69,7 @@ hr {
   margin: auto 0.5rem;
   color: #f7fbe1;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 #nav a:hover {
@@ -130,9 +79,8 @@ hr {
 #nav a.router-link-exact-active {
   color: #bac964;
   text-decoration: underline;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
 }
-
 span {
   font-size: 1.5rem;
 }

@@ -15,6 +15,11 @@ axios.defaults.headers.common["Authorization"] = localStorage.getItem(
 const routes = [
   {
     path: "/",
+    name: "Landing",
+    component: () => import("../views/Landing.vue"),
+  },
+  {
+    path: "/home",
     name: "Home",
     component: () => import("../views/Home.vue"),
   },
@@ -30,8 +35,7 @@ const routes = [
           text: "Pero si ya estas logeado!",
         });
         next({
-          path: "/",
-          query: { redirect: to.fullPath },
+          path: "/home",
         });
       } else {
         next();
@@ -54,8 +58,7 @@ const routes = [
           text: "Pero si ya estas logeado!",
         });
         next({
-          path: "/",
-          query: { redirect: to.fullPath },
+          path: "/home",
         });
       } else {
         next();

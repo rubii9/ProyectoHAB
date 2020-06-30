@@ -36,7 +36,7 @@
           @keypress.enter="sendEmail()"
         />
 
-        <button @click="sendEmail()">Enviar</button>
+        <button type="button" @click="sendEmail()">Enviar</button>
       </fieldset>
       <lottie-player
         src="https://assets7.lottiefiles.com/datafiles/6WfDdm3ooQTEs1L/data.json"

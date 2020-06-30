@@ -86,7 +86,7 @@ export default {
         localStorage.setItem("Usuario", this.email);
 
         //LLEVAR A LA PAGINA DE PRODUCTOS
-        this.$router.push("/");
+        this.$router.push("/home");
       } catch (error) {
         console.log(error);
         this.message = error.message;

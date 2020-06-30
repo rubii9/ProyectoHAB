@@ -114,7 +114,7 @@
           @keypress.enter="uploadEvent()"
           placeholder="Escribe el una pequeña descripción de tu espacio..."
         ></textarea>
-        <button @click="uploadEvent()">Post</button>
+        <button type="button" @click="uploadEvent()">Post</button>
       </fieldset>
     </form>
     <footercustom class="footer"></footercustom>
@@ -183,7 +183,7 @@ export default {
         title: "Has subido tu post!",
         text: "Puedes comprobarlo en my Spaces"
       });
-      this.$router.push("/");
+      this.$router.push("/home");
     },
 
     handleFileUpload() {

@@ -8,45 +8,12 @@
     <header>
       <img src="../assets/landing2.svg" alt style="width: 300px; height: 300px;" />
       <article>
-        <h1>Bienvenido a Coworks!</h1>Aquí podrás encontrar tu lugar de trabajo ideal que estás buscando.
+        <h1>Bienvenido a Cowork!</h1>Aquí podrás encontrar el lugar de trabajo ideal que estás buscando.
         Puedes buscar por nombre, tipo, ubicacion, o fecha para reservar, y no te olvides de dejar tu votación o comentario.
         Tambien puedes publicar tus propios espacios y controlar las incidencias que los usuarios tengan.
       </article>
       <img src="../assets/landing.svg" alt style="width: 300px; height: 300px;" />
     </header>
-
-    <!-- BUSQUEDA -->
-    <div class="searchProduct" v-show="!loading">
-      <select v-model="filter">
-        <option disabled value>Filtrado por...</option>
-        <option value="name">Nombre</option>
-        <option value="location">Ubicación</option>
-        <option value="type">Tipo espacio</option>
-        <option value="equipment">Equipmiento</option>
-        <option value="date">Fecha incio reserva</option>
-      </select>
-
-      <input v-model.trim="search" placeholder="Búsqueda..." v-show="normalInput" class="buscar" />
-
-      <input v-model.trim="search" type="date" placeholder="Write..." v-show="dateInput" />
-
-      <select
-        name="community"
-        required
-        placeholder="Introduce la comunidad"
-        v-model="search"
-        v-show="ubicationInput"
-      >
-        <option disabled value>Comunidad Autónoma...</option>
-        <option
-          v-for="comunidad in comunidades"
-          :key="comunidad.id"
-          v-bind:value="comunidad.nombre"
-        >{{comunidad.nombre}}</option>
-      </select>
-
-      <button @click="clearInput()">Borrar</button>
-    </div>
 
     <!--  SIMBOLO DE CARGA  -->
     <div v-show="loading" class="lds-roller">
@@ -63,6 +30,44 @@
     <!-- CUERPO LANDING -->
     <main v-show="!loading">
       <section class="productos">
+        <!-- BUSQUEDA -->
+        <div class="searchProduct" v-show="!loading">
+          <select v-model="filter">
+            <option disabled value>Filtrado por...</option>
+            <option value="name">Nombre</option>
+            <option value="location">Ubicación</option>
+            <option value="type">Tipo espacio</option>
+            <option value="equipment">Equipmiento</option>
+            <option value="date">Fecha incio reserva</option>
+          </select>
+
+          <input
+            v-model.trim="search"
+            placeholder="Búsqueda..."
+            v-show="normalInput"
+            class="buscar"
+          />
+
+          <input v-model.trim="search" type="date" placeholder="Write..." v-show="dateInput" />
+
+          <select
+            name="community"
+            required
+            placeholder="Introduce la comunidad"
+            v-model="search"
+            v-show="ubicationInput"
+          >
+            <option disabled value>Comunidad Autónoma...</option>
+            <option
+              v-for="comunidad in comunidades"
+              :key="comunidad.id"
+              v-bind:value="comunidad.nombre"
+            >{{comunidad.nombre}}</option>
+          </select>
+
+          <button @click="clearInput()">Borrar</button>
+        </div>
+
         <!-- COMPONENTE SPACES -->
         <spaceslist :spaces="spaces"></spaceslist>
         <!-- NO RESULTS -->
@@ -235,12 +240,10 @@ export default {
 .some {
   height: 230px;
   width: 200px;
-  margin: 1rem;
-  background: ;
-  padding: 0.5rem;
 }
 .productos {
   padding: 1rem;
+  width: 85%;
 }
 header {
   background: #f7fbe1;
@@ -317,6 +320,7 @@ main {
 section.sidebar {
   background: rgba(196, 196, 196, 0.445);
   height: 20%;
+  width: 10%;
 }
 
 .lds-roller {
