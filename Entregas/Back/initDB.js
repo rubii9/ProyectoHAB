@@ -116,7 +116,10 @@ async function main() {
   if (addData) {
     console.log('Adding initial data...');
 
-    const passwordRandomUsers = await bcrypt.hash('123456', 10);
+    const passwordRandomUsers = await bcrypt.hash(
+      process.env.DEFAULT_PASSWORD,
+      10
+    );
 
     await connection.query(`
       insert into users (id, name,  email, password, city, community, phone,is_owner,active,lastPasswordUpdate) values 

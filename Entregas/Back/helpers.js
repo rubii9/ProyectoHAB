@@ -49,7 +49,7 @@ async function sendEmail({ email, title, content }) {
 
   const msg = {
     to: email,
-    from: 'rubenpo167@gmail.com',
+    from: process.env.SENDGRID_EMAIL,
     subject: title,
     text: content,
     html: `<div>
