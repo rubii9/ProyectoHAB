@@ -10,7 +10,7 @@
       <p v-show="showInfo">{{ profile.email }}</p>
       <p v-show="showInfo">Teléfono: {{profile.phone}}</p>
       <p>{{profile.role === "admin" ? "Administrador" : "Usuario"}}</p>
-      <p>Registrado desde {{ profile.registrationDate.substr(0,10)}}</p>
+      <p>Registrado desde {{ profile.registrationDate ? profile.registrationDate.substr(0,10) : ""}}</p>
     </div>
   </div>
 </template>
