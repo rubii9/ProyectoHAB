@@ -1,6 +1,9 @@
 <template>
   <div class="myprofile">
-    <vue-headful title="Mi perfil | Coworkings.com" description="Profile page" />
+    <vue-headful
+      title="Mi perfil | Coworkings.com"
+      description="Profile page"
+    />
 
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
@@ -32,10 +35,18 @@
         <h2>Editar tu perfil</h2>
 
         <label for="newName">Nombre:</label>
-        <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
+        <input
+          v-model="newName"
+          placeholder="Text appears here"
+          @keypress.enter="edite()"
+        />
 
         <label for="newCity">Ciudad:</label>
-        <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
+        <input
+          v-model="newCity"
+          placeholder="Text appears here"
+          @keypress.enter="edite()"
+        />
 
         <label for="newCommunity">Comunidad:</label>
         <!--  <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" /> -->
@@ -51,7 +62,8 @@
             v-for="comunidad in comunidades"
             :key="comunidad.id"
             v-bind:value="comunidad.nombre"
-          >{{comunidad.nombre}}</option>
+            >{{ comunidad.nombre }}</option
+          >
         </select>
 
         <label for="newPhone">Telefono:</label>
@@ -63,7 +75,13 @@
         />
 
         <label class="imagen" for="imgmeeting">Imagen:</label>
-        <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
+        <input
+          class="imagen"
+          type="file"
+          id="file"
+          ref="file"
+          @change="handleFileUpload"
+        />
 
         <div>
           <button @click="closeModal()">Cancelar</button>
@@ -80,7 +98,7 @@
       <div class="modalBox">
         <h3>Cambio de contraseña:</h3>
 
-        <p v-show="required" style="color:red">{{errorMsg}}</p>
+        <p v-show="required" style="color:red">{{ errorMsg }}</p>
 
         <label for="oldpassword">Contraseña actual:</label>
         <input
@@ -121,7 +139,7 @@ export default {
   components: {
     menucustom,
     ProfileComponent,
-    footercustom
+    footercustom,
   },
   data() {
     return {
@@ -139,7 +157,7 @@ export default {
       newPassword: "",
       errorMsg: "",
       required: false,
-      correctData: false
+      correctData: false,
     };
   },
 
@@ -150,7 +168,6 @@ export default {
       axios
         .get("http://localhost:3001/users/" + self.$route.params.id)
         .then(function(response) {
-          console.log(response);
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;
@@ -188,7 +205,7 @@ export default {
           Swal.fire({
             icon: "success",
             title: "Perfil modificado",
-            confirmButtonText: "Ok"
+            confirmButtonText: "Ok",
           });
           setTimeout(function() {
             location.reload();
@@ -214,7 +231,7 @@ export default {
         try {
           let res = await axios({
             url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
-            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+            method: "GET", // MÉTODO DE LA AUTENTICACIÓN
           });
           resolve(res.data.data);
         } catch (err) {
@@ -232,7 +249,7 @@ export default {
             `http://localhost:3001/users/${self.$route.params.id}/password`,
             {
               oldPassword: self.oldPassword,
-              newPassword: self.newPassword
+              newPassword: self.newPassword,
             }
           )
           .then(function(response) {
@@ -243,7 +260,7 @@ export default {
               icon: "success",
               title: "Contraseña modificada",
               text: "Haz login de nuevo para iniciar sesión",
-              confirmButtonText: "Ok"
+              confirmButtonText: "Ok",
             });
           })
           .catch(function(error) {
@@ -276,8 +293,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si,eliminar!"
-      }).then(result => {
+        confirmButtonText: "Si,eliminar!",
+      }).then((result) => {
         if (result.value) {
           this.deleteUser();
           this.logoutUser();
@@ -332,16 +349,17 @@ export default {
         this.correctData = true; // ENVIAR
         this.required = false; // NON MOSTRA O MENSAXE
       }
-    }
+    },
   },
   mounted() {
     this.getCommunity();
   },
   created() {
     this.getProfile();
-  }
+  },
 };
 </script>
+
 <style scoped>
 .myprofile {
   min-height: 100vh;

@@ -14,11 +14,11 @@
         </p>
         <p>
           <strong>Fecha inicio:</strong>
-          {{space.start_date.substr(0,10)}}
+          {{space.start_date ? space.start_date.substr(0,10) : ""}}
         </p>
         <p>
           <strong>Fecha fin:</strong>
-          {{space.end_date.substr(0,10)}}
+          {{ space.end_date ? space.end_date.substr(0,10) : ""}}
         </p>
         <p>
           <strong>Pago:</strong>

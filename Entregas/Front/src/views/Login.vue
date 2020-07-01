@@ -51,14 +51,15 @@
         <div class="botones">
           <button class="submit" type="button" @click="login()">Login</button>
 
-          <router-link class="borderRightLeft" :to="{ name: 'Register' }">Regístrate aquí</router-link>
+          <router-link class="borderRightLeft" :to="{ name: 'Register' }"
+            >Regístrate aquí</router-link
+          >
         </div>
       </fieldset>
     </form>
   </div>
 </template>
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script>
 import axios from "axios";
 import { loginUser } from "@/api/utils.js";
@@ -71,7 +72,7 @@ export default {
       email: "",
       password: "",
       message: "Error",
-      required: false
+      required: false,
     };
   },
   methods: {
@@ -95,8 +96,8 @@ export default {
           alert(error);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
