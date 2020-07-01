@@ -23,6 +23,9 @@
         <router-link :to="{name:'About'}">Contacto</router-link>
       </div>
       <div class="user">
+        <p>
+          <img v-show="logged" class="useravatar" :src="avatar ? path + avatar : defaultAvatar " />
+        </p>
         <p>{{nombreUsuario}}</p>
         <button v-show="!logged" @click="goLogin()">Login</button>
         <button v-show="!logged" @click="goRegister()">Register</button>
@@ -35,13 +38,17 @@
 
 <script>
 import { clearLogin, isLoggedIn } from "../api/utils";
+import axios from "axios";
 export default {
   name: "MenuCustom",
   data() {
     return {
       nombreUsuario: "",
       userID: 0,
-      logged: false
+      logged: false,
+      avatar: "",
+      defaultAvatar: "http://localhost:3001/uploads/defaultavatar.png",
+      path: "http://localhost:3001/uploads/"
     };
   },
   methods: {
@@ -65,11 +72,27 @@ export default {
     },
     goRegister() {
       this.$router.push("/register");
+    },
+    getProfile() {
+      let self = this;
+
+      axios
+        .get("http://localhost:3001/users/" + self.userID)
+        .then(function(response) {
+          self.avatar = response.data.data.avatar;
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+            /*   self.$router.push({ path: "/error" }); */
+          }
+        });
     }
   },
   created() {
     this.getUserName();
     if (isLoggedIn()) {
+      this.getProfile();
       this.logged = true;
     } else {
       this.logged = false;
@@ -78,6 +101,13 @@ export default {
 };
 </script>
 <style scoped>
+.useravatar {
+  height: 25px;
+  width: 25px;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
 hr {
   height: 1px;
   background: black;
