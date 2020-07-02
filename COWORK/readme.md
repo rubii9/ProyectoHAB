@@ -33,7 +33,7 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 ![MySpaces](/COWORK/img/MySpaces.png )
 
 ### Mi perfil
-![Perfil](/COWORK/img/MyProfile.png )
+![Perfil](/COWORK/img/Myprofile.png )
 ![Edit](/COWORK/img/EditProfile.png )
 
 ### Nuevo espacio
