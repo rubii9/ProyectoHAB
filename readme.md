@@ -8,11 +8,11 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 
 ## Entregas
 
-[ ➤Base de datos](https://github.com/rubii9/ProyectoHAB/tree/master/Entregas/SQL)
+[ ➤Base de datos](https://github.com/rubii9/ProyectoHAB/tree/master/SQL)
 
-[ ➤Backend](https://github.com/rubii9/ProyectoHAB/tree/master/Entregas/Back)
+[ ➤Backend](https://github.com/rubii9/ProyectoHAB/tree/master/COWORK/Back)
 
-[ ➤Frontend](https://github.com/rubii9/ProyectoHAB/tree/master/Entregas/Front)
+[ ➤Frontend](https://github.com/rubii9/ProyectoHAB/tree/master/COWORK/Front)
 
 ## Descripción del proyecto
 
