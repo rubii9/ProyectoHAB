@@ -9,7 +9,7 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 ## Descripción del proyecto
 
 ### Landing
-![Landing](COWORK/img/Landing.png )
+![Landing](/COWORK/img/Landing.png )
 
 ### Login
 ![Login](COWORK/img/Login.png )
