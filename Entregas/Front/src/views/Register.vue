@@ -32,6 +32,7 @@
             <i class="fa fa-envelope-o"></i>
           </span>
         </div>
+
         <div class="input">
           <input
             type="password"
@@ -47,6 +48,7 @@
             <i class="fa fa-lock"></i>
           </span>
         </div>
+
         <div class="input">
           <input
             type="text"
@@ -60,6 +62,7 @@
             <i class="fa fa-user"></i>
           </span>
         </div>
+
         <div class="input">
           <input
             type="text"
@@ -73,6 +76,7 @@
             <i class="fa fa-home"></i>
           </span>
         </div>
+
         <div class="input">
           <select
             name="community"
@@ -103,7 +107,9 @@
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
 
 export default {
@@ -123,6 +129,7 @@ export default {
     };
   },
   methods: {
+    //VALIDAR CAMPOS
     validatingData() {
       if (
         this.email === "" ||
@@ -139,6 +146,7 @@ export default {
         this.required = false; // NON MOSTRA O MENSAXE
       }
     },
+    //FUNCION PARA REGISTRAR USUARIO
     addUser() {
       this.validatingData(); // VALIDANDO DATOS DO FORM
       if (this.correctData === true) {
@@ -164,6 +172,7 @@ export default {
         console.log("Empty fields");
       }
     },
+    //VACIAR CAMPOS
     emptyFields() {
       this.email = "";
       this.password = "";
@@ -178,6 +187,7 @@ export default {
       });
       this.$router.push("/login");
     },
+    //GET COMUNIDADES
     async getCommunity() {
       try {
         this.comunidades = await this.getCom();

@@ -30,6 +30,7 @@ export default {
     profile: Object
   },
   methods: {
+    //CONSGUIR ID USUARIO Y COMPROBAR SI ES IGUAL A LA DEL PERFIL MOSTRADO
     checkInfo() {
       this.userID = localStorage.getItem("userID");
       if (this.$route.params.id != this.userID) {

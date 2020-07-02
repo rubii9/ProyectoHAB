@@ -69,13 +69,18 @@
         </div>
       </div>
     </div>
+
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO VUE RATINGS
 import StarRating from "vue-star-rating";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
@@ -83,7 +88,7 @@ import menucustom from "@/components/MenuCustom.vue";
 import spaceview from "@/components/SpaceView.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
-
+//IMPORTANDO FUNCION DE UTILS
 import { isLoggedIn } from "../api/utils";
 
 export default {
@@ -126,6 +131,7 @@ export default {
       this.fecha_inicio = "";
       this.fecha_fin = "";
     },
+    //GET INFO DEL SPACE
     getSpaces() {
       let self = this;
       axios
@@ -144,6 +150,7 @@ export default {
           }
         });
     },
+    //GET VOTOS DEL SPACE
     getVotes() {
       let self = this;
       axios
@@ -162,6 +169,7 @@ export default {
           }
         });
     },
+    //FUNCION PARA VOTAR
     vote() {
       let self = this;
       axios
@@ -182,6 +190,7 @@ export default {
           }
         });
     },
+    //FUNCION PARA RESERVAR
     reservar() {
       let self = this;
       axios
@@ -209,6 +218,7 @@ export default {
           }
         });
     },
+    //VACIAR CAMPOS
     emptyFields() {
       this.rating = 0;
       this.comentary = "";
@@ -223,6 +233,7 @@ export default {
         location.reload();
       }, 1500);
     },
+    //COMPROBAR SI ESTÁ LOOGED EL USER
     checkLogged() {
       if (isLoggedIn()) {
         this.logged = true;

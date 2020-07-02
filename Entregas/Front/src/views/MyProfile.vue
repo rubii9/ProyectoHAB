@@ -1,9 +1,6 @@
 <template>
   <div class="myprofile">
-    <vue-headful
-      title="Mi perfil | Coworkings.com"
-      description="Profile page"
-    />
+    <vue-headful title="Mi perfil | Coworkings.com" description="Profile page" />
 
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
@@ -35,18 +32,10 @@
         <h2>Editar tu perfil</h2>
 
         <label for="newName">Nombre:</label>
-        <input
-          v-model="newName"
-          placeholder="Text appears here"
-          @keypress.enter="edite()"
-        />
+        <input v-model="newName" placeholder="Text appears here" @keypress.enter="edite()" />
 
         <label for="newCity">Ciudad:</label>
-        <input
-          v-model="newCity"
-          placeholder="Text appears here"
-          @keypress.enter="edite()"
-        />
+        <input v-model="newCity" placeholder="Text appears here" @keypress.enter="edite()" />
 
         <label for="newCommunity">Comunidad:</label>
         <!--  <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" /> -->
@@ -62,8 +51,7 @@
             v-for="comunidad in comunidades"
             :key="comunidad.id"
             v-bind:value="comunidad.nombre"
-            >{{ comunidad.nombre }}</option
-          >
+          >{{ comunidad.nombre }}</option>
         </select>
 
         <label for="newPhone">Telefono:</label>
@@ -75,13 +63,7 @@
         />
 
         <label class="imagen" for="imgmeeting">Imagen:</label>
-        <input
-          class="imagen"
-          type="file"
-          id="file"
-          ref="file"
-          @change="handleFileUpload"
-        />
+        <input class="imagen" type="file" id="file" ref="file" @change="handleFileUpload" />
 
         <div>
           <button @click="closeModal()">Cancelar</button>
@@ -122,24 +104,32 @@
         </div>
       </div>
     </div>
+
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
+//IMPORTANDO COMPONENTE DE PERFIL USUARIOS
 import ProfileComponent from "@/components/ProfileComponent.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
+//IMPORTANDO FUNCION DE UTILS
 import { clearLogin } from "../api/utils";
+
 export default {
   name: "MyProfile",
   components: {
     menucustom,
     ProfileComponent,
-    footercustom,
+    footercustom
   },
   data() {
     return {
@@ -157,11 +147,12 @@ export default {
       newPassword: "",
       errorMsg: "",
       required: false,
-      correctData: false,
+      correctData: false
     };
   },
 
   methods: {
+    //CONSEGUIR INFO DEL USUARIO
     getProfile() {
       let self = this;
 
@@ -181,6 +172,7 @@ export default {
           }
         });
     },
+    //FUNCION PARA EDITAR EL USUARIO
     edite() {
       let self = this;
 
@@ -205,7 +197,7 @@ export default {
           Swal.fire({
             icon: "success",
             title: "Perfil modificado",
-            confirmButtonText: "Ok",
+            confirmButtonText: "Ok"
           });
           setTimeout(function() {
             location.reload();
@@ -231,7 +223,7 @@ export default {
         try {
           let res = await axios({
             url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
-            method: "GET", // MÉTODO DE LA AUTENTICACIÓN
+            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
           });
           resolve(res.data.data);
         } catch (err) {
@@ -240,6 +232,7 @@ export default {
         }
       });
     },
+    //FUNCION PARA CAMBIAR CONTRASEÑA
     changePass() {
       this.validatingData();
       if (this.correctData) {
@@ -249,7 +242,7 @@ export default {
             `http://localhost:3001/users/${self.$route.params.id}/password`,
             {
               oldPassword: self.oldPassword,
-              newPassword: self.newPassword,
+              newPassword: self.newPassword
             }
           )
           .then(function(response) {
@@ -260,7 +253,7 @@ export default {
               icon: "success",
               title: "Contraseña modificada",
               text: "Haz login de nuevo para iniciar sesión",
-              confirmButtonText: "Ok",
+              confirmButtonText: "Ok"
             });
           })
           .catch(function(error) {
@@ -274,6 +267,7 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
+    //FUNCION PARA BORRAR USUARIO
     deleteUser() {
       let self = this;
       axios
@@ -285,6 +279,7 @@ export default {
           }
         });
     },
+    //MENSAJE DE BORRAR USUARIO
     message() {
       Swal.fire({
         title: "Estás seguro?",
@@ -293,8 +288,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si,eliminar!",
-      }).then((result) => {
+        confirmButtonText: "Si,eliminar!"
+      }).then(result => {
         if (result.value) {
           this.deleteUser();
           this.logoutUser();
@@ -303,16 +298,19 @@ export default {
         }
       });
     },
+    //FUNCION LOGOUT
     logoutUser() {
       this.$router.push("/");
       return clearLogin();
     },
+    //PASAR EL TEXTO AL MODAL DE EDITAR
     showEditText() {
       this.newName = this.profile.realName;
       this.newCity = this.profile.city;
       this.newCommunity = this.profile.community;
       this.newPhone = this.profile.phone;
     },
+    //CERRAR MODAL DE EDITAR
     closeModal() {
       this.modal = false;
       this.newName = "";
@@ -320,21 +318,24 @@ export default {
       this.newCommunity = "";
       this.newPhone = "";
     },
+    //ABIR MODAL EDITAR
     openModal() {
       this.modal = true;
       this.showEditText();
     },
+    //CERRAR MODAL PASSWORD
     closePassModal() {
       this.modalpassword = false;
       this.oldPassword = "";
       this.newPassword = "";
       this.errorMsg = "";
     },
+    //ABRIR MODAL PASSWORD
     openPassModal() {
       this.modalpassword = true;
       this.modal = false;
     },
-
+    //COMPROBANDO CAMPOS VACIOS
     validatingData() {
       if (this.newPassword === "" || this.oldPassword === "") {
         this.correctData = false; // NON ENVIAR
@@ -349,14 +350,14 @@ export default {
         this.correctData = true; // ENVIAR
         this.required = false; // NON MOSTRA O MENSAXE
       }
-    },
+    }
   },
   mounted() {
     this.getCommunity();
   },
   created() {
     this.getProfile();
-  },
+  }
 };
 </script>
 

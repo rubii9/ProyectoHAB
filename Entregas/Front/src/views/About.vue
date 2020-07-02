@@ -1,9 +1,13 @@
 <template>
   <div class="about">
     <vue-headful title="Contacto | Coworkings.com" description="About page" />
+
+    <!-- MENU -->
     <menucustom class="menu"></menucustom>
+
     <h1>Contacta con nosotros</h1>
     <h5>Envianos tus sugerencias para mejorar nuestro servicio.</h5>
+
     <form>
       <lottie-player
         src="https://assets7.lottiefiles.com/packages/lf20_OZnTKS.json"
@@ -13,6 +17,7 @@
         loop
         autoplay
       ></lottie-player>
+
       <fieldset>
         <p v-show="required" style="color:red">Campos vacios</p>
 
@@ -38,6 +43,7 @@
 
         <button type="button" @click="sendEmail()">Enviar</button>
       </fieldset>
+
       <lottie-player
         src="https://assets7.lottiefiles.com/datafiles/6WfDdm3ooQTEs1L/data.json"
         background="transparent"
@@ -47,6 +53,8 @@
         autoplay
       ></lottie-player>
     </form>
+
+    <!--   FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
@@ -55,8 +63,11 @@
 import menucustom from "@/components/MenuCustom.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
+
 export default {
   name: "About",
   components: { menucustom, footercustom },
@@ -70,6 +81,7 @@ export default {
     };
   },
   methods: {
+    //ENVIAR EMAIL
     sendEmail() {
       this.validatingData();
       if (this.correctData) {
@@ -101,6 +113,7 @@ export default {
         console.log("Empty fields");
       }
     },
+    //COMPROBAR CAMPOS VACIOS
     validatingData() {
       if (this.comentary === "" || this.asunto === "") {
         this.correctData = false; // NON ENVIAR

@@ -6,7 +6,7 @@
         <img src="../assets/logo.png" alt />
 
         <p>
-          COWORKS!
+          COWORK!
           <br />Aplicación web gestión de coworking, realizada por Rubén Pérez
           para Hack a Boss.
         </p>
@@ -15,9 +15,7 @@
       <nav>
         <ul>
           <li>
-            <a
-              href="https://www.linkedin.com/in/rub%C3%A9n-p%C3%A9rez-outeiral-8b4b041a0/"
-            >
+            <a href="https://www.linkedin.com/in/rub%C3%A9n-p%C3%A9rez-outeiral-8b4b041a0/">
               <i class="fab fa-linkedin"></i>
             </a>
           </li>
@@ -50,7 +48,7 @@
 
 <script>
 export default {
-  name: "FooterCustom",
+  name: "FooterCustom"
 };
 </script>
 
