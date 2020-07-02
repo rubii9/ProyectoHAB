@@ -9,33 +9,33 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 ## Descripción del proyecto
 
 ### Landing
-![Landing](/img/Landing.png )
+![Landing](COWORK/img/Landing.png )
 
 ### Login
-![Login](/img/Login.png )
+![Login](COWORK/img/Login.png )
 
 ### Registro
-![Registro](/img/Register.png )
+![Registro](COWORK/img/Register.png )
 
 ### HOME
-![Home](/img/SpaceView.png )
+![Home](COWORK/img/SpaceView.png )
 
 ### SpaceView
-![Space](/img/Login.png )
+![Space](COWORK/img/Login.png )
 
 ### Contacto
-![Contact](/img/Contact.png )
+![Contact](COWORK/img/Contact.png )
 
 ### Mi Coworking
-![Coworking](/img/MyCoworking.png )
+![Coworking](COWORK/img/MyCoworking.png )
 
 ### Mis publicaciones
-![MySpaces](/img/MySpaces.png )
+![MySpaces](COWORK/img/MySpaces.png )
 
 ### Mi perfil
-![Perfil](/img/MyProfile.png )
-![Edit](/img/EditProfile.png )
+![Perfil](COWORK/img/MyProfile.png )
+![Edit](COWORK/img/EditProfile.png )
 
 ### Nuevo espacio
-![Spaces](/img/NewPost.png )
+![Spaces](COWORK/img/NewPost.png )
 
