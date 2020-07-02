@@ -20,16 +20,21 @@
     <!-- PROFILE COMPONENT -->
     <ProfileComponent :profile="profile" v-show="!loading" class="Profile"></ProfileComponent>
 
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
+//IMPORTANDO COMPONENTE USUARIO
 import ProfileComponent from "@/components/ProfileComponent.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
 export default {
   name: "Profile",
@@ -41,16 +46,12 @@ export default {
   data() {
     return {
       profile: {},
-      loading: true,
-      modal: false,
-      newName: "",
-      newCity: "",
-      newCommunity: "",
-      newPhone: ""
+      loading: true
     };
   },
 
   methods: {
+    //CONSEGUIR INFO DEL PERFIL USUARIO
     getProfile() {
       let self = this;
 
@@ -69,18 +70,6 @@ export default {
             /*   self.$router.push({ path: "/error" }); */
           }
         });
-    },
-
-    closeModal() {
-      this.modal = false;
-      (this.newName = ""),
-        (this.newCity = ""),
-        (this.newCommunity = ""),
-        (this.newPhone = "");
-    },
-    openModal() {
-      this.modal = true;
-      this.showEditText();
     }
   },
   created() {

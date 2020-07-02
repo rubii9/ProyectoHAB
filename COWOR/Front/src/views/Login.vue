@@ -33,6 +33,7 @@
             <i class="fa fa-envelope-o"></i>
           </span>
         </div>
+
         <div class="input">
           <input
             type="password"
@@ -47,13 +48,13 @@
             <i class="fa fa-lock"></i>
           </span>
         </div>
+
         <p class="error" v-show="required">{{ message }}</p>
+
         <div class="botones">
           <button class="submit" type="button" @click="login()">Login</button>
 
-          <router-link class="borderRightLeft" :to="{ name: 'Register' }"
-            >Regístrate aquí</router-link
-          >
+          <router-link class="borderRightLeft" :to="{ name: 'Register' }">Regístrate aquí</router-link>
         </div>
       </fieldset>
     </form>
@@ -61,7 +62,9 @@
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO FUNCION DE UTILS
 import { loginUser } from "@/api/utils.js";
 
 export default {
@@ -72,10 +75,11 @@ export default {
       email: "",
       password: "",
       message: "Error",
-      required: false,
+      required: false
     };
   },
   methods: {
+    //FUNCION DE LOGIN
     async login() {
       try {
         if (this.email === "" || this.password === "")
@@ -96,8 +100,8 @@ export default {
           alert(error);
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

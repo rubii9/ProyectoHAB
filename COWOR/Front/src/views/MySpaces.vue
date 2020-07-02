@@ -38,12 +38,15 @@
     <!-- NO RESULTS -->
     <p class="results" v-show="noResults" style="color:red">No tines ninguna publicación</p>
 
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
@@ -51,6 +54,7 @@ import menucustom from "@/components/MenuCustom.vue";
 import myspaces from "@/components/MySpacesView.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+
 export default {
   name: "MySpaces",
   components: { menucustom, myspaces, footercustom },
@@ -64,6 +68,7 @@ export default {
     };
   },
   methods: {
+    //CONSGEGUIR LAS PUBLICACIONES DEL USUARIO
     getSpaces() {
       let self = this;
       axios
@@ -80,6 +85,7 @@ export default {
           console.log(error);
         });
     },
+    //CERRAR LAS INCIDENCIAS ACTIVAS
     closeIncidents(data) {
       let self = this;
       axios
@@ -99,6 +105,7 @@ export default {
           console.log(error);
         });
     },
+    //PONER LIMPIO EL ESPACIO
     setClean(data) {
       let self = this;
       axios

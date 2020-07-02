@@ -59,7 +59,9 @@
 </template>
 
 <script>
+//IMPORTANDO VUE RATINGS
 import StarRating from "vue-star-rating";
+
 export default {
   name: "SpaceView",
   components: {

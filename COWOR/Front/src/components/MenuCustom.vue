@@ -37,8 +37,11 @@
 </template>
 
 <script>
+//IMPORTANDO FUNCIONES DE UTILS
 import { clearLogin, isLoggedIn } from "../api/utils";
+//IMPORTANDO AXIOS
 import axios from "axios";
+
 export default {
   name: "MenuCustom",
   data() {
@@ -52,6 +55,7 @@ export default {
     };
   },
   methods: {
+    //FUNCION LOGOUT
     logoutUser() {
       this.nombreUsuario = "";
       this.userID = 0;
@@ -59,6 +63,7 @@ export default {
       this.$router.push("/");
       return clearLogin();
     },
+    //FUNCION PARA CONSEGUIR EL USER NAME Y LA ID
     getUserName() {
       this.nombreUsuario = localStorage.getItem("Usuario");
       if (localStorage.getItem("userID")) {
@@ -67,12 +72,15 @@ export default {
         this.userID = 0;
       }
     },
+    //FUNCION PARA IR A LOGIN
     goLogin() {
       this.$router.push("/login");
     },
+    //FUNCION PARA IR A REGISTRO
     goRegister() {
       this.$router.push("/register");
     },
+    //FUNCION PARA CONSEGUIR AVATAR USUARIO
     getProfile() {
       let self = this;
 

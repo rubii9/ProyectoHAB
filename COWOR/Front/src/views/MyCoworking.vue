@@ -5,6 +5,7 @@
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
+    <!-- ENCABEZADO -->
     <header>
       <img src="../assets/mycoworking1.svg" alt style="width: 300px; height: 150px;" />
       <article>
@@ -26,6 +27,7 @@
       <div></div>
     </div>
 
+    <!-- COMPONENTE DE COWORKINGS -->
     <coworking class="spaces" v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
 
     <!-- NO RESULTS -->
@@ -36,6 +38,7 @@
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
@@ -43,6 +46,7 @@ import menucustom from "@/components/MenuCustom.vue";
 import coworking from "@/components/CoworkingView.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+
 export default {
   name: "MyCoworking",
   components: { menucustom, coworking, footercustom },
@@ -56,6 +60,7 @@ export default {
     };
   },
   methods: {
+    //FUNCION PARA CONSEGUIR LOS COWORKINGS DEL USUARIO
     getSpaces() {
       let self = this;
       axios
@@ -74,6 +79,7 @@ export default {
     }
   },
   watch: {
+    //SI NO TIENE COWORKING MUESTRA MENSAJE
     spaces: function() {
       if (this.spaces.length < 1) {
         this.noResults = true;

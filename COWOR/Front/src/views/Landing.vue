@@ -1,11 +1,15 @@
 <template>
   <div class="Landing">
     <vue-headful title="Cowork!" description="Landing page" />
+
+    <!-- MENU -->
     <menucustom id="menuLanding"></menucustom>
+
     <section class="flexlanding">
       <router-link :to="{name:'Landing'}">
         <img src="../assets/logo.png" alt />
       </router-link>
+
       <section class="welcome">
         <h1>Cowork!</h1>
         <h2>La web ideal para encontrar tu espacio de trabajo.</h2>
@@ -24,12 +28,16 @@
         </router-link>
       </section>
     </section>
+
+    <!-- FOOTER -->
     <FooterCustom id="footerLanding"></FooterCustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO MENU PARA LANDING (ES != AL GENERAL)
 import menucustom from "@/components/MenuLanding.vue";
+//IMPORTANDO FOOTER
 import FooterCustom from "@/components/FooterCustom.vue";
 export default {
   name: "Landing",

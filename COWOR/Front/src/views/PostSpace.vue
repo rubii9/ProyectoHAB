@@ -52,6 +52,7 @@
           v-model="adress"
           @keypress.enter="uploadEvent()"
         />
+
         <label for="city">Ciudad:</label>
         <input
           name="city"
@@ -63,6 +64,7 @@
           v-model="city"
           @keypress.enter="uploadEvent()"
         />
+
         <label for="community">Comunidad:</label>
         <select name="community" required placeholder="Introduce la comunidad" v-model="community">
           <option disabled value>Comunidad Autónoma...</option>
@@ -72,6 +74,7 @@
             v-bind:value="comunidad.nombre"
           >{{comunidad.nombre}}</option>
         </select>
+
         <label for="type">Tipo:</label>
         <input
           name="type"
@@ -82,6 +85,7 @@
           v-model="type"
           @keypress.enter="uploadEvent()"
         />
+
         <label for="price">Precio:</label>
         <input
           name="price"
@@ -117,14 +121,19 @@
         <button type="button" @click="uploadEvent()">Post</button>
       </fieldset>
     </form>
+
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 <script>
+//IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
+//IMPORTANDO AXIOS
 import axios from "axios";
 export default {
   name: "PostSpace",
@@ -149,6 +158,7 @@ export default {
     };
   },
   methods: {
+    //VALIDAR CAMPOS
     validatingData() {
       if (
         this.type === "" ||
@@ -169,6 +179,7 @@ export default {
         this.required = false; // NON MOSTRA O MENSAXE
       }
     },
+    //VACIAR CAMPOS
     emptyFields() {
       this.name = "";
       this.city = "";
@@ -189,7 +200,7 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-
+    //FUNCION PARA SUBIR EVENTO
     uploadEvent() {
       this.validatingData();
       if (this.correctData) {
@@ -220,6 +231,7 @@ export default {
         console.log("Empty fields");
       }
     },
+    //GET COMUNIDADES
     async getCommunity() {
       try {
         this.comunidades = await this.getCom();

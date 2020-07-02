@@ -4,6 +4,7 @@
       <router-link :to=" {name:'Space', params:{id:space.id}} ">
         <img class="foto" :src="space.photo1 ? path + space.photo1 : ''" alt />
       </router-link>
+
       <div class="info">
         <h1>{{ space.name }}</h1>
         <p>{{space.type}}</p>
@@ -66,8 +67,11 @@
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
+//IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
+
 export default {
   name: "CoworkingView",
 
@@ -84,19 +88,21 @@ export default {
     incidents: Array
   },
   methods: {
+    //COGER ID USUARIO DEL LOCALSTORAGE
     info() {
       this.userID = localStorage.getItem("userID");
     },
-
+    //ABRIR MODAL PARA INCIDENCIA
     openModal(data) {
       this.modal = true;
       this.spaceID = data;
     },
-    //FUNCION QUE CIERRA EL POP UP PARA EDITAR
+    //FUNCION QUE CIERRA EL POP UP PARA INCIDENCIA
     closeModal() {
       this.modal = false;
       this.comentary = "";
     },
+    //FUNCION CREAR INCIDENCIA
     addIncident() {
       let self = this;
       axios
@@ -124,6 +130,7 @@ export default {
           }
         });
     },
+    //FUNCION PAGAR RESERVA
     payReserve(data) {
       let self = this;
       axios

@@ -5,6 +5,7 @@
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
+    <!-- ENCABEZADDO -->
     <header>
       <img src="../assets/landing2.svg" alt style="width: 300px; height: 300px;" />
       <article>
@@ -81,11 +82,13 @@
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
   </div>
 </template>
 
 <script>
+//IMPORTANDO AXIOS
 import axios from "axios";
 //IMPORTANDO MENU
 import menucustom from "@/components/MenuCustom.vue";
@@ -114,6 +117,7 @@ export default {
     };
   },
   methods: {
+    //CONSEGUIR LOS ESPACIOS DEL BACK
     getSpaces() {
       let self = this;
       axios
@@ -131,6 +135,7 @@ export default {
           console.log(error);
         });
     },
+    //CONSEGUIR LOS USUARIOS RECIENTES DEL BACK
     getUsers() {
       let self = this;
       axios
@@ -146,10 +151,12 @@ export default {
           console.log(error);
         });
     },
+    //RESETEO DE LA BUSQUEDA
     clearInput() {
       (this.search = ""), (this.filter = "");
       this.getSpaces();
     },
+    //FUNCION PARA CONSEGUIR LAS COMUNIDADES DEL BACK
     async getCommunity() {
       try {
         this.comunidades = await this.getCom();
@@ -179,7 +186,7 @@ export default {
   },
 
   watch: {
-    // cada vez que la pregunta cambie, esta función será ejecutada
+    // cada vez que el filtro cambie, esta función será ejecutada
     filter: function() {
       if (this.filter === "date") {
         this.dateInput = true;
@@ -202,6 +209,7 @@ export default {
         this.search = "";
       }
     },
+    // cada vez que el arraay spaces cambie, esta función será ejecutada
     spaces: function() {
       if (this.spaces.length < 1) {
         this.noResults = true;
@@ -209,6 +217,7 @@ export default {
         this.noResults = false;
       }
     },
+    // Para que la barra de busqueda haga la funcion de busqueda cada vez que varia la variable search
     search: function() {
       this.getSpaces();
     }

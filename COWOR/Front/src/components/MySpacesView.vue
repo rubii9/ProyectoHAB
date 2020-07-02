@@ -56,12 +56,15 @@ export default {
     totalvotes: Number
   },
   methods: {
+    //CONSGUIR ID USUARIO
     info() {
       this.userID = localStorage.getItem("userID");
     },
+    //EMIT DE LIMPIAR ESPACIO
     cleanEvent(data) {
       this.$emit("clean", data);
     },
+    //EMIT DE CERRAR INCIDENCIAS
     closeEvent(data) {
       this.$emit("close", data);
     }

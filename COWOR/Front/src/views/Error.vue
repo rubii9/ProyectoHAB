@@ -1,6 +1,7 @@
 <template>
   <div class="error">
     <vue-headful title="Error | Coworkings.com" description="Error page of web" />
+
     <section>
       <img src="../assets/error.svg" alt />
       <p>😱 ¿Dónde vas?, esa página no existe</p>
