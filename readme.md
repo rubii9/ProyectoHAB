@@ -16,4 +16,4 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 
 ## Descripción del proyecto
 
-![Documentación](/Entregas/15_Gestion_Coworking.jpg )
+![Documentación](15_Gestion_Coworking.jpg )
