@@ -28,7 +28,7 @@
         </p>
         <p>{{nombreUsuario}}</p>
         <button v-show="!logged" @click="goLogin()">Login</button>
-        <button v-show="!logged" @click="goRegister()">Register</button>
+        <button v-show="!logged" @click="goRegister()">Registro</button>
         <button v-show="logged" @click="logoutUser()">Logout</button>
       </div>
     </div>

@@ -36,7 +36,7 @@
 
         <div class="input">
           <input
-            type="password"
+            :type="pastype"
             minlength="6"
             maxlength="100"
             placeholder="Passsword..."
@@ -47,6 +47,18 @@
           <span>
             <i class="fa fa-lock"></i>
           </span>
+        </div>
+
+        <div class="checkpass">
+          <label class="mostrar" for="mostrar">
+            Mostrar contraseña
+            <input
+              class="logger"
+              name="mostrar"
+              type="checkbox"
+              v-model="checked"
+            />
+          </label>
         </div>
 
         <p class="error" v-show="required">{{ message }}</p>
@@ -75,7 +87,9 @@ export default {
       email: "",
       password: "",
       message: "Error",
-      required: false
+      required: false,
+      pastype: "password",
+      checked: false
     };
   },
   methods: {
@@ -101,6 +115,15 @@ export default {
         }
       }
     }
+  },
+  watch: {
+    checked: function() {
+      if (this.checked === true) {
+        this.pastype = "text";
+      } else {
+        this.pastype = "password";
+      }
+    }
   }
 };
 </script>
@@ -117,7 +140,11 @@ export default {
   padding: 0;
   border: 0;
 }
-
+label {
+  color: #2c3e50;
+  font-weight: 300;
+  font-size: 0.85rem;
+}
 .input {
   position: relative;
   width: 90%;
@@ -192,6 +219,14 @@ input {
 input:focus {
   outline: 0;
   border-color: #f3bc46;
+}
+
+input.logger {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  margin-bottom: 0.5rem;
 }
 fieldset h1 {
   margin-bottom: 2rem;
