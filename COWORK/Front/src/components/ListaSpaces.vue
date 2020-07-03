@@ -29,7 +29,8 @@ export default {
   name: "ListaSpaces",
   data() {
     return {
-      path: "http://localhost:3001/uploads/"
+      path: "http://localhost:3001/uploads/",
+      seg: 0
     };
   },
   props: {
@@ -59,6 +60,7 @@ export default {
   background: white;
   min-width: 650px;
   max-width: 650px;
+  animation: fadein 2s;
 }
 .info {
   margin: auto 1rem;
@@ -73,5 +75,14 @@ img {
 a {
   text-decoration: none;
   color: #436f8a;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
