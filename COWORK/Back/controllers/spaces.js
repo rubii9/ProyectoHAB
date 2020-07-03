@@ -427,11 +427,11 @@ async function deleteSpace(req, res, next) {
     const [
       current
     ] = await connection.query(
-      'SELECT photo1,photo2,photo3 from diary where id=?',
+      'SELECT id,photo1,photo2,photo3 from spaces where id=?',
       [id]
     );
 
-    if (!current[0].length) {
+    if (!current[0].id) {
       throw generateError(`There is no entry with id ${id}`, 400);
     }
 

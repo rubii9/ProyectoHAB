@@ -24,6 +24,7 @@
       <hr />
       <button v-show="logged" @click="openVoteModal()">Votar</button>
       <button v-show="logged" @click="openReserveModal()">Reservar</button>
+      <button v-show="isAdmin" @click="message()">Borrar</button>
     </div>
 
     <!-- MODAL PARA VOTAR -->
@@ -89,7 +90,7 @@ import spaceview from "@/components/SpaceView.vue";
 //IMPORTANDO FOOTER
 import footercustom from "@/components/FooterCustom.vue";
 //IMPORTANDO FUNCION DE UTILS
-import { isLoggedIn } from "../api/utils";
+import { isLoggedIn, getIsAdmin } from "../api/utils";
 
 export default {
   name: "Space",
@@ -107,7 +108,9 @@ export default {
       logged: false,
       totalvotes: 0,
       fecha_inicio: "",
-      fecha_fin: ""
+      fecha_fin: "",
+      role: "",
+      isAdmin: false
     };
   },
   methods: {
@@ -218,6 +221,45 @@ export default {
           }
         });
     },
+    //FUNCION BORRAR ESPACIO
+    deleteSpace() {
+      let self = this;
+      axios
+        .delete("http://localhost:3001/spaces/" + self.$route.params.id)
+        .then(function(response) {
+          Swal.fire({
+            icon: "success",
+            title: "Coworking eliminado",
+            text: "Este coworking ya no existe",
+            confirmButtonText: "Ok"
+          });
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
+        })
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    message() {
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "No prodras recuperar tus datos una vez eliminados",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si,eliminar!"
+      }).then(result => {
+        if (result.value) {
+          this.deleteSpace();
+          this.$router.push("/home");
+          Swal.fire("Borrado!", "El coworking ya no existe :(", "success");
+        }
+      });
+    },
     //VACIAR CAMPOS
     emptyFields() {
       this.rating = 0;
@@ -237,13 +279,18 @@ export default {
     checkLogged() {
       if (isLoggedIn()) {
         this.logged = true;
+        if (this.role === "admin") {
+          this.isAdmin = true;
+        }
       } else {
         this.logged = false;
+        this.isAdmin = false;
       }
     }
   },
 
   created() {
+    this.role = getIsAdmin();
     this.getSpaces();
     this.getVotes();
     this.checkLogged();

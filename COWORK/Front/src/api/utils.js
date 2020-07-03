@@ -19,7 +19,7 @@ export function loginUser(email, password) {
       });
 
       setAuthToken(res.data.data.token, res.data.data.tokenPayload);
-      /* setIsAdmin(res.data.data.tokenPayload.role); */
+      setIsAdmin(res.data.data.tokenPayload.role);
       resolve();
     } catch (err) {
       if (err.response) {
