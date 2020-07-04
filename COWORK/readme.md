@@ -3,10 +3,9 @@
 
 Repositorio de mi proyecto: Gestion de coworking.
 
-Portal donde publicar espacios de coworking, reservar y gestionar cada espacio de coworking.
-
-
 ## Descripción del proyecto
+
+Portal donde publicar espacios de coworking, reservar y gestionar cada espacio de coworking.
 
 ### Landing
 ![Landing](/COWORK/img/Landing.png )
@@ -39,3 +38,5 @@ Portal donde publicar espacios de coworking, reservar y gestionar cada espacio d
 ### Nuevo espacio
 ![Spaces](/COWORK/img/NewPost.png )
 
+### About 
+![About](/COWORK/img/About.png )
