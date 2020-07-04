@@ -100,9 +100,9 @@ async function listSpaces(req, res, next) {
         on  s.id=r.space_id
         left join ratings rt
         on rt.space_id=s.id
-        where r.end_date  >  utc_date() or r.end_date is null
+        where (utc_date() not between r.start_date and r.end_date)  or r.end_date is null
         group by s.id
-        order by s.create_space desc
+        order by s.create_space desc;
         `
       );
     }
