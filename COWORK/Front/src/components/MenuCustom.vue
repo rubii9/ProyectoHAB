@@ -21,6 +21,8 @@
         <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
         <span v-show="logged">|</span>
         <router-link :to="{name:'About'}">Contacto</router-link>
+        <span>|</span>
+        <router-link :to="{name:'Me'}">About</router-link>
       </div>
       <div class="user">
         <p>
@@ -137,6 +139,7 @@ hr {
   justify-content: center;
   align-content: center;
   width: 340px;
+  margin-right: 1rem;
 }
 .user p {
   color: #bac964;

@@ -77,7 +77,7 @@
 
       <section class="sidebar">
         <!-- COMPONENTE SOME USERS -->
-        <h2>Usuarios recientes</h2>
+        <h2>Usuarios recientes...</h2>
         <someusers v class="some" :users="users"></someusers>
       </section>
     </main>

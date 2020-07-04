@@ -24,6 +24,11 @@ const routes = [
     component: () => import("../views/Home.vue"),
   },
   {
+    path: "/aboutme",
+    name: "Me",
+    component: () => import("../views/Me.vue"),
+  },
+  {
     path: "/login",
     name: "Login",
     beforeEnter: (to, from, next) => {

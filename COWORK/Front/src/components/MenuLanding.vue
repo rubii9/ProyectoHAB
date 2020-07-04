@@ -10,6 +10,8 @@
         <router-link :to="{name:'Home'}">Home</router-link>
         <span>|</span>
         <router-link :to="{name:'About'}">Contacto</router-link>
+        <span>|</span>
+        <router-link :to="{name:'Me'}">About</router-link>
       </div>
       <div class="user"></div>
     </div>

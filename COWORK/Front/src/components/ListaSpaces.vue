@@ -11,11 +11,17 @@
           <h1>{{ space.name }}</h1>
         </router-link>
 
-        <p>{{ space.city }}, {{ space.community }}</p>
-        <p>{{ space.type }}</p>
+        <p>
+          <strong>📍 Ubicación:</strong>
+          {{ space.city }}, {{ space.community }}
+        </p>
+        <p>
+          <strong>🖥 Tipo:</strong>
+          {{ space.type }}
+        </p>
 
         <p>
-          Equipamiento:
+          <strong>📝 Equipamiento:</strong>
           <br />
           {{space.equipment}}
         </p>
@@ -39,6 +45,7 @@ export default {
 };
 </script>
 <style  scoped>
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
 .lista {
   display: flex;
   justify-content: flex-start;
@@ -75,6 +82,11 @@ img {
 a {
   text-decoration: none;
   color: #436f8a;
+}
+
+h1 {
+  font-size: 3rem;
+  font-family: "Dancing Script";
 }
 
 @keyframes fadein {

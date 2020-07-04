@@ -456,10 +456,8 @@ async function deleteUser(req, res, next) {
       req.auth.id
     ]);
 
-    //PONEMOS EL USER A ACTIVE 0 Y LE MODIFICAMOS EL EMAIL
-    const formatedMail = 'DELETED: ' + current[0].email.email;
-    await connection.query('UPDATE users SET active=0,email = ? WHERE  id=?', [
-      formatedMail,
+    //PONEMOS EL USER A ACTIVE 0
+    await connection.query('UPDATE users SET active=0 WHERE  id=?', [
       req.auth.id
     ]);
 

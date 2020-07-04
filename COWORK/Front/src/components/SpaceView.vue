@@ -96,6 +96,7 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
 .space {
   width: 80%;
   margin: 0 auto;
@@ -151,6 +152,8 @@ h1 {
   font-size: 2rem;
   margin: 0.5rem;
   margin-top: 1.5rem;
+  font-size: 4rem;
+  font-family: "Dancing Script";
 }
 
 img {

@@ -29,7 +29,7 @@
           <strong>Limpieza:</strong>
           {{space.is_clean ? "Limpio" : "Pendiente"}}
         </p>
-        <button @click="payReserve(space.space_id)">Pagar</button>
+        <button v-show="!space.is_paid" @click="payReserve(space.space_id)">Pagar</button>
       </div>
       <div class="incidencias">
         <h3>Incidencias:</h3>
