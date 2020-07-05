@@ -16,7 +16,7 @@
           {{space.is_paid ? "Realizado" : "Pendiente"}}
         </p>
 
-        <button @click="cleanEvent(space.id)">Limpieza</button>
+        <button v-show="!space.is_clean" @click="cleanEvent(space.id)">Limpieza</button>
       </div>
       <div class="incidencias">
         <h3>Incidencias:</h3>

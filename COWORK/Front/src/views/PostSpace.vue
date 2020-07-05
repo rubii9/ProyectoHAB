@@ -192,7 +192,7 @@ export default {
       Swal.fire({
         icon: "success",
         title: "Has subido tu post!",
-        text: "Puedes comprobarlo en my Spaces"
+        text: "Puedes comprobarlo en Mis publicaciones"
       });
       this.$router.push("/home");
     },
