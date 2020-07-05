@@ -66,7 +66,7 @@ async function main() {
       start_date date not null,
       end_date date not null,
       is_paid bool default false not null,
-      is_clean bool default true not null,
+      is_clean bool default false not null,
       is_confirmed bool default false not null,
       confirmationCode varchar(255),
       paymentCode varchar(255),

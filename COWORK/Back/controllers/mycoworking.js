@@ -12,9 +12,10 @@ async function listMyCoworking(req, res, next) {
 
     result = await connection.query(
       `
-      select s.* ,r.*from reserves r, spaces s
+      select s.* ,r.*, u.name as propietario from reserves r, spaces s, users u
       where r.space_id = s.id
-      and r.user_id = ? 
+      and u.id = s.owner_id
+      and r.user_id = ?
       and r.is_confirmed = 1
       and r.end_date > utc_date()
       order by r.end_date 

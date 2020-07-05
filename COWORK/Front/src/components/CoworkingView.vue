@@ -7,11 +7,18 @@
 
       <div class="info">
         <h1>{{ space.name }}</h1>
+
         <p>{{space.type}}</p>
         <p>{{ space.city }}, {{ space.community }}</p>
         <p>
           <strong>Precio:</strong>
           {{space.price}}€
+        </p>
+        <p>
+          <strong>Propietario:</strong>
+          <router-link
+            :to="{ name:  'Profile', params:{ id: space.owner_id }}"
+          >{{ space.propietario }}</router-link>
         </p>
         <p>
           <strong>Fecha inicio:</strong>
@@ -21,6 +28,7 @@
           <strong>Fecha fin:</strong>
           {{ space.end_date ? space.end_date.substr(0,10) : ""}}
         </p>
+
         <p>
           <strong>Pago:</strong>
           {{space.is_paid ? "Realizado" : "Pendiente"}}
@@ -80,7 +88,8 @@ export default {
       path: "http://localhost:3001/uploads/",
       modal: false,
       comentary: "",
-      spaceID: 0
+      spaceID: 0,
+      userID: 0
     };
   },
   props: {
@@ -164,6 +173,9 @@ export default {
 img {
   height: 400px;
   width: 400px;
+}
+a {
+  color: #436f8a;
 }
 .modal {
   position: fixed;
