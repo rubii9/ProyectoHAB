@@ -425,6 +425,7 @@ async function deleteUser(req, res, next) {
     }
 
     await connection.query(`SET FOREIGN_KEY_CHECKS = 0;`);
+    await connection.query(`SET SQL_SAFE_UPDATES=0;`);
 
     //ELIMINAR INCIDENCIAS DE LAS RESERVAS QUE SON ESPACIOS DEL USER
     await connection.query(
@@ -461,6 +462,7 @@ async function deleteUser(req, res, next) {
       req.auth.id
     ]);
 
+    await connection.query(`SET SQL_SAFE_UPDATES=1;`);
     await connection.query(`SET FOREIGN_KEY_CHECKS = 1;`);
 
     connection.release();
