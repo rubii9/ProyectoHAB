@@ -1,17 +1,29 @@
 <template>
   <div class="myspaces">
-    <vue-headful title="My Spaces | Coworkings.com" description="Spaces posted page" />
+    <vue-headful
+      title="Mis espacios | Coworkings.com"
+      description="Spaces posted page"
+    />
 
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
     <header>
-      <img src="../assets/imagenMySpaces.svg" alt style="width: 300px; height: 150px;" />
+      <img
+        src="../assets/imagenMySpaces.svg"
+        alt
+        style="width: 300px; height: 150px;"
+      />
       <article>
-        <h1>My Spaces</h1>Aquí podrás ver el estado de tus espacios, controlar las incidencias
-        y establecer el local como limpio para notificar al coworker
+        <h1>Mis espacios</h1>
+        Aquí podrás ver el estado de tus espacios, controlar las incidencias y
+        establecer el local como limpio para notificar al coworker
       </article>
-      <img src="../assets/imagenMySpaces2.svg" alt style="width: 300px; height: 150px;" />
+      <img
+        src="../assets/imagenMySpaces2.svg"
+        alt
+        style="width: 300px; height: 150px;"
+      />
     </header>
 
     <!--  SIMBOLO DE CARGA  -->
@@ -36,7 +48,9 @@
     ></myspaces>
 
     <!-- NO RESULTS -->
-    <p class="results" v-show="noResults" style="color:red">No tines ninguna publicación</p>
+    <p class="results" v-show="noResults" style="color:red">
+      No tines ninguna publicación
+    </p>
 
     <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
@@ -64,7 +78,7 @@ export default {
       incidents: [],
       loading: true,
       dateInput: false,
-      noResults: false
+      noResults: false,
     };
   },
   methods: {
@@ -95,7 +109,7 @@ export default {
             icon: "success",
             title: "Incidencias cerradas",
             text: "Se han solucionado los problemas",
-            confirmButtonText: "Ok"
+            confirmButtonText: "Ok",
           });
           setTimeout(function() {
             location.reload();
@@ -115,7 +129,7 @@ export default {
             icon: "success",
             title: "Limpieza realizada",
             text: "El space ya se ha limpiado.",
-            confirmButtonText: "Ok"
+            confirmButtonText: "Ok",
           });
           setTimeout(function() {
             location.reload();
@@ -124,7 +138,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
   },
 
   watch: {
@@ -134,11 +148,11 @@ export default {
       } else {
         this.noResults = false;
       }
-    }
+    },
   },
   created() {
     this.getSpaces();
-  }
+  },
 };
 </script>
 

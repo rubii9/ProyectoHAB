@@ -168,13 +168,14 @@ async function main() {
     (1, "no se ve bien",6,4);
     `);
 
-    await connection.query(`
+    //Reserva de prueba
+    /*   await connection.query(`
     insert into reserves (start_date,end_date,  is_paid,is_clean,user_id,space_id,is_confirmed) values ("2020-07-23", "2020-07-25", false, false,4,1,true);
     `);
 
     await connection.query(`
     insert into incidents (comment,reserve_id) values ("me falla el monitor",1);
-    `);
+    `); */
 
     await connection.query(`
     INSERT INTO comunidades (id_comunidad, nombre)

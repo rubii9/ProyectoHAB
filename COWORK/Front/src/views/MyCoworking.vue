@@ -1,18 +1,30 @@
 <template>
   <div class="coworking">
-    <vue-headful title="My Coworking | Coworkings.com" description="Coworking page" />
+    <vue-headful
+      title="Mi Coworking | Coworkings.com"
+      description="Coworking page"
+    />
 
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
 
     <!-- ENCABEZADO -->
     <header>
-      <img src="../assets/mycoworking1.svg" alt style="width: 300px; height: 150px;" />
+      <img
+        src="../assets/mycoworking1.svg"
+        alt
+        style="width: 300px; height: 150px;"
+      />
       <article>
-        <h1>My Coworking</h1>Aquí podrás ver el estado de tus reservas,
-        realizar el pago o crear una incidencia para notificar al propietario.
+        <h1>My Coworking</h1>
+        Aquí podrás ver el estado de tus reservas, realizar el pago o crear una
+        incidencia para notificar al propietario.
       </article>
-      <img src="../assets/mycoworking2.svg" alt style="width: 300px; height: 150px;" />
+      <img
+        src="../assets/mycoworking2.svg"
+        alt
+        style="width: 300px; height: 150px;"
+      />
     </header>
 
     <!--  SIMBOLO DE CARGA  -->
@@ -28,10 +40,17 @@
     </div>
 
     <!-- COMPONENTE DE COWORKINGS -->
-    <coworking class="spaces" v-show="!loading" :spaces="spaces" :incidents="incidents"></coworking>
+    <coworking
+      class="spaces"
+      v-show="!loading"
+      :spaces="spaces"
+      :incidents="incidents"
+    ></coworking>
 
     <!-- NO RESULTS -->
-    <p class="results" v-show="noResults" style="color:red">No tines ninguna reserva</p>
+    <p class="results" v-show="noResults" style="color:red">
+      No tines ninguna reserva
+    </p>
 
     <footercustom></footercustom>
   </div>
@@ -56,7 +75,7 @@ export default {
       incidents: [],
       loading: true,
       dateInput: false,
-      noResults: false
+      noResults: false,
     };
   },
   methods: {
@@ -76,7 +95,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
   },
   watch: {
     //SI NO TIENE COWORKING MUESTRA MENSAJE
@@ -86,11 +105,11 @@ export default {
       } else {
         this.noResults = false;
       }
-    }
+    },
   },
   created() {
     this.getSpaces();
-  }
+  },
 };
 </script>
 

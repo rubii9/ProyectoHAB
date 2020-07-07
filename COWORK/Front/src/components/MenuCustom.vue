@@ -2,33 +2,44 @@
   <div class="menu">
     <div id="nav">
       <div class="logo">
-        <router-link :to="{name:'Landing'}">
+        <router-link :to="{ name: 'Landing' }">
           <img src="../assets/logo.png" alt />
         </router-link>
       </div>
       <div class="enlaces">
-        <router-link :to="{name:'Home'}">Home</router-link>
+        <router-link :to="{ name: 'Home' }">Home</router-link>
         <span>|</span>
         <router-link
-          :to="{ name: 'MyProfile', params:{ id: this.userID }}"
+          :to="{ name: 'MyProfile', params: { id: this.userID } }"
           v-show="logged"
-        >Mi perfil</router-link>
+          >Mi perfil</router-link
+        >
         <span v-show="logged">|</span>
-        <router-link :to="{name:'PostSpace'}" v-show="logged">Nuevo post</router-link>
+        <router-link :to="{ name: 'PostSpace' }" v-show="logged"
+          >Nuevo espacio</router-link
+        >
         <span v-show="logged">|</span>
-        <router-link :to="{name:'MyCoworking'}" v-show="logged">Mi coworking</router-link>
+        <router-link :to="{ name: 'MyCoworking' }" v-show="logged"
+          >Mi coworking</router-link
+        >
         <span v-show="logged">|</span>
-        <router-link :to="{name:'MySpaces'}" v-show="logged">Mis publicaciones</router-link>
+        <router-link :to="{ name: 'MySpaces' }" v-show="logged"
+          >Mis publicaciones</router-link
+        >
         <span v-show="logged">|</span>
-        <router-link :to="{name:'About'}">Contacto</router-link>
+        <router-link :to="{ name: 'About' }">Contacto</router-link>
         <span>|</span>
-        <router-link :to="{name:'Me'}">About</router-link>
+        <router-link :to="{ name: 'Me' }">About</router-link>
       </div>
       <div class="user">
         <p>
-          <img v-show="logged" class="useravatar" :src="avatar ? path + avatar : defaultAvatar " />
+          <img
+            v-show="logged"
+            class="useravatar"
+            :src="avatar ? path + avatar : defaultAvatar"
+          />
         </p>
-        <p>{{nombreUsuario}}</p>
+        <p>{{ nombreUsuario }}</p>
         <button v-show="!logged" @click="goLogin()">Login</button>
         <button v-show="!logged" @click="goRegister()">Registro</button>
         <button v-show="logged" @click="logoutUser()">Logout</button>
@@ -53,7 +64,7 @@ export default {
       logged: false,
       avatar: "",
       defaultAvatar: "http://localhost:3001/uploads/defaultavatar.png",
-      path: "http://localhost:3001/uploads/"
+      path: "http://localhost:3001/uploads/",
     };
   },
   methods: {
@@ -97,7 +108,7 @@ export default {
             /*   self.$router.push({ path: "/error" }); */
           }
         });
-    }
+    },
   },
   created() {
     this.getUserName();
@@ -107,7 +118,7 @@ export default {
     } else {
       this.logged = false;
     }
-  }
+  },
 };
 </script>
 <style scoped>
