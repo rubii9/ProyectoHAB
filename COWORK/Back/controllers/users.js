@@ -506,8 +506,9 @@ async function getSomeUsers(req, res, next) {
 
     const [result] = await connection.query(
       `
-      SELECT id,  name, avatar
-      FROM users 
+     SELECT id,  name, avatar
+      FROM users  
+      where active = 1
       ORDER BY create_user desc
       LIMIT 6
     `
