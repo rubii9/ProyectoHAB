@@ -176,7 +176,8 @@ export default {
   z-index: 1;
 }
 .results {
-  height: 100vh;
+  padding: 3rem;
+  min-height: 40vh;
 }
 .footer {
   margin-top: 2rem;

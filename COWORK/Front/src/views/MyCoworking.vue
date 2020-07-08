@@ -133,7 +133,8 @@ export default {
 }
 
 .results {
-  min-height: 100vh;
+  padding: 3rem;
+  min-height: 40vh;
 }
 .footer {
   margin-top: 2rem;
