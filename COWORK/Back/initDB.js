@@ -128,7 +128,7 @@ async function main() {
       (4, 'Rhiamon Custed',  'rubenpo167+user4@gmail.com', '${passwordRandomUsers}', 'Ourense', 'Galicia', '2318408230',false,true,UTC_TIMESTAMP,"user4.jpg"),
       (5, 'Chrissy Gemlett', 'rubenpo167+user5@gmail.com', '${passwordRandomUsers}', 'Valladolid', 'Castilla - Leon', '1004079953',false,true,UTC_TIMESTAMP,"user5.png"),
       (6, 'Biddie Reddihough',  'rubenpo167+user6@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3716413790',false,true,UTC_TIMESTAMP,"user6.jpg"),
-      (7, 'Hurley Atcheson',  'rubenpo167+user7@gmail.com', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP,"user7.jpg"),
+      (7, 'Hurley Atcheson',  'rubenpo167+user7@gmail.com', '${passwordRandomUsers}', 'Palma De Mallorca', 'Baleares', '1574598212',false,true,UTC_TIMESTAMP,"user7.jpeg"),
       (8, 'Robbie Fouracre',  'rubenpo167+user8@gmail.com', '${passwordRandomUsers}', 'Palmas De Gran Canaria, Las', 'Canarias', '3224362934',false,true,UTC_TIMESTAMP,null),
       (9, 'Bobette Dunaway', 'rubenpo167+user9@gmail.com', '${passwordRandomUsers}', 'Huesca', 'Aragon', '2804685614',false,true,UTC_TIMESTAMP,null),
       (10, 'Carson Killford', 'rubenpo167+user10@gmail.com', '${passwordRandomUsers}', 'Albacete', 'Castilla - La Mancha', '4984652382',false,true,UTC_TIMESTAMP,null);

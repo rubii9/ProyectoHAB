@@ -1,10 +1,17 @@
 <template>
   <div>
     <div class="profile" v-for="profile in users" :key="profile.id">
-      <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
+      <!--      <img :src="profile.avatar ? path + profile.avatar : defaultAvatar" /> -->
+      <img
+        :src="profile.avatar === null ? defaultAvatar : path + profile.avatar"
+      />
       <router-link
-        :to="{ name:  (profile.id == userID) ? 'MyProfile':'Profile', params:{ id: profile.id }}"
-      >{{ profile.name }}</router-link>
+        :to="{
+          name: profile.id == userID ? 'MyProfile' : 'Profile',
+          params: { id: profile.id },
+        }"
+        >{{ profile.name }}</router-link
+      >
     </div>
   </div>
 </template>
@@ -16,23 +23,23 @@ export default {
     return {
       defaultAvatar: "http://localhost:3001/uploads/defaultavatar.png",
       path: "http://localhost:3001/uploads/",
-      userID: 0
+      userID: 0,
     };
   },
   props: {
-    users: Array
+    users: Array,
   },
   methods: {
     checkInfo() {
       this.userID = localStorage.getItem("userID");
-    }
+    },
   },
   created() {
     this.checkInfo();
   },
-  bedoreCreate() {
+  beforeCreate() {
     this.checkInfo();
-  }
+  },
 };
 </script>
 

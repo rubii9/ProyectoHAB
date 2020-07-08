@@ -2,10 +2,7 @@
   <div>
     <div class="profile">
       <header>
-        <img
-          :src="profile.avatar ? path + profile.avatar : defaultAvatar"
-          alt="Imagen usuario"
-        />
+        <img :src="profile.avatar ? path + profile.avatar : defaultAvatar" />
       </header>
 
       <h2>{{ profile.realName }}</h2>

@@ -80,7 +80,7 @@ app.get('/users/validate', validateUser);
 app.post('/users/:id/password', userIsAuthenticated, updatePasswordUser);
 app.get('/users/:id', userIsAuthenticated, getUser);
 app.put('/users/:id', userIsAuthenticated, editUser);
-app.delete('/users', userIsAuthenticated, deleteUser);
+app.delete('/users/:id', userIsAuthenticated, deleteUser);
 app.get('/someusers', getSomeUsers);
 
 //Spaces Routes

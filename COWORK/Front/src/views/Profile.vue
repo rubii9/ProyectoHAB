@@ -1,6 +1,9 @@
 <template>
   <div class="usuariosPerfil">
-    <vue-headful title="Perfil usuarios | Coworkings.com" description="Profile page" />
+    <vue-headful
+      title="Perfil usuarios | Coworkings.com"
+      description="Profile page"
+    />
 
     <!-- MENU -->
     <menucustom class="menu"></menucustom>
@@ -18,7 +21,15 @@
     </div>
 
     <!-- PROFILE COMPONENT -->
-    <ProfileComponent :profile="profile" v-show="!loading" class="Profile"></ProfileComponent>
+    <ProfileComponent
+      :profile="profile"
+      v-show="!loading"
+      class="Profile"
+    ></ProfileComponent>
+
+    <div v-show="!loading">
+      <button v-show="isAdmin" @click="message()">Eliminar</button>
+    </div>
 
     <!-- FOOTER -->
     <footercustom class="footer"></footercustom>
@@ -36,17 +47,21 @@ import footercustom from "@/components/FooterCustom.vue";
 import axios from "axios";
 //IMPORTANDO SWEETALERT
 import Swal from "sweetalert2";
+//IMPORTANDO FUNCION DE UTILS
+import { getIsAdmin } from "../api/utils";
+
 export default {
   name: "Profile",
   components: {
     menucustom,
     ProfileComponent,
-    footercustom
+    footercustom,
   },
   data() {
     return {
       profile: {},
-      loading: true
+      loading: true,
+      isAdmin: false,
     };
   },
 
@@ -67,14 +82,52 @@ export default {
         .catch(function(error) {
           if (error.response) {
             alert(error.response.data.message);
-            /*   self.$router.push({ path: "/error" }); */
           }
         });
-    }
+    }, //MENSAJE DE BORRAR USUARIO
+    message() {
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "No prodras recuperar tus datos una vez eliminados",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si,eliminar!",
+      }).then((result) => {
+        if (result.value) {
+          this.deleteUser();
+          this.$router.push("/home");
+          Swal.fire("Borrado!", "El usuario ya no existe :(", "success");
+        }
+      });
+    },
+    deleteUser() {
+      let self = this;
+      axios
+        .delete("http://localhost:3001/users/" + self.$route.params.id)
+        .then(function(response) {})
+        .catch(function(error) {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    checkLogged() {
+      if (getIsAdmin() === "admin") {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+    },
+    info() {
+      this.userID = localStorage.getItem("userID");
+    },
   },
   created() {
     this.getProfile();
-  }
+    this.checkLogged();
+  },
 };
 </script>
 <style scoped>
@@ -86,7 +139,7 @@ export default {
   margin-bottom: 2rem;
 }
 .footer {
-  margin-top: 10rem;
+  margin-top: 8rem;
 }
 .usuariosPerfil {
   min-height: 100vh;
@@ -108,7 +161,29 @@ export default {
   border: 2px solid #f7fbe1;
   border-radius: 30px;
 }
-
+button {
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  color: #474e51;
+  background: #f3bc46;
+  border: 2px solid #a7a398;
+  border-radius: 10px;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+button:hover {
+  background-color: #6077ca;
+  color: white;
+  border: 2px solid gray;
+}
+button:focus {
+  outline: none;
+}
 .lds-roller {
   display: inline-block;
   position: relative;

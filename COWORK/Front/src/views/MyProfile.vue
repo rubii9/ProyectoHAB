@@ -288,7 +288,7 @@ export default {
     deleteUser() {
       let self = this;
       axios
-        .delete("http://localhost:3001/users/")
+        .delete("http://localhost:3001/users/" + self.$route.params.id)
         .then(function(response) {})
         .catch(function(error) {
           if (error.response) {

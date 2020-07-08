@@ -406,7 +406,7 @@ async function deleteUser(req, res, next) {
       current
     ] = await connection.query(
       'SELECT id, avatar,email from users where id=?',
-      [req.auth.id]
+      [id]
     );
 
     if (!current.length) {
@@ -434,7 +434,7 @@ async function deleteUser(req, res, next) {
     (select id from reserves where space_id in (
       select id from spaces where owner_id = ?)
           );`,
-      [req.auth.id]
+      [id]
     );
 
     //ELIMINAR VOTOS DEL USUARIO
@@ -442,25 +442,24 @@ async function deleteUser(req, res, next) {
       `
       delete from ratings where user_id = ?
      `,
-      [req.auth.id]
+      [id]
     );
 
     //ELIMINAR RESERVAS DEL ESPACIO DEL USER
     await connection.query(
       `delete from reserves where space_id in (
       select id from spaces where owner_id = ?);`,
-      [req.auth.id]
+      [id]
     );
 
     //ELIMINAR ESPACIOS DEL USER
-    await connection.query(`delete from spaces where owner_id = ?;`, [
-      req.auth.id
-    ]);
+    await connection.query(`delete from spaces where owner_id = ?;`, [id]);
 
     //PONEMOS EL USER A ACTIVE 0
-    await connection.query('UPDATE users SET active=0 WHERE  id=?', [
-      req.auth.id
-    ]);
+    await connection.query(
+      'UPDATE users SET active=0,avatar = null WHERE  id=?',
+      [id]
+    );
 
     await connection.query(`SET SQL_SAFE_UPDATES=1;`);
     await connection.query(`SET FOREIGN_KEY_CHECKS = 1;`);

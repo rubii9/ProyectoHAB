@@ -7,13 +7,24 @@
 
     <!-- ENCABEZADDO -->
     <header>
-      <img src="../assets/landing2.svg" alt style="width: 300px; height: 300px;" />
+      <img
+        src="../assets/landing2.svg"
+        alt
+        style="width: 300px; height: 300px;"
+      />
       <article>
-        <h1>Bienvenido a Cowork!</h1>Aquí podrás encontrar el lugar de trabajo ideal que estás buscando.
-        Puedes buscar por nombre, tipo, ubicacion, o fecha para reservar, y no te olvides de dejar tu votación o comentario.
-        Tambien puedes publicar tus propios espacios y controlar las incidencias que los usuarios tengan.
+        <h1>Bienvenido a Cowork!</h1>
+        Aquí podrás encontrar el lugar de trabajo ideal que estás buscando.
+        Puedes buscar por nombre, tipo, ubicacion, o fecha para reservar, y no
+        te olvides de dejar tu votación o comentario. Tambien puedes publicar
+        tus propios espacios y controlar las incidencias que los usuarios
+        tengan.
       </article>
-      <img src="../assets/landing.svg" alt style="width: 300px; height: 300px;" />
+      <img
+        src="../assets/landing.svg"
+        alt
+        style="width: 300px; height: 300px;"
+      />
     </header>
 
     <!--  SIMBOLO DE CARGA  -->
@@ -49,7 +60,12 @@
             class="buscar"
           />
 
-          <input v-model.trim="search" type="date" placeholder="Write..." v-show="dateInput" />
+          <input
+            v-model.trim="search"
+            type="date"
+            placeholder="Write..."
+            v-show="dateInput"
+          />
 
           <select
             name="community"
@@ -63,7 +79,8 @@
               v-for="comunidad in comunidades"
               :key="comunidad.id"
               v-bind:value="comunidad.nombre"
-            >{{comunidad.nombre}}</option>
+              >{{ comunidad.nombre }}</option
+            >
           </select>
 
           <button @click="clearInput()">Borrar</button>
@@ -113,7 +130,7 @@ export default {
       normalInput: true,
       ubicationInput: false,
       noResults: false,
-      comunidades: []
+      comunidades: [],
     };
   },
   methods: {
@@ -141,6 +158,7 @@ export default {
       axios
         .get(`http://localhost:3001/someusers`)
         .then(function(response) {
+          console.log(response);
           //TIEMPO DE CARGA
           setTimeout(function() {
             self.loading = false;
@@ -153,7 +171,8 @@ export default {
     },
     //RESETEO DE LA BUSQUEDA
     clearInput() {
-      (this.search = ""), (this.filter = "");
+      this.search = "";
+      this.filter = "";
       this.getSpaces();
     },
     //FUNCION PARA CONSEGUIR LAS COMUNIDADES DEL BACK
@@ -170,7 +189,7 @@ export default {
         try {
           let res = await axios({
             url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
-            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+            method: "GET", // MÉTODO DE LA AUTENTICACIÓN
           });
           resolve(res.data.data);
         } catch (err) {
@@ -178,7 +197,7 @@ export default {
           reject(err);
         }
       });
-    }
+    },
   },
 
   mounted() {
@@ -220,12 +239,12 @@ export default {
     // Para que la barra de busqueda haga la funcion de busqueda cada vez que varia la variable search
     search: function() {
       this.getSpaces();
-    }
+    },
   },
   created() {
     this.getSpaces();
     this.getUsers();
-  }
+  },
 };
 </script>
 
