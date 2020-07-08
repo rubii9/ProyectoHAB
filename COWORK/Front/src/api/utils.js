@@ -1,5 +1,7 @@
 import axios from "axios";
 import jwt from "jwt-decode";
+//IMPORTANDO SWEETALERT
+import Swal from "sweetalert2";
 
 const ENDPOINT = "http://localhost:3001";
 const AUTH_TOKEN_KEY = "authToken";
@@ -23,7 +25,12 @@ export function loginUser(email, password) {
       resolve();
     } catch (err) {
       if (err.response) {
-        alert(err.response.data.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: `${err.response.data.message}`,
+          confirmButtonText: "Ok",
+        });
       }
 
       console.log("Error en login: ", err);

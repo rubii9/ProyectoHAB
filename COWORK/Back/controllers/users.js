@@ -176,7 +176,7 @@ async function loginUser(req, res, next) {
 
     if (!dbUser.length) {
       throw generateError(
-        'There are no user with this email. If you have registered you need to validate email',
+        'No hay ningun usuario con este email. Es posible que te hubieras registrado pero no has validado la cuenta, comprueba el email',
         404
       );
     }
@@ -186,7 +186,7 @@ async function loginUser(req, res, next) {
     const passwordsMath = await bcrypt.compare(password, user.password);
 
     if (!passwordsMath) {
-      throw generateError('Invalid password ', 401);
+      throw generateError('Contraseña incorrecta ', 401);
     }
 
     // Build jsonwebtoken

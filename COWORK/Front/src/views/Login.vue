@@ -66,7 +66,9 @@
         <div class="botones">
           <button class="submit" type="button" @click="login()">Login</button>
 
-          <router-link class="borderRightLeft" :to="{ name: 'Register' }">Regístrate aquí</router-link>
+          <router-link class="borderRightLeft" :to="{ name: 'Register' }"
+            >Regístrate aquí</router-link
+          >
         </div>
       </fieldset>
     </form>
@@ -89,7 +91,7 @@ export default {
       message: "Error",
       required: false,
       pastype: "password",
-      checked: false
+      checked: false,
     };
   },
   methods: {
@@ -114,7 +116,7 @@ export default {
           alert(error);
         }
       }
-    }
+    },
   },
   watch: {
     checked: function() {
@@ -123,8 +125,8 @@ export default {
       } else {
         this.pastype = "password";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
