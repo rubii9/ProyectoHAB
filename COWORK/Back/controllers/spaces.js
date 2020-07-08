@@ -581,11 +581,25 @@ async function validateReserve(req, res, next) {
       throw generateError('Invalid validation', 400);
     }
 
-    res.send({
+    /*  res.send({
       status: 'ok',
       message:
         'La reserva fue efectuada, puedes realizar el pago en Mi Coworking '
-    });
+    }); */
+
+    res.send(`
+       <!DOCTYPE html>
+      <html lang="es">
+     <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    </head>
+    <body style="text-align: center";>  
+     <h1> Reserva realizada </h1>
+     <h4>La reserva fue efectuada, puedes realizar el pago en Mi Coworking </h4>
+    </body>
+    </html>
+    `);
 
     connection.release();
   } catch (error) {

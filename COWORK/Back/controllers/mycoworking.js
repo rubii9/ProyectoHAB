@@ -79,10 +79,25 @@ async function validatePay(req, res, next) {
       throw generateError('Invalid validation', 400);
     }
 
-    res.send({
+    /*     res.send({
       status: 'ok',
       message: 'El pago de la reserva fue verificado'
     });
+ */
+
+    res.send(`
+       <!DOCTYPE html>
+      <html lang="es">
+     <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    </head>
+    <body style="text-align: center";>
+     <h1> Pago realizado </h1>
+     <h4>La reserva ha sido pagada correctamente </h4>
+    </body>
+    </html>
+    `);
   } catch (error) {
     next(error);
   } finally {
