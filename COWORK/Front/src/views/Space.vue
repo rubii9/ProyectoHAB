@@ -79,7 +79,7 @@
 
         <div>
           <button @click="closeReserveModal()">Cancel</button>
-          <button @click="reservar()">Enviar</button>
+          <button :disabled="ocultar" @click="reservar()">Enviar</button>
         </div>
       </div>
     </div>
@@ -125,6 +125,7 @@ export default {
       role: "",
       isAdmin: false,
       userID: 0,
+      ocultar: false,
     };
   },
   methods: {
@@ -145,6 +146,7 @@ export default {
     //FUNCION QUE CIERRA EL POP UP PARA RESERVA
     closeReserveModal() {
       this.modalReserve = false;
+      this.ocultar = false;
       this.fecha_inicio = "";
       this.fecha_fin = "";
     },
@@ -198,7 +200,6 @@ export default {
           }
         )
         .then(function(response) {
-          console.log(response);
           self.emptyFields();
         })
         .catch(function(error) {
@@ -209,6 +210,7 @@ export default {
     },
     //FUNCION PARA RESERVAR
     reservar() {
+      this.ocultar = true;
       let self = this;
       axios
         .post(
@@ -219,6 +221,7 @@ export default {
           }
         )
         .then(function(response) {
+          self.closeReserveModal();
           Swal.fire({
             icon: "success",
             title: "Reserva solicitada",
@@ -226,7 +229,7 @@ export default {
             confirmButtonText: "Ok",
           });
           setTimeout(function() {
-            location.reload();
+            self.$router.push("/home");
           }, 1500);
         })
         .catch(function(error) {

@@ -1,11 +1,17 @@
 <template>
   <div class="register">
-    <vue-headful title="Registro | Coworkings.com" description="Register page" />
+    <vue-headful
+      title="Registro | Coworkings.com"
+      description="Register page"
+    />
 
     <form>
       <div class="welcome">
         <h1 class="legend">Bienvenido!</h1>
-        <p>Regístrate para poder realizar reservas, publicar espacios y explorar otros usuarios</p>
+        <p>
+          Regístrate para poder realizar reservas, publicar espacios y explorar
+          otros usuarios
+        </p>
         <lottie-player
           class="logImg"
           src="https://assets4.lottiefiles.com/private_files/lf30_JhSJFE.json"
@@ -89,7 +95,8 @@
               v-for="comunidad in comunidades"
               :key="comunidad.id"
               v-bind:value="comunidad.nombre"
-            >{{comunidad.nombre}}</option>
+              >{{ comunidad.nombre }}</option
+            >
           </select>
           <span>
             <i class="fa fa-flag"></i>
@@ -98,8 +105,12 @@
 
         <p class="error" v-show="required" style="color:red">{{ message }}</p>
         <div class="botones">
-          <button class="submit" type="button" @click="addUser()">Register</button>
-          <router-link class="borderRightLeft" :to="{ name: 'Login' }">Login</router-link>
+          <button class="submit" type="button" @click="addUser()">
+            Register
+          </button>
+          <router-link class="borderRightLeft" :to="{ name: 'Login' }"
+            >Login</router-link
+          >
         </div>
       </fieldset>
     </form>
@@ -125,7 +136,7 @@ export default {
       correctData: false,
       required: false,
       message: "Error",
-      comunidades: []
+      comunidades: [],
     };
   },
   methods: {
@@ -157,10 +168,9 @@ export default {
             password: self.password,
             name: self.name,
             city: self.city,
-            community: self.community
+            community: self.community,
           })
           .then(function(response) {
-            console.log(response);
             self.emptyFields();
           })
           .catch(function(error) {
@@ -183,7 +193,7 @@ export default {
         icon: "success",
         title: "Usuario registrado",
         text: "Comprueba el email para validar tu cuenta",
-        confirmButtonText: "Ok"
+        confirmButtonText: "Ok",
       });
       this.$router.push("/login");
     },
@@ -201,7 +211,7 @@ export default {
         try {
           let res = await axios({
             url: `http://localhost:3001/comunidades`, // URL DE LA AUTENTICACIÓN
-            method: "GET" // MÉTODO DE LA AUTENTICACIÓN
+            method: "GET", // MÉTODO DE LA AUTENTICACIÓN
           });
           resolve(res.data.data);
         } catch (err) {
@@ -209,12 +219,12 @@ export default {
           reject(err);
         }
       });
-    }
+    },
   },
 
   mounted() {
     this.getCommunity();
-  }
+  },
 };
 </script>
 
