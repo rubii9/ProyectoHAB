@@ -2,12 +2,22 @@
   <div class="spaceview">
     <div class="space">
       <h1 class="nombre">{{ space.name }}</h1>
-      <img class="foto" :src="space.photo1 ?  path + space.photo1 : ''" alt />
+      <img class="foto" :src="space.photo1 ? path + space.photo1 : ''" alt />
       <div class="description">
         <div class="textinfo">
           <p>
             <strong>Tipo:</strong>
             {{ space.type }}
+          </p>
+          <p>
+            <strong>Propietario:</strong>
+            <router-link
+              :to="{
+                name: space.owner_id == userID ? 'MyProfile' : 'Profile',
+                params: { id: space.owner_id },
+              }"
+              >{{ space.propietario }}</router-link
+            >
           </p>
           <p>
             <strong>Ubicación:</strong>
@@ -27,7 +37,7 @@
           </p>
           <p>
             <strong>Precio:</strong>
-            {{space.price}}€/mes
+            {{ space.price }}€/mes
           </p>
         </div>
       </div>
@@ -37,8 +47,12 @@
         <div v-for="comment in comments" :key="comment.id">
           <p class="comentario">
             <router-link
-              :to="{ name:  (comment.user_id == userID) ? 'MyProfile':'Profile', params:{ id: comment.user_id }}"
-            >{{ comment.name }}:</router-link>
+              :to="{
+                name: comment.user_id == userID ? 'MyProfile' : 'Profile',
+                params: { id: comment.user_id },
+              }"
+              >{{ comment.name }}:</router-link
+            >
             {{ comment.comment }}. {{ comment.score }} ⭐
           </p>
         </div>
@@ -52,7 +66,7 @@
           :increment="increment"
         ></star-rating>
 
-        <p class="total">Votos totales: {{totalvotes}}</p>
+        <p class="total">Votos totales: {{ totalvotes }}</p>
       </div>
     </div>
   </div>
@@ -65,7 +79,7 @@ import StarRating from "vue-star-rating";
 export default {
   name: "SpaceView",
   components: {
-    StarRating
+    StarRating,
   },
   data() {
     return {
@@ -76,22 +90,22 @@ export default {
       onFalse: false,
       increment: 0.01,
       fixedPoints: 2,
-      userID: 0
+      userID: 0,
     };
   },
   props: {
     space: Object,
     comments: Array,
-    totalvotes: Number
+    totalvotes: Number,
   },
   methods: {
     info() {
       this.userID = localStorage.getItem("userID");
-    }
+    },
   },
   created() {
     this.info();
-  }
+  },
 };
 </script>
 

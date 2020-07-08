@@ -388,10 +388,12 @@ async function getSpace(req, res, next) {
     connection = await getConnection();
 
     const [result] = await connection.query(
-      `SELECT s.*, avg(r.score) as score
+      `SELECT s.*, avg(r.score) as score, u.name as propietario
       FROM spaces s
       left join ratings r
       on s.id=r.space_id
+      inner join users u
+      on u.id=s.owner_id
       where s.id = ?
       group by s.id
       ORDER BY create_space DESC`,

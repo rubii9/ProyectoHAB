@@ -2,15 +2,16 @@
   <div>
     <div class="profile">
       <header>
-        <img :src="profile.avatar ? path + profile.avatar : defaultAvatar" />
+        <img
+          :src="profile.avatar ? path + profile.avatar : defaultAvatar"
+          alt="Imagen usuario"
+        />
       </header>
 
       <h2>{{ profile.realName }}</h2>
       <p>{{ profile.city }}, {{ profile.community }}</p>
       <p v-show="showInfo">{{ profile.email }}</p>
-      <p v-show="showInfo">
-        Teléfono: {{ profile.phone ? profile.phone : "No añadido" }}
-      </p>
+      <p>Teléfono: {{ profile.phone ? profile.phone : "No añadido" }}</p>
       <p>{{ profile.role === "admin" ? "Administrador" : "Usuario" }}</p>
       <p>
         Registrado desde

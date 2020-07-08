@@ -135,13 +135,13 @@ async function getUser(req, res, next) {
       realName: userData.name,
       avatar: userData.avatar,
       city: userData.city,
-      community: userData.community
+      community: userData.community,
+      phone: userData.phone
     };
 
     if (userData.id === req.auth.id || req.auth.role === 'admin') {
       payload.email = userData.email;
       payload.role = userData.role;
-      payload.phone = userData.phone;
     }
 
     res.send({
