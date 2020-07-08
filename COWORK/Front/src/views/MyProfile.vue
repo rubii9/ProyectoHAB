@@ -49,7 +49,6 @@
         />
 
         <label for="newCommunity">Comunidad:</label>
-        <!--  <input v-model="newCommunity" placeholder="Text appears here" @keypress.enter="edite()" /> -->
 
         <select
           name="community"

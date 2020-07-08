@@ -18,12 +18,19 @@
     </div>
 
     <!-- SPACE VIEW -->
-    <spaceview :space="space" :comments="comments" :totalvotes="totalvotes" v-show="!loading"></spaceview>
+    <spaceview
+      :space="space"
+      :comments="comments"
+      :totalvotes="totalvotes"
+      v-show="!loading"
+    ></spaceview>
 
     <div v-show="!loading">
       <hr />
-      <button v-show="logged" @click="openVoteModal()">Votar</button>
-      <button v-show="logged" @click="openReserveModal()">Reservar</button>
+      <div v-show="space.owner_id != userID">
+        <button v-show="logged" @click="openVoteModal()">Votar</button>
+        <button v-show="logged" @click="openReserveModal()">Reservar</button>
+      </div>
       <button v-show="isAdmin" @click="message()">Borrar</button>
     </div>
 
@@ -61,7 +68,13 @@
             @keypress.enter="reservar()"
           />
           <label for="end_date">Fecha fin:</label>
-          <input v-model="fecha_fin" id="end" name="end" type="date" @keypress.enter="reservar()" />
+          <input
+            v-model="fecha_fin"
+            id="end"
+            name="end"
+            type="date"
+            @keypress.enter="reservar()"
+          />
         </form>
 
         <div>
@@ -110,7 +123,8 @@ export default {
       fecha_inicio: "",
       fecha_fin: "",
       role: "",
-      isAdmin: false
+      isAdmin: false,
+      userID: 0,
     };
   },
   methods: {
@@ -180,7 +194,7 @@ export default {
           "http://localhost:3001/spaces/" + self.$route.params.id + "/votes",
           {
             score: self.rating,
-            comment: self.comentary
+            comment: self.comentary,
           }
         )
         .then(function(response) {
@@ -201,7 +215,7 @@ export default {
           "http://localhost:3001/spaces/" + self.$route.params.id + "/reserve",
           {
             start: self.fecha_inicio,
-            end: self.fecha_fin
+            end: self.fecha_fin,
           }
         )
         .then(function(response) {
@@ -209,7 +223,7 @@ export default {
             icon: "success",
             title: "Reserva solicitada",
             text: "Comprueba el email para confirmar",
-            confirmButtonText: "Ok"
+            confirmButtonText: "Ok",
           });
           setTimeout(function() {
             location.reload();
@@ -231,7 +245,7 @@ export default {
             icon: "success",
             title: "Coworking eliminado",
             text: "Este coworking ya no existe",
-            confirmButtonText: "Ok"
+            confirmButtonText: "Ok",
           });
           setTimeout(function() {
             location.reload();
@@ -251,8 +265,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si,eliminar!"
-      }).then(result => {
+        confirmButtonText: "Si,eliminar!",
+      }).then((result) => {
         if (result.value) {
           this.deleteSpace();
           this.$router.push("/home");
@@ -269,7 +283,7 @@ export default {
         icon: "success",
         title: "Voto enviado",
         text: "Gracias",
-        confirmButtonText: "Ok"
+        confirmButtonText: "Ok",
       });
       setTimeout(function() {
         location.reload();
@@ -286,15 +300,19 @@ export default {
         this.logged = false;
         this.isAdmin = false;
       }
-    }
+    },
+    info() {
+      this.userID = localStorage.getItem("userID");
+    },
   },
 
   created() {
+    this.info();
     this.role = getIsAdmin();
     this.getSpaces();
     this.getVotes();
     this.checkLogged();
-  }
+  },
 };
 </script>
 
