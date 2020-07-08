@@ -1,25 +1,31 @@
 <template>
   <div class="myspacesview">
-    <div class="space" v-for=" space in spaces" :key="space.id">
-      <img class="foto" :src="space.photo1 ?  path + space.photo1 : ''" alt />
+    <div class="space" v-for="space in spaces" :key="space.id">
+      <router-link :to="{ name: 'Space', params: { id: space.id } }">
+        <img class="foto" :src="space.photo1 ? path + space.photo1 : ''" alt />
+      </router-link>
       <div class="info">
         <h1>{{ space.name }}</h1>
-        <p>{{space.type}}</p>
+        <p>{{ space.type }}</p>
         <p>{{ space.city }}, {{ space.community }}</p>
 
-        <p v-show="space.is_clean != null ">
+        <p v-show="space.is_clean != null">
           <strong>Limpio:</strong>
-          {{space.is_clean ? "Limpio" : "Pendiente"}}
+          {{ space.is_clean ? "Limpio" : "Pendiente" }}
         </p>
-        <p v-show="space.is_paid != null ">
+        <p v-show="space.is_paid != null">
           <strong>Pago:</strong>
-          {{space.is_paid ? "Realizado" : "Pendiente"}}
+          {{ space.is_paid ? "Realizado" : "Pendiente" }}
         </p>
 
         <button
-          v-show="space.is_clean === null || space.is_clean === 1 ? false : true"
+          v-show="
+            space.is_clean === null || space.is_clean === 1 ? false : true
+          "
           @click="cleanEvent(space.id)"
-        >Limpieza</button>
+        >
+          Limpieza
+        </button>
       </div>
       <div class="incidencias">
         <h3>Incidencias:</h3>
@@ -27,11 +33,16 @@
         <div
           v-for="incident in incidents"
           :key="incident.id"
-          v-show="incident.space_id == space.id ? true: false"
+          v-show="incident.space_id == space.id ? true : false"
         >
-          <p>{{incident.comment}}</p>
+          <p>{{ incident.comment }}</p>
         </div>
-        <button @click="closeEvent(space.id)" v-show="incidents.length < 1 ? false : true">Cerrar</button>
+        <button
+          @click="closeEvent(space.id)"
+          v-show="incidents.length < 1 ? false : true"
+        >
+          Cerrar
+        </button>
       </div>
     </div>
   </div>
@@ -50,13 +61,13 @@ export default {
       onFalse: false,
       increment: 0.01,
       fixedPoints: 2,
-      userID: 0
+      userID: 0,
     };
   },
   props: {
     spaces: Array,
     incidents: Array,
-    totalvotes: Number
+    totalvotes: Number,
   },
   methods: {
     //CONSGUIR ID USUARIO
@@ -70,11 +81,11 @@ export default {
     //EMIT DE CERRAR INCIDENCIAS
     closeEvent(data) {
       this.$emit("close", data);
-    }
+    },
   },
   created() {
     this.info();
-  }
+  },
 };
 </script>
 
