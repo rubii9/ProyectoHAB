@@ -2,15 +2,22 @@
   <div>
     <div class="profile">
       <header>
-        <img :src="profile.avatar ?  path + profile.avatar : defaultAvatar " />
+        <img :src="profile.avatar ? path + profile.avatar : defaultAvatar" />
       </header>
 
       <h2>{{ profile.realName }}</h2>
-      <p>{{ profile.city }}, {{profile.community}}</p>
+      <p>{{ profile.city }}, {{ profile.community }}</p>
       <p v-show="showInfo">{{ profile.email }}</p>
-      <p v-show="showInfo">Teléfono: {{profile.phone}}</p>
-      <p>{{profile.role === "admin" ? "Administrador" : "Usuario"}}</p>
-      <p>Registrado desde {{ profile.registrationDate ? profile.registrationDate.substr(0,10) : ""}}</p>
+      <p v-show="showInfo">
+        Teléfono: {{ profile.phone ? profile.phone : "No añadido" }}
+      </p>
+      <p>{{ profile.role === "admin" ? "Administrador" : "Usuario" }}</p>
+      <p>
+        Registrado desde
+        {{
+          profile.registrationDate ? profile.registrationDate.substr(0, 10) : ""
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -23,11 +30,11 @@ export default {
       defaultAvatar: "http://localhost:3001/uploads/defaultavatar.png",
       path: "http://localhost:3001/uploads/",
       showInfo: true,
-      userID: 0
+      userID: 0,
     };
   },
   props: {
-    profile: Object
+    profile: Object,
   },
   methods: {
     //CONSGUIR ID USUARIO Y COMPROBAR SI ES IGUAL A LA DEL PERFIL MOSTRADO
@@ -38,14 +45,14 @@ export default {
       } else {
         this.showInfo = true;
       }
-    }
+    },
   },
   created() {
     this.checkInfo();
   },
   bedoreCreate() {
     this.checkInfo();
-  }
+  },
 };
 </script>
 
